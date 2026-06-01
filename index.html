@@ -3,175 +3,472 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Soccer Brain ⚽</title>
+  <title>⚽ Soccer Academy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════════════════ SCREENS -->
+<!-- ══════════════════════════════════════════════════════════
+     BOTTOM TAB BAR
+══════════════════════════════════════════════════════════ -->
+<nav class="tab-bar" id="app-tab-bar">
+  <button class="tab-item" data-tab="videos" id="tab-btn-videos">
+    <span class="tab-icon">📺</span>
+    Videos
+  </button>
+  <button class="tab-item" data-tab="quiz" id="tab-btn-quiz">
+    <span class="tab-icon">⚽</span>
+    Brain Quiz
+  </button>
+</nav>
 
-<!-- SPLASH SCREEN -->
-<div id="screen-splash" class="screen active">
-  <div class="splash-bg"></div>
-  <div class="splash-content">
-    <div class="ball-bounce">⚽</div>
-    <h1 class="game-title">Soccer<br><span>Brain</span></h1>
-    <p class="tagline">Think fast. Play smart.</p>
-    <div class="stats-bar" id="splash-stats" style="display:none">
-      <div class="stat-chip">🎯 Best: <span id="splash-best">0</span></div>
-      <div class="stat-chip">🔥 Streak: <span id="splash-streak">0</span></div>
-      <div class="stat-chip">🏅 Games: <span id="splash-games">0</span></div>
+<!-- ══════════════════════════════════════════════════════════
+     TAB 1 — VIDEO LIBRARY
+══════════════════════════════════════════════════════════ -->
+<section id="tab-videos" class="tab-section">
+
+  <!-- Loading screen -->
+  <div id="vid-loading" style="
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 16px;
+    background: var(--grass); z-index: 10;
+  ">
+    <div style="font-size: 56px; animation: bounce 1s ease-in-out infinite">⚽</div>
+    <div style="font-family: var(--font-head); font-size: 22px; color: white">Loading videos…</div>
+    <div style="display: flex; gap: 6px">
+      <div style="width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: blink 1.2s ease infinite"></div>
+      <div style="width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: blink 1.2s ease 0.2s infinite"></div>
+      <div style="width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: blink 1.2s ease 0.4s infinite"></div>
     </div>
-    <button class="btn-primary" id="btn-play">Let's Play!</button>
-    <a href="leaderboard.html" class="btn-secondary" style="text-align:center;text-decoration:none">Leaderboard 📊</a>
   </div>
-</div>
+  <style>
+    @keyframes blink { 0%,80%,100%{opacity:.2} 40%{opacity:1} }
+  </style>
 
-<!-- PLAYER SETUP SCREEN -->
-<div id="screen-setup" class="screen">
-  <div class="setup-content">
-    <h2>Who's Playing? 🌟</h2>
-    <div class="input-group">
-      <label for="player-name">Your Name</label>
-      <input type="text" id="player-name" placeholder="e.g. Sofia" maxlength="20" />
-    </div>
-    <div class="input-group">
-      <label>Pick Your Kit Color</label>
-      <div class="color-picker">
-        <button class="color-btn active" data-color="#e63946" style="background:#e63946"></button>
-        <button class="color-btn" data-color="#2a9d8f" style="background:#2a9d8f"></button>
-        <button class="color-btn" data-color="#f77f00" style="background:#f77f00"></button>
-        <button class="color-btn" data-color="#8338ec" style="background:#8338ec"></button>
-        <button class="color-btn" data-color="#06d6a0" style="background:#06d6a0"></button>
-        <button class="color-btn" data-color="#118ab2" style="background:#118ab2"></button>
+  <!-- Header -->
+  <header class="vid-header">
+    <div class="vid-header-brand">
+      <div class="vid-header-ball">⚽</div>
+      <div>
+        <h1>Soccer <span>Academy</span></h1>
+        <div class="vid-header-sub">Training Videos</div>
       </div>
     </div>
-    <button class="btn-primary" id="btn-start-game">Kick Off! ⚽</button>
-    <button class="btn-ghost" id="btn-back-splash">← Back</button>
-  </div>
-</div>
-
-<!-- GAME SCREEN -->
-<div id="screen-game" class="screen">
-  <header class="game-header">
-    <div class="hud-item">
-      <span class="hud-label">Score</span>
-      <span class="hud-value" id="hud-score">0</span>
-    </div>
-    <div class="hud-item hud-timer-wrap">
-      <span class="hud-label">Time</span>
-      <div class="timer-ring-wrap">
-        <svg class="timer-ring" viewBox="0 0 40 40">
-          <circle class="timer-ring-bg" cx="20" cy="20" r="16"/>
-          <circle class="timer-ring-fill" id="timer-circle" cx="20" cy="20" r="16"/>
-        </svg>
-        <span class="hud-value timer-number" id="hud-timer">8</span>
-      </div>
-    </div>
-    <div class="hud-item">
-      <span class="hud-label">Round</span>
-      <span class="hud-value" id="hud-round">1/10</span>
-    </div>
+    <div class="vid-count-badge" id="vid-count-badge">0 Videos</div>
   </header>
 
-  <div id="scenario-container">
-    <!-- Dynamically rendered scenarios -->
+  <!-- Category filter bar -->
+  <div class="filter-bar" id="filter-bar">
+    <!-- populated by JS -->
   </div>
 
-  <div id="coach-bubble" class="coach-bubble hidden">
-    <div class="coach-avatar">🧑‍🏫</div>
-    <div class="coach-text" id="coach-text"></div>
+  <!-- Video grid -->
+  <div class="video-grid" id="video-grid">
+    <!-- skeleton cards while loading -->
+    <div class="skeleton-card"><div class="skeleton-thumb"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton-thumb"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton-thumb"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     VIDEO MODAL
+══════════════════════════════════════════════════════════ -->
+<div id="video-modal" class="video-modal" role="dialog" aria-modal="true">
+  <div class="modal-backdrop" id="modal-backdrop"></div>
+  <div class="modal-sheet" id="modal-sheet">
+    <div class="modal-drag-handle"></div>
+    <div class="modal-header">
+      <div class="modal-title-area">
+        <h2 id="modal-title"></h2>
+        <span class="modal-tag" id="modal-tag"></span>
+      </div>
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-player-wrap" id="modal-player"></div>
+    <div class="modal-note" id="modal-note-wrap" style="display:none">
+      <strong>📝 Coach's Note</strong>
+      <span id="modal-note"></span>
+    </div>
   </div>
 </div>
 
-<!-- RESULTS SCREEN -->
-<div id="screen-results" class="screen">
-  <div class="results-content">
-    <div class="result-badge" id="result-badge">🏆</div>
-    <h2 id="result-title">Amazing Game!</h2>
-    <div class="score-display">
-      <span class="score-big" id="result-score">0</span>
-      <span class="score-label">points</span>
+<!-- ══════════════════════════════════════════════════════════
+     TAB 2 — BRAIN QUIZ  (all Soccer Brain game screens)
+══════════════════════════════════════════════════════════ -->
+<div id="quiz-container" style="display:none">
+
+  <!-- SPLASH SCREEN -->
+  <div id="screen-splash" class="screen">
+    <div class="splash-bg"></div>
+    <div class="splash-content">
+      <div class="ball-bounce">⚽</div>
+      <h1 class="game-title">Soccer<br><span>Brain</span></h1>
+      <p class="tagline">Think fast. Play smart.</p>
+      <div class="stats-bar" id="splash-stats" style="display:none">
+        <div class="stat-chip">🎯 Best: <span id="splash-best">0</span></div>
+        <div class="stat-chip">🔥 Streak: <span id="splash-streak">0</span></div>
+        <div class="stat-chip">🏅 Games: <span id="splash-games">0</span></div>
+      </div>
+      <button class="btn-primary" id="btn-play">Let's Play!</button>
     </div>
-    <div class="result-grid">
-      <div class="result-stat">
-        <span class="r-val" id="res-accuracy">0%</span>
-        <span class="r-lbl">Accuracy</span>
-      </div>
-      <div class="result-stat">
-        <span class="r-val" id="res-avg-time">0s</span>
-        <span class="r-lbl">Avg Speed</span>
-      </div>
-      <div class="result-stat">
-        <span class="r-val" id="res-correct">0/0</span>
-        <span class="r-lbl">Correct</span>
-      </div>
-      <div class="result-stat">
-        <span class="r-val" id="res-skips">0</span>
-        <span class="r-lbl">Skipped</span>
-      </div>
-      <div class="result-stat" style="grid-column: span 2;">
-        <span class="r-val" id="res-best">0</span>
-        <span class="r-lbl">Best Score</span>
-      </div>
-    </div>
-    <div class="level-badge" id="res-level"></div>
-    <div id="forms-status" class="sheets-status"></div>
-    <button class="btn-primary" id="btn-play-again">Play Again! ⚽</button>
-    <button class="btn-secondary" id="btn-results-stats">View Stats 📊</button>
-    <button class="btn-ghost" id="btn-results-home">Home</button>
   </div>
+
+  <!-- PLAYER SETUP SCREEN -->
+  <div id="screen-setup" class="screen">
+    <div class="setup-content">
+      <h2>Who's Playing? 🌟</h2>
+      <div class="input-group">
+        <label for="player-name">Your Name</label>
+        <input type="text" id="player-name" placeholder="e.g. Sofia" maxlength="20" />
+      </div>
+      <div class="input-group">
+        <label>Pick Your Kit Color</label>
+        <div class="color-picker">
+          <button class="color-btn active" data-color="#e63946" style="background:#e63946"></button>
+          <button class="color-btn" data-color="#2a9d8f"  style="background:#2a9d8f"></button>
+          <button class="color-btn" data-color="#f77f00"  style="background:#f77f00"></button>
+          <button class="color-btn" data-color="#8338ec"  style="background:#8338ec"></button>
+          <button class="color-btn" data-color="#06d6a0"  style="background:#06d6a0"></button>
+          <button class="color-btn" data-color="#118ab2"  style="background:#118ab2"></button>
+        </div>
+      </div>
+      <button class="btn-primary" id="btn-start-game">Kick Off! ⚽</button>
+      <button class="btn-ghost"   id="btn-back-splash">← Back</button>
+    </div>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div id="screen-game" class="screen">
+    <header class="game-header">
+      <div class="hud-item">
+        <span class="hud-label">Score</span>
+        <span class="hud-value" id="hud-score">0</span>
+      </div>
+      <div class="hud-item hud-timer-wrap">
+        <span class="hud-label">Time</span>
+        <div class="timer-ring-wrap">
+          <svg class="timer-ring" viewBox="0 0 40 40">
+            <circle class="timer-ring-bg"   cx="20" cy="20" r="16"/>
+            <circle class="timer-ring-fill" id="timer-circle" cx="20" cy="20" r="16"/>
+          </svg>
+          <span class="hud-value timer-number" id="hud-timer">8</span>
+        </div>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">Round</span>
+        <span class="hud-value" id="hud-round">1/18</span>
+      </div>
+    </header>
+    <div id="scenario-container"><!-- dynamically rendered --></div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div id="screen-results" class="screen">
+    <div class="results-content">
+      <div class="result-badge" id="result-badge">🏆</div>
+      <h2 id="result-title">Amazing Game!</h2>
+      <div class="score-display">
+        <span class="score-big" id="result-score">0</span>
+        <span class="score-label">points</span>
+      </div>
+      <div class="result-grid">
+        <div class="result-stat">
+          <span class="r-val" id="res-accuracy">0%</span>
+          <span class="r-lbl">Accuracy</span>
+        </div>
+        <div class="result-stat">
+          <span class="r-val" id="res-avg-time">0s</span>
+          <span class="r-lbl">Avg Speed</span>
+        </div>
+        <div class="result-stat">
+          <span class="r-val" id="res-correct">0/0</span>
+          <span class="r-lbl">Correct</span>
+        </div>
+        <div class="result-stat">
+          <span class="r-val" id="res-skips">0</span>
+          <span class="r-lbl">Skipped</span>
+        </div>
+        <div class="result-stat" style="grid-column: span 2;">
+          <span class="r-val" id="res-best">0</span>
+          <span class="r-lbl">Best Score</span>
+        </div>
+      </div>
+      <div class="level-badge" id="res-level"></div>
+      <div id="forms-status" class="sheets-status"></div>
+      <button class="btn-primary"   id="btn-play-again">Play Again! ⚽</button>
+      <button class="btn-secondary" id="btn-results-stats">My Stats 📊</button>
+      <button class="btn-ghost"     id="btn-results-home">← Back to Menu</button>
+    </div>
+  </div>
+
+  <!-- STATS SCREEN -->
+  <div id="screen-stats" class="screen">
+    <div class="stats-content">
+      <h2>My Soccer Brain 📊</h2>
+      <div id="stats-player-name" class="stats-player"></div>
+      <div class="stats-cards">
+        <div class="stat-card"><div class="sc-icon">🎯</div><div class="sc-val" id="st-best-score">0</div><div class="sc-lbl">Best Score</div></div>
+        <div class="stat-card"><div class="sc-icon">📊</div><div class="sc-val" id="st-avg-accuracy">0%</div><div class="sc-lbl">Avg Accuracy</div></div>
+        <div class="stat-card"><div class="sc-icon">⚡</div><div class="sc-val" id="st-avg-speed">0s</div><div class="sc-lbl">Avg Speed</div></div>
+        <div class="stat-card"><div class="sc-icon">🎮</div><div class="sc-val" id="st-total-games">0</div><div class="sc-lbl">Games Played</div></div>
+        <div class="stat-card"><div class="sc-icon">🔥</div><div class="sc-val" id="st-best-streak">0</div><div class="sc-lbl">Best Streak</div></div>
+        <div class="stat-card"><div class="sc-icon">⭐</div><div class="sc-val" id="st-total-correct">0</div><div class="sc-lbl">Total Correct</div></div>
+      </div>
+      <canvas id="progress-chart" width="340" height="160"></canvas>
+      <div class="category-breakdown" id="category-breakdown"></div>
+      <button class="btn-ghost"   id="btn-stats-back">← Back</button>
+      <button class="btn-danger"  id="btn-clear-stats">Reset Stats</button>
+    </div>
+  </div>
+
+</div><!-- #quiz-container -->
+
+<!-- COACH BUBBLE (used by quiz game, lives outside quiz-container so it appears over everything) -->
+<div id="coach-bubble" class="coach-bubble hidden">
+  <div class="coach-avatar">🧑‍🏫</div>
+  <div class="coach-text" id="coach-text"></div>
 </div>
 
-<!-- STATS SCREEN -->
-<div id="screen-stats" class="screen">
-  <div class="stats-content">
-    <h2>My Soccer Brain 📊</h2>
-    <div id="stats-player-name" class="stats-player"></div>
-    <div class="stats-cards">
-      <div class="stat-card">
-        <div class="sc-icon">🎯</div>
-        <div class="sc-val" id="st-best-score">0</div>
-        <div class="sc-lbl">Best Score</div>
-      </div>
-      <div class="stat-card">
-        <div class="sc-icon">📊</div>
-        <div class="sc-val" id="st-avg-accuracy">0%</div>
-        <div class="sc-lbl">Avg Accuracy</div>
-      </div>
-      <div class="stat-card">
-        <div class="sc-icon">⚡</div>
-        <div class="sc-val" id="st-avg-speed">0s</div>
-        <div class="sc-lbl">Avg Speed</div>
-      </div>
-      <div class="stat-card">
-        <div class="sc-icon">🎮</div>
-        <div class="sc-val" id="st-total-games">0</div>
-        <div class="sc-lbl">Games Played</div>
-      </div>
-      <div class="stat-card">
-        <div class="sc-icon">🔥</div>
-        <div class="sc-val" id="st-best-streak">0</div>
-        <div class="sc-lbl">Best Streak</div>
-      </div>
-      <div class="stat-card">
-        <div class="sc-icon">⭐</div>
-        <div class="sc-val" id="st-total-correct">0</div>
-        <div class="sc-lbl">Total Correct</div>
-      </div>
-    </div>
-    <canvas id="progress-chart" width="340" height="160"></canvas>
-    <div class="category-breakdown" id="category-breakdown"></div>
-    <button class="btn-ghost" id="btn-stats-back">← Back</button>
-    <button class="btn-danger" id="btn-clear-stats">Reset Stats</button>
-  </div>
-</div>
+<!-- ══════════════════════════════════════════════════════════
+     FIREBASE SDK  (compat mode — no module bundler needed)
+══════════════════════════════════════════════════════════ -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 
-<!-- SCRIPTS -->
+<!-- SHARED DATA LAYER -->
+<script src="shared.js"></script>
+
+<!-- GAME ENGINE -->
 <script src="game.js"></script>
-<script src="forms.js"></script>
+
+<!-- ══════════════════════════════════════════════════════════
+     APP CONTROLLER  (tab switching + video library)
+══════════════════════════════════════════════════════════ -->
+<script>
+/* ─── TAB SWITCHING ──────────────────────────────────────── */
+const tabBar      = document.getElementById('app-tab-bar');
+const tabVideos   = document.getElementById('tab-videos');
+const quizContainer = document.getElementById('quiz-container');
+
+function switchTab(name) {
+  // Update tab buttons
+  document.querySelectorAll('.tab-item').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.tab === name);
+  });
+
+  if (name === 'videos') {
+    tabVideos.style.display   = 'block';
+    quizContainer.style.display = 'none';
+    tabBar.style.display      = 'flex'; // always show on videos
+  } else {
+    tabVideos.style.display   = 'none';
+    quizContainer.style.display = 'block';
+    tabBar.style.display      = 'flex';
+    // If game hasn't started yet, make sure splash is active
+    if (typeof showScreen === 'function') {
+      const anyActive = document.querySelector('#quiz-container .screen.active');
+      if (!anyActive) showScreen('splash');
+    }
+  }
+}
+
+document.querySelectorAll('.tab-item').forEach(btn => {
+  btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+});
+
+// Patch game.js showScreen to manage tab bar visibility during gameplay
+const _origShowScreen = window.showScreen;
+if (typeof _origShowScreen === 'function') {
+  window.showScreen = function(name) {
+    _origShowScreen(name);
+    // Hide tab bar during active game for full-screen experience
+    tabBar.style.display = (name === 'game') ? 'none' : 'flex';
+    // Also move coach bubble for game screen
+    const cb = document.getElementById('coach-bubble');
+    if (cb) cb.style.bottom = (name === 'game') ? '16px' : 'calc(var(--tab-h) + 12px)';
+  };
+}
+
+/* ─── VIDEO LIBRARY ──────────────────────────────────────── */
+const VIDEO_CATEGORIES = ['All', 'Dribbling', 'Shooting', 'Passing', 'Defense', 'Goalkeeper', 'Rules', 'Tactics', 'Warm-Up', 'Funny'];
+let allVideos      = [];
+let activeCategory = 'All';
+let unsubVideos    = null;
+
+// Build filter chips
+const filterBar = document.getElementById('filter-bar');
+VIDEO_CATEGORIES.forEach(cat => {
+  const chip = document.createElement('button');
+  chip.className = 'filter-chip' + (cat === 'All' ? ' active' : '');
+  chip.textContent = cat;
+  chip.addEventListener('click', () => {
+    activeCategory = cat;
+    filterBar.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    renderVideos();
+  });
+  filterBar.appendChild(chip);
+});
+
+// Subscribe to videos from Firebase
+function startVideoSubscription() {
+  if (unsubVideos) return; // already subscribed
+  unsubVideos = subscribeVideos(videos => {
+    allVideos = videos;
+    document.getElementById('vid-loading').style.display = 'none';
+    renderVideos();
+    // Update count badge
+    const badge = document.getElementById('vid-count-badge');
+    if (badge) badge.textContent = videos.length + ' Video' + (videos.length !== 1 ? 's' : '');
+  });
+}
+
+function renderVideos() {
+  const grid = document.getElementById('video-grid');
+  const now  = Date.now();
+
+  const filtered = activeCategory === 'All'
+    ? allVideos
+    : allVideos.filter(v => v.tag === activeCategory);
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div class="vid-empty">
+        <div class="empty-icon">📭</div>
+        <h3>No videos yet</h3>
+        <p>${activeCategory === 'All'
+          ? 'Ask your coach to add training videos!'
+          : `No ${activeCategory} videos yet — check back soon!`}</p>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map((v, i) => {
+    const isNew  = v.addedAt && (now - v.addedAt) < 48 * 60 * 60 * 1000;
+    const views  = v.views || 0;
+    const date   = v.addedAt ? new Date(v.addedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
+
+    return `
+      <div class="video-card" onclick="openVideoModal('${v.id}')"
+           style="animation-delay: ${Math.min(i * 0.05, 0.4)}s">
+        <div class="card-thumb">
+          <span style="position:relative;z-index:1">${v.emoji || '⚽'}</span>
+          ${isNew  ? `<span class="card-new-badge">NEW</span>` : ''}
+          ${views > 0 ? `<span class="card-views">👁 ${views}</span>` : ''}
+          <div class="card-play-btn">▶</div>
+        </div>
+        <div class="card-body">
+          <span class="card-tag">${escHtml(v.tag || 'General')}</span>
+          <div class="card-title">${escHtml(v.title)}</div>
+          ${v.note ? `<div class="card-note">${escHtml(v.note)}</div>` : ''}
+          ${date   ? `<div class="card-date">${date}</div>` : ''}
+        </div>
+      </div>`;
+  }).join('');
+}
+
+/* ─── VIDEO MODAL ────────────────────────────────────────── */
+const modal        = document.getElementById('video-modal');
+const modalBackdrop = document.getElementById('modal-backdrop');
+const modalPlayer  = document.getElementById('modal-player');
+const modalTitle   = document.getElementById('modal-title');
+const modalTag     = document.getElementById('modal-tag');
+const modalNote    = document.getElementById('modal-note');
+const modalNoteWrap = document.getElementById('modal-note-wrap');
+const modalCloseBtn = document.getElementById('modal-close-btn');
+
+let currentVideoId = null;
+
+function openVideoModal(videoId) {
+  const video = allVideos.find(v => v.id === videoId);
+  if (!video) return;
+
+  currentVideoId = videoId;
+
+  modalTitle.textContent = video.title || '';
+  modalTag.textContent   = video.tag   || '';
+
+  if (video.note) {
+    modalNote.textContent     = video.note;
+    modalNoteWrap.style.display = 'block';
+  } else {
+    modalNoteWrap.style.display = 'none';
+  }
+
+  // Build player
+  modalPlayer.innerHTML = '';
+  if (video.sourceType === 'youtube' || (video.videoUrl && isYouTubeUrl(video.videoUrl))) {
+    const youtubeId = extractYouTubeId(video.videoUrl);
+    if (youtubeId) {
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1`;
+      iframe.allow = 'autoplay; encrypted-media; fullscreen';
+      iframe.allowFullscreen = true;
+      modalPlayer.appendChild(iframe);
+    }
+  } else {
+    const vid = document.createElement('video');
+    vid.src = video.videoUrl;
+    vid.controls = true;
+    vid.autoplay = true;
+    vid.playsInline = true;
+    modalPlayer.appendChild(vid);
+  }
+
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  // Track view
+  recordView(videoId);
+  // Update local count immediately
+  const v = allVideos.find(x => x.id === videoId);
+  if (v) v.views = (v.views || 0) + 1;
+}
+
+function closeVideoModal() {
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+  // Stop video/iframe
+  setTimeout(() => { modalPlayer.innerHTML = ''; }, 300);
+  currentVideoId = null;
+}
+
+modalCloseBtn.addEventListener('click', closeVideoModal);
+modalBackdrop.addEventListener('click', closeVideoModal);
+
+// Close on escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && modal.classList.contains('open')) closeVideoModal();
+});
+
+/* ─── UTILITIES ──────────────────────────────────────────── */
+function isYouTubeUrl(url) {
+  return /youtube\.com|youtu\.be/.test(url);
+}
+
+function extractYouTubeId(url) {
+  if (!url) return null;
+  const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^&?/\s]{11})/);
+  return m ? m[1] : null;
+}
+
+function escHtml(str) {
+  return String(str || '')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+/* ─── STARTUP ────────────────────────────────────────────── */
+// Start on Videos tab and begin loading
+switchTab('videos');
+startVideoSubscription();
+</script>
+
 </body>
 </html>
