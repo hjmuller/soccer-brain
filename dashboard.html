@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soccer Academy — Coach Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --grass:       #1b4332;
+      --grass-mid:   #2d6a4f;
+      --grass-light: #40916c;
+      --accent:      #ffd60a;
+      --accent2:     #ff6b35;
+      --red:         #e63946;
+      --surface:     #0f2d1e;
+      --card:        rgba(255,255,255,0.06);
+      --border:      rgba(255,255,255,0.1);
+      --text:        #f1f1f1;
+      --text-dim:    rgba(255,255,255,0.5);
+      --font-head:   'Fredoka One', cursive;
+      --font-body:   'Nunito', sans-serif;
+      --sidebar-w:   240px;
+      --radius:      14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--surface);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* pitch stripes */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: repeating-linear-gradient(180deg, transparent 0px, transparent 80px, rgba(0,0,0,0.06) 80px, rgba(0,0,0,0.06) 160px);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      background: rgba(0,0,0,0.3);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      position: fixed; top: 0; left: 0; bottom: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+    }
+
+    .sidebar-brand {
+      padding: 24px 20px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-brand h1 {
+      font-family: var(--font-head);
+      font-size: 22px; color: white;
+    }
+    .sidebar-brand h1 span { color: var(--accent); }
+    .sidebar-brand p { font-size: 11px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 2px; }
+
+    .sidebar-nav { flex: 1; padding: 16px 12px; display: flex; flex-direction: column; gap: 4px; }
+
+    .nav-section-label {
+      font-size: 10px; font-weight: 800; color: var(--text-dim);
+      text-transform: uppercase; letter-spacing: 2px;
+      padding: 12px 8px 6px;
+    }
+
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: none; background: none;
+      color: var(--text-dim); font-family: var(--font-body);
+      font-size: 14px; font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: left; width: 100%;
+    }
+    .nav-item:hover  { background: rgba(255,255,255,0.07); color: white; }
+    .nav-item.active { background: rgba(255,214,10,0.15); color: var(--accent); }
+    .nav-item .nav-icon { font-size: 18px; width: 24px; text-align: center; }
+
+    .sidebar-footer {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+    }
+    .conn-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 700; color: var(--text-dim);
+    }
+    .conn-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #888;
+      transition: background 0.3s;
+    }
+    .conn-dot.live { background: #06d6a0; box-shadow: 0 0 6px #06d6a0; }
+    .back-link {
+      display: block; margin-top: 10px;
+      font-size: 13px; font-weight: 700; color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .back-link:hover { color: white; }
+
+    /* ── MAIN CONTENT ── */
+    .main {
+      flex: 1;
+      margin-left: var(--sidebar-w);
+      padding: 32px 28px 60px;
+      position: relative; z-index: 1;
+      min-height: 100vh;
+    }
+
+    .section { display: none; }
+    .section.active { display: block; }
+
+    .section-header {
+      margin-bottom: 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .section-header h2 {
+      font-family: var(--font-head); font-size: 30px; color: white;
+    }
+    .section-header p { font-size: 14px; color: var(--text-dim); font-weight: 600; margin-top: 2px; }
+
+    /* ── STAT ROW ── */
+    .stat-row {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px; margin-bottom: 28px;
+    }
+    .stat-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 16px;
+      backdrop-filter: blur(8px); text-align: center;
+    }
+    .stat-card .icon   { font-size: 26px; margin-bottom: 6px; }
+    .stat-card .val    { font-family: var(--font-head); font-size: 28px; color: white; }
+    .stat-card .lbl    { font-size: 11px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+    /* ── TABLE ── */
+    .table-wrap {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      backdrop-filter: blur(8px);
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    thead th {
+      padding: 13px 16px; text-align: left;
+      font-size: 10px; font-weight: 800; color: var(--text-dim);
+      text-transform: uppercase; letter-spacing: 1.2px;
+      background: rgba(0,0,0,0.2);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      white-space: nowrap; cursor: pointer; user-select: none;
+    }
+    thead th:hover { color: var(--accent); }
+    tbody tr { border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.1s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(255,255,255,0.04); }
+    tbody td { padding: 12px 16px; color: var(--text); font-weight: 700; }
+
+    .score-val { font-family: var(--font-head); font-size: 18px; color: var(--accent); }
+    .level-pill {
+      display: inline-block; padding: 3px 10px;
+      border-radius: 20px; font-size: 12px; font-weight: 800;
+      background: rgba(255,255,255,0.08);
+    }
+    .acc-bar-wrap { display: flex; align-items: center; gap: 8px; }
+    .acc-bar { flex: 1; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; min-width: 60px; }
+    .acc-bar-fill { height: 100%; border-radius: 3px; background: var(--grass-light); }
+    .acc-bar-fill.high { background: #52b788; }
+    .acc-bar-fill.low  { background: var(--red); }
+    .dim { color: var(--text-dim); font-size: 13px; }
+
+    .del-btn {
+      background: rgba(230,57,70,0.15); border: 1px solid rgba(230,57,70,0.25);
+      color: var(--red); border-radius: 8px; padding: 5px 10px;
+      font-size: 12px; font-weight: 800; cursor: pointer;
+      transition: background 0.15s;
+    }
+    .del-btn:hover { background: rgba(230,57,70,0.3); }
+
+    /* ── ADD VIDEO FORM ── */
+    .form-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px;
+      backdrop-filter: blur(8px); max-width: 580px;
+    }
+
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block; font-size: 12px; font-weight: 800;
+      color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      border-radius: 10px; padding: 12px 14px;
+      color: white; font-family: var(--font-body); font-size: 15px;
+      font-weight: 700; outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--accent); }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--text-dim); }
+    .form-group select option { background: #1b4332; }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+
+    .radio-group { display: flex; gap: 12px; }
+    .radio-label {
+      flex: 1; padding: 12px 16px; border-radius: 10px;
+      border: 1.5px solid rgba(255,255,255,0.12);
+      cursor: pointer; font-weight: 700; font-size: 14px;
+      color: var(--text-dim); transition: all 0.15s; text-align: center;
+    }
+    .radio-label:has(input:checked),
+    .radio-label.checked {
+      border-color: var(--accent); color: var(--accent);
+      background: rgba(255,214,10,0.08);
+    }
+    .radio-label input { display: none; }
+
+    .emoji-grid {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .emoji-btn {
+      width: 44px; height: 44px; border-radius: 10px;
+      border: 2px solid transparent;
+      background: rgba(255,255,255,0.07);
+      font-size: 24px; cursor: pointer;
+      transition: all 0.15s; display: flex; align-items: center; justify-content: center;
+    }
+    .emoji-btn:hover  { background: rgba(255,255,255,0.12); transform: scale(1.1); }
+    .emoji-btn.active { border-color: var(--accent); background: rgba(255,214,10,0.1); }
+
+    .progress-bar-wrap {
+      height: 6px; background: rgba(255,255,255,0.1);
+      border-radius: 3px; overflow: hidden; margin-top: 8px;
+    }
+    .progress-bar {
+      height: 100%; background: var(--accent); border-radius: 3px;
+      transition: width 0.2s; width: 0%;
+    }
+
+    .btn-submit {
+      background: var(--accent); color: #1a1a1a;
+      border: none; border-radius: 50px;
+      padding: 14px 40px;
+      font-family: var(--font-head); font-size: 18px;
+      cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 16px rgba(255,214,10,0.3);
+    }
+    .btn-submit:hover  { box-shadow: 0 6px 24px rgba(255,214,10,0.5); }
+    .btn-submit:active { transform: scale(0.97); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px;
+      background: white; color: #1a1a1a;
+      padding: 12px 20px; border-radius: 12px;
+      font-size: 14px; font-weight: 800;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      transform: translateY(80px); opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* Avatar */
+    .player-av {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-head); font-size: 14px; font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    /* Podium */
+    .podium-row {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px; margin-bottom: 24px;
+    }
+    .podium-card {
+      border-radius: 16px; padding: 18px 14px; text-align: center;
+    }
+    .podium-card.gold   { background: linear-gradient(135deg,#7b5c00,#f5c518); border: 2px solid #ffd60a; }
+    .podium-card.silver { background: linear-gradient(135deg,#333,#9e9e9e); border: 2px solid #b0b0b0; }
+    .podium-card.bronze { background: linear-gradient(135deg,#4a1c00,#c87137); border: 2px solid #cd7f32; }
+    .podium-rank  { font-size: 28px; margin-bottom: 4px; }
+    .podium-name  { font-family: var(--font-head); font-size: 18px; color: white; }
+    .podium-score { font-family: var(--font-head); font-size: 30px; color: white; }
+    .podium-meta  { font-size: 11px; color: rgba(255,255,255,0.75); font-weight: 700; margin-top: 3px; }
+
+    /* empty state */
+    .empty-state {
+      text-align: center; padding: 60px 20px; color: var(--text-dim);
+    }
+    .empty-state .e-icon { font-size: 48px; margin-bottom: 12px; }
+    .empty-state h3 { font-family: var(--font-head); font-size: 20px; margin-bottom: 8px; }
+
+    /* responsive */
+    @media (max-width: 768px) {
+      .sidebar { width: 56px; }
+      .sidebar .nav-item span:not(.nav-icon) { display: none; }
+      .sidebar-brand h1, .sidebar-brand p, .nav-section-label, .sidebar-footer p, .back-link { display: none; }
+      .main { margin-left: 56px; padding: 20px 16px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <h1>Soccer <span>Academy</span></h1>
+    <p>Coach Dashboard</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Videos</div>
+    <button class="nav-item active" data-section="analytics" onclick="showSection('analytics', this)">
+      <span class="nav-icon">📊</span><span>Analytics</span>
+    </button>
+    <button class="nav-item" data-section="add-video" onclick="showSection('add-video', this)">
+      <span class="nav-icon">➕</span><span>Add Video</span>
+    </button>
+    <button class="nav-item" data-section="manage" onclick="showSection('manage', this)">
+      <span class="nav-icon">🎬</span><span>Manage Videos</span>
+    </button>
+
+    <div class="nav-section-label">Players</div>
+    <button class="nav-item" data-section="leaderboard" onclick="showSection('leaderboard', this)">
+      <span class="nav-icon">🏆</span><span>Leaderboard</span>
+    </button>
+    <button class="nav-item" data-section="sessions" onclick="showSection('sessions', this)">
+      <span class="nav-icon">📋</span><span>All Sessions</span>
+    </button>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="conn-badge">
+      <div class="conn-dot" id="conn-dot"></div>
+      <span id="conn-label">Connecting…</span>
+    </div>
+    <a href="index.html" class="back-link">← Back to App</a>
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+  <!-- ══ VIDEO ANALYTICS ══ -->
+  <section id="sec-analytics" class="section active">
+    <div class="section-header">
+      <div><h2>📊 Video Analytics</h2><p>Real-time performance across all videos</p></div>
+    </div>
+    <div class="stat-row" id="vid-stat-row">
+      <div class="stat-card"><div class="icon">🎬</div><div class="val" id="sv-total">0</div><div class="lbl">Total Videos</div></div>
+      <div class="stat-card"><div class="icon">👁</div><div class="val"  id="sv-plays">0</div><div class="lbl">Total Plays</div></div>
+      <div class="stat-card"><div class="icon">📈</div><div class="val"  id="sv-avg">—</div><div class="lbl">Avg Plays</div></div>
+      <div class="stat-card"><div class="icon">🔥</div><div class="val"  id="sv-top">—</div><div class="lbl">Most Watched</div></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Video</th>
+          <th>Category</th>
+          <th onclick="sortVideos('views')">Plays ↕</th>
+          <th onclick="sortVideos('addedAt')">Added ↕</th>
+          <th>Last Watched</th>
+          <th></th>
+        </tr></thead>
+        <tbody id="analytics-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══ ADD VIDEO ══ -->
+  <section id="sec-add-video" class="section">
+    <div class="section-header">
+      <div><h2>➕ Add Video</h2><p>Share a new training video with your players</p></div>
+    </div>
+    <div class="form-card">
+      <div class="form-group">
+        <label>Video Title</label>
+        <input type="text" id="f-title" placeholder="e.g. How to do a step-over" maxlength="80" />
+      </div>
+      <div class="form-group">
+        <label>Source</label>
+        <div class="radio-group">
+          <label class="radio-label checked" id="rl-youtube">
+            <input type="radio" name="source" value="youtube" checked onchange="toggleSource('youtube')">
+            🔗 YouTube URL
+          </label>
+          <label class="radio-label" id="rl-upload">
+            <input type="radio" name="source" value="upload" onchange="toggleSource('upload')">
+            📁 Upload File
+          </label>
+        </div>
+      </div>
+      <div class="form-group" id="fg-url">
+        <label>YouTube URL</label>
+        <input type="url" id="f-url" placeholder="https://www.youtube.com/watch?v=..." />
+      </div>
+      <div class="form-group" id="fg-file" style="display:none">
+        <label>Video File</label>
+        <input type="file" id="f-file" accept="video/*" style="color:white" />
+        <div class="progress-bar-wrap" id="upload-progress-wrap" style="display:none">
+          <div class="progress-bar" id="upload-progress-bar"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Category / Tag</label>
+        <select id="f-tag">
+          <option>Dribbling</option><option>Shooting</option><option>Passing</option>
+          <option>Defense</option><option>Goalkeeper</option><option>Rules</option>
+          <option>Tactics</option><option>Warm-Up</option><option>Funny</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Thumbnail Emoji</label>
+        <div class="emoji-grid" id="emoji-grid"></div>
+      </div>
+      <div class="form-group">
+        <label>Coach's Note <span style="font-weight:600;text-transform:none">(optional)</span></label>
+        <textarea id="f-note" placeholder="A message from you to your player…" rows="3"></textarea>
+      </div>
+      <button class="btn-submit" id="btn-save-video" onclick="saveVideo()">Save Video ⚽</button>
+    </div>
+  </section>
+
+  <!-- ══ MANAGE VIDEOS ══ -->
+  <section id="sec-manage" class="section">
+    <div class="section-header">
+      <div><h2>🎬 Manage Videos</h2><p>All videos — delete or review</p></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Video</th><th>Category</th><th>Plays</th><th>Added</th><th></th>
+        </tr></thead>
+        <tbody id="manage-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══ LEADERBOARD ══ -->
+  <section id="sec-leaderboard" class="section">
+    <div class="section-header">
+      <div><h2>🏆 Player Leaderboard</h2><p>Best scores from the Brain Quiz</p></div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-card"><div class="icon">🎮</div><div class="val" id="sl-games">0</div><div class="lbl">Total Games</div></div>
+      <div class="stat-card"><div class="icon">👥</div><div class="val" id="sl-players">0</div><div class="lbl">Players</div></div>
+      <div class="stat-card"><div class="icon">🥇</div><div class="val" id="sl-best">—</div><div class="lbl">Top Score</div></div>
+      <div class="stat-card"><div class="icon">🎯</div><div class="val" id="sl-acc">—</div><div class="lbl">Avg Accuracy</div></div>
+    </div>
+    <div class="podium-row" id="podium-row"></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>#</th><th>Player</th>
+          <th onclick="sortLeaderboard('bestScore')">Best Score ↕</th>
+          <th onclick="sortLeaderboard('avgAccuracy')">Avg Accuracy ↕</th>
+          <th onclick="sortLeaderboard('games')">Games ↕</th>
+          <th>Level</th>
+        </tr></thead>
+        <tbody id="leaderboard-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══ ALL SESSIONS ══ -->
+  <section id="sec-sessions" class="section">
+    <div class="section-header">
+      <div><h2>📋 All Quiz Sessions</h2><p>Every game played, newest first</p></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Date</th><th>Player</th>
+          <th onclick="sortSessions('score')">Score ↕</th>
+          <th onclick="sortSessions('accuracy')">Accuracy ↕</th>
+          <th>Speed</th><th>Correct</th><th>Level</th>
+        </tr></thead>
+        <tbody id="sessions-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+<script src="shared.js"></script>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   DASHBOARD CONTROLLER
+═══════════════════════════════════════════════════════════ */
+
+/* ── NAVIGATION ── */
+function showSection(name, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  document.getElementById(`sec-${name}`).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+/* ── CONNECTION INDICATOR ── */
+function setConnected(ok) {
+  const dot = document.getElementById('conn-dot');
+  const lbl = document.getElementById('conn-label');
+  if (dot) dot.classList.toggle('live', ok);
+  if (lbl) lbl.textContent = ok ? 'Live' : 'Offline';
+}
+
+/* ── TOAST ── */
+function toast(msg, duration = 3000) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), duration);
+}
+
+/* ── AVATAR COLORS ── */
+const AV_COLORS = ['#e63946','#2a9d8f','#f77f00','#8338ec','#06d6a0','#118ab2','#ff6b35','#4a90d9'];
+function avColor(name) {
+  let h = 0;
+  for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) & 0xffff;
+  return AV_COLORS[h % AV_COLORS.length];
+}
+
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* ══════════════════════════════════════════════════════════
+   VIDEO SECTION
+══════════════════════════════════════════════════════════ */
+let allVideos = [];
+let videoSortKey = 'addedAt', videoSortDir = -1;
+
+subscribeVideos(videos => {
+  allVideos = videos;
+  setConnected(true);
+  renderAnalytics();
+  renderManage();
+});
+
+function renderAnalytics() {
+  const total = allVideos.length;
+  const plays = allVideos.reduce((s, v) => s + (v.views || 0), 0);
+  const avg   = total > 0 ? (plays / total).toFixed(1) : '—';
+  const top   = [...allVideos].sort((a,b) => (b.views||0) - (a.views||0))[0];
+
+  document.getElementById('sv-total').textContent = total;
+  document.getElementById('sv-plays').textContent = plays;
+  document.getElementById('sv-avg').textContent   = avg;
+  document.getElementById('sv-top').textContent   = top ? truncate(top.title, 12) : '—';
+
+  const sorted = [...allVideos].sort((a, b) => {
+    const va = a[videoSortKey] || 0, vb = b[videoSortKey] || 0;
+    return (va > vb ? 1 : va < vb ? -1 : 0) * videoSortDir;
+  });
+
+  document.getElementById('analytics-body').innerHTML = sorted.map(v => {
+    const date  = v.addedAt     ? new Date(v.addedAt).toLocaleDateString('en-US', {month:'short',day:'numeric'}) : '—';
+    const lw    = v.lastWatched ? new Date(v.lastWatched).toLocaleDateString('en-US', {month:'short',day:'numeric'}) : 'Never';
+    return `<tr>
+      <td>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font-size:24px">${esc(v.emoji||'⚽')}</span>
+          <span style="font-weight:800">${esc(v.title)}</span>
+        </div>
+      </td>
+      <td><span class="level-pill">${esc(v.tag||'—')}</span></td>
+      <td class="score-val">${v.views||0}</td>
+      <td class="dim">${date}</td>
+      <td class="dim">${lw}</td>
+      <td><button class="del-btn" onclick="confirmDelete('${v.id}','${esc(v.storagePath||'')}','${esc(v.title)}')">Delete</button></td>
+    </tr>`;
+  }).join('') || emptyRow(6, 'No videos yet — add one above!');
+}
+
+function renderManage() {
+  document.getElementById('manage-body').innerHTML = allVideos.map(v => {
+    const date = v.addedAt ? new Date(v.addedAt).toLocaleDateString() : '—';
+    return `<tr>
+      <td>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font-size:24px">${esc(v.emoji||'⚽')}</span>
+          <div>
+            <div style="font-weight:800">${esc(v.title)}</div>
+            <div style="font-size:11px;color:var(--text-dim)">${esc(v.sourceType==='youtube'?'YouTube':'Uploaded')}</div>
+          </div>
+        </div>
+      </td>
+      <td><span class="level-pill">${esc(v.tag||'—')}</span></td>
+      <td class="dim">${v.views||0} plays</td>
+      <td class="dim">${date}</td>
+      <td><button class="del-btn" onclick="confirmDelete('${v.id}','${esc(v.storagePath||'')}','${esc(v.title)}')">Delete</button></td>
+    </tr>`;
+  }).join('') || emptyRow(5, 'No videos yet.');
+}
+
+function sortVideos(key) {
+  if (videoSortKey === key) videoSortDir *= -1;
+  else { videoSortKey = key; videoSortDir = -1; }
+  renderAnalytics();
+}
+
+async function confirmDelete(id, storagePath, title) {
+  if (!confirm(`Delete "${title}"? This cannot be undone.`)) return;
+  try {
+    await deleteVideo(id, storagePath || null);
+    toast('✅ Video deleted');
+  } catch(e) {
+    toast('⚠️ Delete failed — check console');
+    console.error(e);
+  }
+}
+
+/* ── ADD VIDEO FORM ── */
+const EMOJIS = ['⚽','🥅','🏃','🧤','🎯','🔥','⚡','🏆','🌟','💥','👟','🤸','🛡️','🎭','🤣','📺','🎬','💪','🧠','✨'];
+let selectedEmoji = '⚽';
+let selectedSource = 'youtube';
+
+const emojiGrid = document.getElementById('emoji-grid');
+EMOJIS.forEach(em => {
+  const btn = document.createElement('button');
+  btn.className = 'emoji-btn' + (em === '⚽' ? ' active' : '');
+  btn.textContent = em;
+  btn.type = 'button';
+  btn.onclick = () => {
+    selectedEmoji = em;
+    emojiGrid.querySelectorAll('.emoji-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  };
+  emojiGrid.appendChild(btn);
+});
+
+function toggleSource(src) {
+  selectedSource = src;
+  document.getElementById('fg-url').style.display  = src === 'youtube' ? 'block' : 'none';
+  document.getElementById('fg-file').style.display = src === 'upload'  ? 'block' : 'none';
+  document.getElementById('rl-youtube').classList.toggle('checked', src === 'youtube');
+  document.getElementById('rl-upload').classList.toggle('checked',  src === 'upload');
+}
+
+async function saveVideo() {
+  const title = document.getElementById('f-title').value.trim();
+  const tag   = document.getElementById('f-tag').value;
+  const note  = document.getElementById('f-note').value.trim();
+  const btn   = document.getElementById('btn-save-video');
+
+  if (!title) { toast('⚠️ Please enter a title'); return; }
+
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+
+  try {
+    let videoUrl = '', storagePath = null;
+
+    if (selectedSource === 'youtube') {
+      videoUrl = document.getElementById('f-url').value.trim();
+      if (!videoUrl) { toast('⚠️ Please enter a YouTube URL'); btn.disabled = false; btn.textContent = 'Save Video ⚽'; return; }
+    } else {
+      const file = document.getElementById('f-file').files[0];
+      if (!file) { toast('⚠️ Please select a video file'); btn.disabled = false; btn.textContent = 'Save Video ⚽'; return; }
+      const progressWrap = document.getElementById('upload-progress-wrap');
+      const progressBar  = document.getElementById('upload-progress-bar');
+      progressWrap.style.display = 'block';
+      const result = await uploadVideoFile(file, (pct, path) => {
+        progressBar.style.width = pct + '%';
+        storagePath = path;
+      });
+      videoUrl    = result.url;
+      storagePath = result.path;
+    }
+
+    await addVideo({ title, videoUrl, note, tag, emoji: selectedEmoji, sourceType: selectedSource, storagePath });
+
+    // Reset form
+    document.getElementById('f-title').value = '';
+    document.getElementById('f-url').value   = '';
+    document.getElementById('f-note').value  = '';
+    document.getElementById('f-file').value  = '';
+    document.getElementById('upload-progress-wrap').style.display = 'none';
+    document.getElementById('upload-progress-bar').style.width    = '0%';
+    selectedEmoji = '⚽';
+    emojiGrid.querySelectorAll('.emoji-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+
+    toast('✅ Video saved!');
+    showSection('analytics', document.querySelector('[data-section="analytics"]'));
+  } catch(e) {
+    toast('⚠️ Save failed — check console');
+    console.error(e);
+  } finally {
+    btn.disabled    = false;
+    btn.textContent = 'Save Video ⚽';
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   SCORES SECTION
+══════════════════════════════════════════════════════════ */
+let allScores = [];
+let scoresSortKey = 'timestamp', scoresSortDir = -1;
+let lbSortKey = 'bestScore', lbSortDir = -1;
+
+subscribeScores(scores => {
+  allScores = scores;
+  renderLeaderboard();
+  renderSessions();
+  updateScoreStats();
+});
+
+function updateScoreStats() {
+  const players = new Set(allScores.map(s => s.playerName?.toLowerCase()));
+  const best    = Math.max(0, ...allScores.map(s => s.score || 0));
+  const avgAcc  = allScores.length > 0
+    ? Math.round(allScores.reduce((a, s) => a + (s.accuracy||0), 0) / allScores.length)
+    : null;
+
+  document.getElementById('sl-games').textContent   = allScores.length;
+  document.getElementById('sl-players').textContent = players.size;
+  document.getElementById('sl-best').textContent    = best || '—';
+  document.getElementById('sl-acc').textContent     = avgAcc !== null ? avgAcc + '%' : '—';
+}
+
+function buildPlayerMap(rows) {
+  const map = {};
+  rows.forEach(r => {
+    const key = (r.playerName||'').toLowerCase();
+    if (!key) return;
+    if (!map[key]) map[key] = { name: r.playerName, games:0, bestScore:0, totalAcc:0, level: r.level };
+    const p = map[key];
+    p.games++;
+    p.bestScore  = Math.max(p.bestScore, r.score||0);
+    p.totalAcc  += r.accuracy||0;
+    p.level      = r.level || p.level;
+  });
+  return Object.values(map).map(p => ({
+    ...p,
+    avgAccuracy: p.games > 0 ? Math.round(p.totalAcc / p.games) : 0
+  }));
+}
+
+function renderLeaderboard() {
+  const players = buildPlayerMap(allScores).sort((a,b) => {
+    const va = a[lbSortKey]||0, vb = b[lbSortKey]||0;
+    return (va > vb ? 1 : va < vb ? -1 : 0) * lbSortDir;
+  });
+
+  // Podium
+  const medals = ['gold','silver','bronze'];
+  const icons  = ['🥇','🥈','🥉'];
+  document.getElementById('podium-row').innerHTML = players.slice(0,3).map((p,i) => `
+    <div class="podium-card ${medals[i]}">
+      <div class="podium-rank">${icons[i]}</div>
+      <div class="podium-name">${esc(p.name)}</div>
+      <div class="podium-score">${p.bestScore}</div>
+      <div class="podium-meta">${p.games} game${p.games!==1?'s':''} · ${p.avgAccuracy}% acc</div>
+    </div>`).join('');
+
+  const levelEmoji = l => ({'Grasshopper':'🌱','Striker':'⚡','Champion':'🏆'}[l]||'⚽');
+
+  document.getElementById('leaderboard-body').innerHTML = players.map((p,i) => {
+    const color = avColor(p.name);
+    const rankCls = ['score-val','',''][i]||'';
+    return `<tr>
+      <td style="text-align:center;font-family:var(--font-head);font-size:18px;color:var(--text-dim)">${i+1}</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="player-av" style="background:${color}">${(p.name[0]||'?').toUpperCase()}</div>
+          <span style="font-weight:800">${esc(p.name)}</span>
+        </div>
+      </td>
+      <td class="score-val">${p.bestScore}</td>
+      <td>
+        <div class="acc-bar-wrap">
+          <div class="acc-bar"><div class="acc-bar-fill ${p.avgAccuracy>=70?'high':p.avgAccuracy<40?'low':''}" style="width:${p.avgAccuracy}%"></div></div>
+          <span style="font-size:13px;font-weight:800;min-width:40px">${p.avgAccuracy}%</span>
+        </div>
+      </td>
+      <td class="dim">${p.games}</td>
+      <td><span class="level-pill">${levelEmoji(p.level)} ${esc(p.level||'—')}</span></td>
+    </tr>`;
+  }).join('') || emptyRow(6, 'No quiz scores yet!');
+}
+
+function renderSessions() {
+  const sorted = [...allScores].sort((a,b) => {
+    const va = a[scoresSortKey]||0, vb = b[scoresSortKey]||0;
+    return (va > vb ? 1 : va < vb ? -1 : 0) * scoresSortDir;
+  });
+
+  const levelEmoji = l => ({'Grasshopper':'🌱','Striker':'⚡','Champion':'🏆'}[l]||'⚽');
+
+  document.getElementById('sessions-body').innerHTML = sorted.map(r => {
+    const color = avColor(r.playerName||'?');
+    const date  = r.date || (r.timestamp ? new Date(r.timestamp).toLocaleDateString() : '—');
+    return `<tr>
+      <td class="dim">${esc(date)} <span style="font-size:11px;opacity:.6">${esc(r.time||'')}</span></td>
+      <td>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="player-av" style="background:${color};width:28px;height:28px;font-size:12px">${((r.playerName||'?')[0]).toUpperCase()}</div>
+          <span>${esc(r.playerName||'—')}</span>
+        </div>
+      </td>
+      <td class="score-val">${r.score||0}</td>
+      <td>
+        <div class="acc-bar-wrap">
+          <div class="acc-bar"><div class="acc-bar-fill ${(r.accuracy||0)>=70?'high':(r.accuracy||0)<40?'low':''}" style="width:${r.accuracy||0}%"></div></div>
+          <span style="font-size:13px;font-weight:800;min-width:40px">${r.accuracy||0}%</span>
+        </div>
+      </td>
+      <td class="dim">${r.avgSpeed ? r.avgSpeed+'s' : '—'}</td>
+      <td class="dim">${r.correctAnswers||0}/${r.totalQuestions||0}</td>
+      <td><span class="level-pill">${levelEmoji(r.level)} ${esc(r.level||'—')}</span></td>
+    </tr>`;
+  }).join('') || emptyRow(7, 'No sessions yet — play a quiz!');
+}
+
+function sortLeaderboard(key) {
+  if (lbSortKey === key) lbSortDir *= -1; else { lbSortKey = key; lbSortDir = -1; }
+  renderLeaderboard();
+}
+function sortSessions(key) {
+  if (scoresSortKey === key) scoresSortDir *= -1; else { scoresSortKey = key; scoresSortDir = -1; }
+  renderSessions();
+}
+
+/* ── HELPERS ── */
+function emptyRow(cols, msg) {
+  return `<tr><td colspan="${cols}" style="text-align:center;padding:48px;color:var(--text-dim);font-weight:700">${msg}</td></tr>`;
+}
+function truncate(s, n) { return s && s.length > n ? s.slice(0, n) + '…' : s||''; }
+</script>
+</body>
+</html>
