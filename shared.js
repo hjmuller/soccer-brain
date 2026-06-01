@@ -29,12 +29,12 @@
 
 // ── PASTE YOUR FIREBASE CONFIG HERE ────────────────────────
 const FIREBASE_CONFIG = {
-  apiKey:            "YOUR_API_KEY",
-  authDomain:        "YOUR_PROJECT.firebaseapp.com",
-  projectId:         "YOUR_PROJECT_ID",
-  storageBucket:     "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId:             "YOUR_APP_ID"
+  apiKey: "AIzaSyAro-W-3uZueg-KwuSt5rcQTfJ1xowy97Y",
+  authDomain: "vids-for-kids-f5589.firebaseapp.com",
+  projectId: "vids-for-kids-f5589",
+  storageBucket: "vids-for-kids-f5589.firebasestorage.app",
+  messagingSenderId: "939611477279",
+  appId: "1:939611477279:web:e2a95d5bca9ebed3ee8c2a"
 };
 // ───────────────────────────────────────────────────────────
 
