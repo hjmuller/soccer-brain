@@ -312,6 +312,101 @@
     .empty-state .e-icon { font-size: 48px; margin-bottom: 12px; }
     .empty-state h3 { font-family: var(--font-head); font-size: 20px; margin-bottom: 8px; }
 
+    /* ── LOGIN OVERLAY ── */
+    .login-overlay {
+      position: fixed; inset: 0;
+      background: radial-gradient(ellipse at 50% 30%, #2d6a4f 0%, #0f2d1e 70%);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999;
+      opacity: 1;
+      transition: opacity 0.4s ease;
+    }
+    .login-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .login-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 40px 36px;
+      width: 100%; max-width: 380px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+      animation: loginIn 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    }
+    @keyframes loginIn {
+      from { opacity: 0; transform: translateY(24px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .login-ball {
+      font-size: 52px; text-align: center; margin-bottom: 8px;
+      animation: loginBounce 1.4s ease-in-out infinite;
+    }
+    @keyframes loginBounce {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+    .login-card h2 {
+      font-family: var(--font-head); font-size: 26px;
+      color: white; text-align: center; margin-bottom: 4px;
+    }
+    .login-card p {
+      font-size: 13px; font-weight: 700; color: var(--text-dim);
+      text-align: center; margin-bottom: 28px;
+    }
+    .login-group { margin-bottom: 16px; }
+    .login-group label {
+      display: block; font-size: 11px; font-weight: 800;
+      color: var(--text-dim); text-transform: uppercase;
+      letter-spacing: 1px; margin-bottom: 8px;
+    }
+    .login-group input {
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+      border: 1.5px solid rgba(255,255,255,0.14);
+      border-radius: 10px; padding: 13px 14px;
+      color: white; font-family: var(--font-body);
+      font-size: 16px; font-weight: 700; outline: none;
+      transition: border-color 0.2s;
+    }
+    .login-group input:focus  { border-color: var(--accent); }
+    .login-group input::placeholder { color: rgba(255,255,255,0.3); }
+    .login-error {
+      font-size: 13px; font-weight: 700; color: #ff6b6b;
+      text-align: center; min-height: 20px; margin-bottom: 8px;
+    }
+    .btn-login {
+      width: 100%; padding: 15px;
+      background: var(--accent); color: #1a1a1a;
+      border: none; border-radius: 50px;
+      font-family: var(--font-head); font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(255,214,10,0.35);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-login:hover  { box-shadow: 0 6px 24px rgba(255,214,10,0.5); }
+    .btn-login:active { transform: scale(0.97); }
+    .btn-login:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    /* ── SIGN OUT BUTTON ── */
+    .btn-signout {
+      display: flex; align-items: center; gap: 8px;
+      width: 100%; padding: 10px 12px;
+      background: rgba(230,57,70,0.12);
+      border: 1px solid rgba(230,57,70,0.2);
+      border-radius: 10px; color: #ff9999;
+      font-family: var(--font-body); font-size: 13px; font-weight: 700;
+      cursor: pointer; transition: background 0.15s;
+      margin-top: 8px;
+    }
+    .btn-signout:hover { background: rgba(230,57,70,0.22); }
+    .auth-user-email {
+      font-size: 11px; font-weight: 700; color: var(--text-dim);
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      margin-bottom: 6px;
+    }
+
     /* responsive */
     @media (max-width: 768px) {
       .sidebar { width: 56px; }
@@ -322,6 +417,25 @@
   </style>
 </head>
 <body>
+
+<!-- ── LOGIN OVERLAY ── -->
+<div class="login-overlay" id="login-overlay">
+  <div class="login-card">
+    <div class="login-ball">⚽</div>
+    <h2>Coach Dashboard</h2>
+    <p>Sign in to manage videos and view player stats</p>
+    <div class="login-group">
+      <label>Email</label>
+      <input type="email" id="login-email" placeholder="coach@example.com" autocomplete="email" />
+    </div>
+    <div class="login-group">
+      <label>Password</label>
+      <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" />
+    </div>
+    <div class="login-error" id="login-error"></div>
+    <button class="btn-login" id="btn-login" onclick="signIn()">Sign In 🔐</button>
+  </div>
+</div>
 
 <!-- ── SIDEBAR ── -->
 <aside class="sidebar">
@@ -356,6 +470,10 @@
       <div class="conn-dot" id="conn-dot"></div>
       <span id="conn-label">Connecting…</span>
     </div>
+    <div class="auth-user-email" id="auth-user-email" style="display:none"></div>
+    <button class="btn-signout" id="btn-signout" style="display:none" onclick="signOut()">
+      <span>🚪</span><span>Sign Out</span>
+    </button>
     <a href="index.html" class="back-link">← Back to App</a>
   </div>
 </aside>
@@ -509,6 +627,7 @@
 
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 <script src="shared.js"></script>
@@ -518,7 +637,93 @@
    DASHBOARD CONTROLLER
 ═══════════════════════════════════════════════════════════ */
 
-/* ── NAVIGATION ── */
+/* ── AUTH ── */
+const auth = firebase.auth();
+
+// Persist session across page refreshes
+auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+
+// Watch auth state — show/hide the login overlay
+auth.onAuthStateChanged(user => {
+  const overlay   = document.getElementById('login-overlay');
+  const emailEl   = document.getElementById('auth-user-email');
+  const signOutEl = document.getElementById('btn-signout');
+
+  if (user) {
+    overlay.classList.add('hidden');
+    if (emailEl)   { emailEl.textContent = user.email; emailEl.style.display = 'block'; }
+    if (signOutEl) signOutEl.style.display = 'flex';
+    // Start data subscriptions only after auth
+    startDataSubscriptions();
+  } else {
+    overlay.classList.remove('hidden');
+    if (emailEl)   emailEl.style.display   = 'none';
+    if (signOutEl) signOutEl.style.display = 'none';
+  }
+});
+
+async function signIn() {
+  const email    = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  const errorEl  = document.getElementById('login-error');
+  const btn      = document.getElementById('btn-login');
+
+  errorEl.textContent = '';
+  if (!email || !password) { errorEl.textContent = 'Please enter your email and password.'; return; }
+
+  btn.disabled    = true;
+  btn.textContent = 'Signing in…';
+
+  try {
+    await auth.signInWithEmailAndPassword(email, password);
+    // onAuthStateChanged handles the rest
+  } catch (err) {
+    const messages = {
+      'auth/invalid-credential':   'Wrong email or password.',
+      'auth/user-not-found':       'No account found with that email.',
+      'auth/wrong-password':       'Wrong password — try again.',
+      'auth/too-many-requests':    'Too many attempts. Try again later.',
+      'auth/invalid-email':        'Please enter a valid email address.',
+    };
+    errorEl.textContent = messages[err.code] || 'Sign-in failed. Check your details.';
+  } finally {
+    btn.disabled    = false;
+    btn.textContent = 'Sign In 🔐';
+  }
+}
+
+function signOut() {
+  if (confirm('Sign out of the dashboard?')) auth.signOut();
+}
+
+// Allow Enter key on password field
+document.getElementById('login-password').addEventListener('keydown', e => {
+  if (e.key === 'Enter') signIn();
+});
+document.getElementById('login-email').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('login-password').focus();
+});
+
+// Data subscriptions — only called after sign-in
+let subscriptionsStarted = false;
+function startDataSubscriptions() {
+  if (subscriptionsStarted) return;
+  subscriptionsStarted = true;
+  subscribeVideos(videos => {
+    allVideos = videos;
+    setConnected(true);
+    renderAnalytics();
+    renderManage();
+  });
+  subscribeScores(scores => {
+    allScores = scores;
+    renderLeaderboard();
+    renderSessions();
+    updateScoreStats();
+  });
+}
+
+
 function showSection(name, btn) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
@@ -560,12 +765,6 @@ function esc(s) {
 let allVideos = [];
 let videoSortKey = 'addedAt', videoSortDir = -1;
 
-subscribeVideos(videos => {
-  allVideos = videos;
-  setConnected(true);
-  renderAnalytics();
-  renderManage();
-});
 
 function renderAnalytics() {
   const total = allVideos.length;
@@ -728,12 +927,6 @@ let allScores = [];
 let scoresSortKey = 'timestamp', scoresSortDir = -1;
 let lbSortKey = 'bestScore', lbSortDir = -1;
 
-subscribeScores(scores => {
-  allScores = scores;
-  renderLeaderboard();
-  renderSessions();
-  updateScoreStats();
-});
 
 function updateScoreStats() {
   const players = new Set(allScores.map(s => s.playerName?.toLowerCase()));
