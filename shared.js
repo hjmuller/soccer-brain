@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   SOCCER ACADEMY — Firebase Data Layer (shared.js)
+   SOCCER BRAIN — Firebase Data Layer (shared.js)
 
    App Check is activated here before Firestore and Storage
    are accessed. Every request automatically carries a
