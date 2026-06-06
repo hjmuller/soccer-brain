@@ -1,33 +1,16 @@
 /* ═══════════════════════════════════════════════════════════
    SOCCER ACADEMY — Firebase Data Layer (shared.js)
-   Loaded after Firebase compat SDK scripts.
-   ═══════════════════════════════════════════════════════════
 
-   ▸ SETUP:
-     1. Go to console.firebase.google.com
-     2. Create project → Add web app
-     3. Paste the config object below
-     4. Enable Firestore Database (test mode to start)
-     5. Enable Storage (test mode to start)
-
-   ▸ FIRESTORE RULES (paste in Firestore → Rules):
-     rules_version = '2';
-     service cloud.firestore {
-       match /databases/{db}/documents {
-         match /videos/{id} {
-           allow read: if true;
-           allow write: if false;
-           allow update: if request.resource.data.keys().hasOnly(['views','lastWatched']);
-         }
-         match /scores/{id} {
-           allow read, create: if true;
-           allow update, delete: if false;
-         }
-       }
-     }
+   App Check is activated here before Firestore and Storage
+   are accessed. Every request automatically carries a
+   reCAPTCHA v3 attestation token — Firebase rejects any
+   request that arrives without one once enforcement is on.
 ═══════════════════════════════════════════════════════════ */
 
-// ── PASTE YOUR FIREBASE CONFIG HERE ────────────────────────
+// ── FIREBASE CONFIG ─────────────────────────────────────────
+// These values are safe to commit once App Check is enforced.
+// A stolen config cannot query your database without a valid
+// App Check token, which only your real domain can generate.
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyAro-W-3uZueg-KwuSt5rcQTfJ1xowy97Y",
   authDomain: "vids-for-kids-f5589.firebaseapp.com",
@@ -36,12 +19,29 @@ const FIREBASE_CONFIG = {
   messagingSenderId: "939611477279",
   appId: "1:939611477279:web:e2a95d5bca9ebed3ee8c2a"
 };
-// ───────────────────────────────────────────────────────────
 
-// Avoid double-init (dashboard.html loads this file too)
+// ── RECAPTCHA V3 SITE KEY ───────────────────────────────────
+// Get this from https://www.google.com/recaptcha/admin
+// Create a v3 site → add hjmuller.github.io as an allowed domain
+// → copy the site key here.
+const RECAPTCHA_SITE_KEY = '6LczhhAtAAAAADy-l6bkYFAn4T-taLlwAp9Rr1-8';
+// ────────────────────────────────────────────────────────────
+
 if (!firebase.apps.length) {
   firebase.initializeApp(FIREBASE_CONFIG);
 }
+
+// ── APP CHECK ───────────────────────────────────────────────
+// Must be activated BEFORE firebase.firestore() and
+// firebase.storage() so tokens attach to every request.
+//
+// To test locally, uncomment the debug line below, load the
+// page, copy the token printed to the browser console, then
+// register it in Firebase Console → App Check → your app →
+// ⋮ menu → Manage debug tokens.
+//
+// self.FIREBASE_APPCHECK_DEBUG_TOKEN = true; // ← local dev only
+firebase.appCheck().activate(RECAPTCHA_SITE_KEY, true);
 
 const db      = firebase.firestore();
 const storage = firebase.storage();
@@ -113,7 +113,7 @@ function uploadVideoFile(file, onProgress) {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   SCORE FUNCTIONS  (replaces Google Forms / forms.js)
+   SCORE FUNCTIONS
 ══════════════════════════════════════════════════════════════ */
 
 /** Log a completed game session to Firestore */
@@ -122,17 +122,17 @@ function logGameScore(data) {
   if (statusEl) statusEl.textContent = '💾 Saving…';
 
   return db.collection('scores').add({
-    playerName:       data.playerName      || 'Player',
-    score:            data.score           || 0,
-    accuracy:         data.accuracy        || 0,
-    avgSpeed:         data.avgResponseTime || 0,
-    correctAnswers:   data.correctAnswers  || 0,
-    totalQuestions:   data.totalQuestions  || 0,
-    level:            data.level           || '',
+    playerName:        data.playerName      || 'Player',
+    score:             data.score           || 0,
+    accuracy:          data.accuracy        || 0,
+    avgSpeed:          data.avgResponseTime || 0,
+    correctAnswers:    data.correctAnswers  || 0,
+    totalQuestions:    data.totalQuestions  || 0,
+    level:             data.level           || '',
     categoryBreakdown: data.categoryBreakdown || '{}',
-    date:             data.date            || new Date().toLocaleDateString(),
-    time:             data.time            || new Date().toLocaleTimeString(),
-    timestamp:        Date.now()
+    date:              data.date            || new Date().toLocaleDateString(),
+    time:              data.time            || new Date().toLocaleTimeString(),
+    timestamp:         Date.now()
   }).then(() => {
     if (statusEl) {
       statusEl.textContent = '✅ Score saved!';
@@ -154,7 +154,7 @@ function subscribeScores(callback) {
     );
 }
 
-/** One-time fetch of top N scores (for leaderboard) */
+/** One-time fetch of top N scores */
 function getLeaderboard(limitCount) {
   return db.collection('scores')
     .orderBy('score', 'desc')

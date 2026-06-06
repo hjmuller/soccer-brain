@@ -627,6 +627,7 @@
 
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
@@ -639,11 +640,8 @@
 
 /* ── AUTH ── */
 const auth = firebase.auth();
-
-// Persist session across page refreshes
 auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
-// Watch auth state — show/hide the login overlay
 auth.onAuthStateChanged(user => {
   const overlay   = document.getElementById('login-overlay');
   const emailEl   = document.getElementById('auth-user-email');
@@ -653,7 +651,6 @@ auth.onAuthStateChanged(user => {
     overlay.classList.add('hidden');
     if (emailEl)   { emailEl.textContent = user.email; emailEl.style.display = 'block'; }
     if (signOutEl) signOutEl.style.display = 'flex';
-    // Start data subscriptions only after auth
     startDataSubscriptions();
   } else {
     overlay.classList.remove('hidden');
