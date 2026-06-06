@@ -1,4 +1,4 @@
-# ⚽ Soccer Academy
+# ⚽ Soccer Brain
 
 A combined training video library and soccer decision-making quiz for young players. Built for GitHub Pages with Firebase as the backend.
 
@@ -41,7 +41,7 @@ The app uses Firebase for three things: storing videos (Firestore), uploading vi
 ### A. Create a Firebase Project
 
 1. Go to [console.firebase.google.com](https://console.firebase.google.com)
-2. Click **Add project** → name it (e.g. `soccer-academy`) → Continue through the steps
+2. Click **Add project** → name it (e.g. `soccer-brain`) → Continue through the steps
 3. On the project overview, click **</>** (Web) to add a web app
 4. Give it a nickname → click **Register app**
 5. Copy the `firebaseConfig` object shown — you'll need it in the next step
