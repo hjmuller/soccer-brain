@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Soccer Brain — Coach Dashboard</title>
+  <title>Soccer Academy — Coach Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
@@ -35,7 +35,6 @@
       display: flex;
     }
 
-    /* pitch stripes */
     body::before {
       content: '';
       position: fixed; inset: 0;
@@ -268,6 +267,60 @@
     .btn-submit:active { transform: scale(0.97); }
     .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
 
+    /* ── YOUTUBE PREVIEW ── */
+    .yt-preview {
+      display: none;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1.5px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.3);
+      margin-top: 10px;
+    }
+    .yt-preview.visible { display: block; }
+    .yt-preview img {
+      width: 100%;
+      display: block;
+      max-height: 200px;
+      object-fit: cover;
+    }
+    .yt-preview-meta {
+      padding: 10px 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .yt-preview-meta .yt-icon { font-size: 20px; flex-shrink: 0; }
+    .yt-preview-fetched-title {
+      font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.85);
+      line-height: 1.3;
+    }
+    .yt-preview-meta .yt-check {
+      margin-left: auto; flex-shrink: 0;
+      font-size: 18px;
+    }
+    .yt-fetch-status {
+      font-size: 12px; font-weight: 700;
+      color: var(--text-dim);
+      margin-top: 6px;
+      min-height: 18px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .yt-fetch-status.loading { color: var(--accent); }
+    .yt-fetch-status.success { color: #52b788; }
+    .yt-fetch-status.error   { color: #ff9999; }
+
+    /* emoji section hidden when YouTube thumbnail is active */
+    .emoji-section { transition: opacity 0.2s; }
+    .emoji-section.hidden-by-yt {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+    .emoji-section-note {
+      font-size: 11px; font-weight: 700;
+      color: var(--accent);
+      margin-top: 6px;
+      display: none;
+    }
+    .emoji-section-note.visible { display: block; }
+
     /* Toast */
     .toast {
       position: fixed; bottom: 24px; right: 24px;
@@ -305,7 +358,6 @@
     .podium-score { font-family: var(--font-head); font-size: 30px; color: white; }
     .podium-meta  { font-size: 11px; color: rgba(255,255,255,0.75); font-weight: 700; margin-top: 3px; }
 
-    /* empty state */
     .empty-state {
       text-align: center; padding: 60px 20px; color: var(--text-dim);
     }
@@ -407,7 +459,6 @@
       margin-bottom: 6px;
     }
 
-    /* responsive */
     @media (max-width: 768px) {
       .sidebar { width: 56px; }
       .sidebar .nav-item span:not(.nav-icon) { display: none; }
@@ -440,7 +491,7 @@
 <!-- ── SIDEBAR ── -->
 <aside class="sidebar">
   <div class="sidebar-brand">
-    <h1>Soccer <span>Brain</span></h1>
+    <h1>Soccer <span>Academy</span></h1>
     <p>Coach Dashboard</p>
   </div>
 
@@ -513,10 +564,7 @@
       <div><h2>➕ Add Video</h2><p>Share a new training video with your players</p></div>
     </div>
     <div class="form-card">
-      <div class="form-group">
-        <label>Video Title</label>
-        <input type="text" id="f-title" placeholder="e.g. How to do a step-over" maxlength="80" />
-      </div>
+
       <div class="form-group">
         <label>Source</label>
         <div class="radio-group">
@@ -530,10 +578,23 @@
           </label>
         </div>
       </div>
+
+      <!-- YouTube URL + auto-fetch preview -->
       <div class="form-group" id="fg-url">
         <label>YouTube URL</label>
-        <input type="url" id="f-url" placeholder="https://www.youtube.com/watch?v=..." />
+        <input type="url" id="f-url" placeholder="https://www.youtube.com/watch?v=…" />
+        <div class="yt-fetch-status" id="yt-fetch-status"></div>
+        <!-- Preview card shown after successful fetch -->
+        <div class="yt-preview" id="yt-preview">
+          <img id="yt-thumb" src="" alt="YouTube thumbnail" />
+          <div class="yt-preview-meta">
+            <span class="yt-icon">▶️</span>
+            <span class="yt-preview-fetched-title" id="yt-fetched-title"></span>
+            <span class="yt-check">✅</span>
+          </div>
+        </div>
       </div>
+
       <div class="form-group" id="fg-file" style="display:none">
         <label>Video File</label>
         <input type="file" id="f-file" accept="video/*" style="color:white" />
@@ -541,6 +602,12 @@
           <div class="progress-bar" id="upload-progress-bar"></div>
         </div>
       </div>
+
+      <div class="form-group">
+        <label>Video Title</label>
+        <input type="text" id="f-title" placeholder="e.g. How to do a step-over" maxlength="80" />
+      </div>
+
       <div class="form-group">
         <label>Category / Tag</label>
         <select id="f-tag">
@@ -549,14 +616,21 @@
           <option>Tactics</option><option>Warm-Up</option><option>Funny</option>
         </select>
       </div>
-      <div class="form-group">
-        <label>Thumbnail Emoji</label>
+
+      <!-- Emoji picker — dimmed when YouTube thumbnail is available -->
+      <div class="form-group emoji-section" id="emoji-section">
+        <label>Thumbnail Emoji <span style="font-weight:600;text-transform:none;font-size:11px">(used when no YouTube thumbnail)</span></label>
         <div class="emoji-grid" id="emoji-grid"></div>
+        <div class="emoji-section-note" id="emoji-section-note">
+          ✨ YouTube thumbnail will be used instead of an emoji
+        </div>
       </div>
+
       <div class="form-group">
         <label>Coach's Note <span style="font-weight:600;text-transform:none">(optional)</span></label>
         <textarea id="f-note" placeholder="A message from you to your player…" rows="3"></textarea>
       </div>
+
       <button class="btn-submit" id="btn-save-video" onclick="saveVideo()">Save Video ⚽</button>
     </div>
   </section>
@@ -673,7 +747,6 @@ async function signIn() {
 
   try {
     await auth.signInWithEmailAndPassword(email, password);
-    // onAuthStateChanged handles the rest
   } catch (err) {
     const messages = {
       'auth/invalid-credential':   'Wrong email or password.',
@@ -693,7 +766,6 @@ function signOut() {
   if (confirm('Sign out of the dashboard?')) auth.signOut();
 }
 
-// Allow Enter key on password field
 document.getElementById('login-password').addEventListener('keydown', e => {
   if (e.key === 'Enter') signIn();
 });
@@ -701,7 +773,6 @@ document.getElementById('login-email').addEventListener('keydown', e => {
   if (e.key === 'Enter') document.getElementById('login-password').focus();
 });
 
-// Data subscriptions — only called after sign-in
 let subscriptionsStarted = false;
 function startDataSubscriptions() {
   if (subscriptionsStarted) return;
@@ -720,7 +791,6 @@ function startDataSubscriptions() {
   });
 }
 
-
 function showSection(name, btn) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
@@ -728,7 +798,6 @@ function showSection(name, btn) {
   if (btn) btn.classList.add('active');
 }
 
-/* ── CONNECTION INDICATOR ── */
 function setConnected(ok) {
   const dot = document.getElementById('conn-dot');
   const lbl = document.getElementById('conn-label');
@@ -736,7 +805,6 @@ function setConnected(ok) {
   if (lbl) lbl.textContent = ok ? 'Live' : 'Offline';
 }
 
-/* ── TOAST ── */
 function toast(msg, duration = 3000) {
   const el = document.getElementById('toast');
   el.textContent = msg;
@@ -744,7 +812,6 @@ function toast(msg, duration = 3000) {
   setTimeout(() => el.classList.remove('show'), duration);
 }
 
-/* ── AVATAR COLORS ── */
 const AV_COLORS = ['#e63946','#2a9d8f','#f77f00','#8338ec','#06d6a0','#118ab2','#ff6b35','#4a90d9'];
 function avColor(name) {
   let h = 0;
@@ -757,11 +824,114 @@ function esc(s) {
 }
 
 /* ══════════════════════════════════════════════════════════
+   YOUTUBE AUTO-FETCH
+══════════════════════════════════════════════════════════ */
+let ytFetchTimer = null;
+let ytThumbnailUrl = null; // set when a valid YouTube video is detected
+
+function extractYouTubeId(url) {
+  if (!url) return null;
+  const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^&?/\s]{11})/);
+  return m ? m[1] : null;
+}
+
+function setYtStatus(type, msg) {
+  const el = document.getElementById('yt-fetch-status');
+  el.className = 'yt-fetch-status' + (type ? ' ' + type : '');
+  el.textContent = msg;
+}
+
+async function fetchYouTubeInfo(url) {
+  const videoId = extractYouTubeId(url);
+  if (!videoId) {
+    // Not a YouTube URL — clear preview
+    clearYtPreview();
+    return;
+  }
+
+  setYtStatus('loading', '⏳ Fetching video info…');
+
+  try {
+    // YouTube thumbnail is always available at this URL pattern (no API key needed)
+    // Use maxresdefault, fall back to hqdefault
+    const thumbHq  = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+    const thumbMax = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+
+    // Fetch title via oEmbed (no API key needed, public endpoint)
+    const oembedUrl = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`;
+    const res = await fetch(oembedUrl);
+
+    if (!res.ok) throw new Error('oEmbed failed');
+
+    const data = await res.json();
+    const title = data.title || '';
+
+    // Show preview
+    const previewEl    = document.getElementById('yt-preview');
+    const thumbEl      = document.getElementById('yt-thumb');
+    const fetchedTitle = document.getElementById('yt-fetched-title');
+
+    // Try maxres first, fall back to hq
+    thumbEl.onerror = () => { thumbEl.src = thumbHq; thumbEl.onerror = null; };
+    thumbEl.src = thumbMax;
+    fetchedTitle.textContent = title;
+    previewEl.classList.add('visible');
+
+    // Store thumbnail URL so saveVideo() can use it
+    ytThumbnailUrl = thumbHq; // always use hqdefault for storage (reliable)
+
+    // Auto-fill title if the field is empty or was previously auto-filled
+    const titleInput = document.getElementById('f-title');
+    if (!titleInput.value || titleInput.dataset.autofilled === 'true') {
+      titleInput.value = title;
+      titleInput.dataset.autofilled = 'true';
+    }
+
+    // Dim the emoji picker since we have a real thumbnail
+    document.getElementById('emoji-section').classList.add('hidden-by-yt');
+    document.getElementById('emoji-section-note').classList.add('visible');
+
+    setYtStatus('success', '✅ Title and thumbnail loaded automatically');
+
+  } catch (err) {
+    // oEmbed failed (private video, invalid ID, etc.)
+    clearYtPreview();
+    setYtStatus('error', '⚠️ Could not load video info — please enter the title manually');
+  }
+}
+
+function clearYtPreview() {
+  document.getElementById('yt-preview').classList.remove('visible');
+  document.getElementById('yt-fetched-title').textContent = '';
+  document.getElementById('yt-thumb').src = '';
+  document.getElementById('emoji-section').classList.remove('hidden-by-yt');
+  document.getElementById('emoji-section-note').classList.remove('visible');
+  ytThumbnailUrl = null;
+
+  // Clear autofill flag so manual edits are preserved
+  const titleInput = document.getElementById('f-title');
+  titleInput.dataset.autofilled = 'false';
+}
+
+// Debounced listener on the URL field
+document.getElementById('f-url').addEventListener('input', function() {
+  clearTimeout(ytFetchTimer);
+  const val = this.value.trim();
+  if (!val) { clearYtPreview(); setYtStatus('', ''); return; }
+  setYtStatus('loading', '⏳ Detecting video…');
+  ytFetchTimer = setTimeout(() => fetchYouTubeInfo(val), 600);
+});
+
+// If user edits title after autofill, stop overwriting it
+document.getElementById('f-title').addEventListener('input', function() {
+  this.dataset.autofilled = 'false';
+});
+
+/* ══════════════════════════════════════════════════════════
    VIDEO SECTION
 ══════════════════════════════════════════════════════════ */
 let allVideos = [];
 let videoSortKey = 'addedAt', videoSortDir = -1;
-
 
 function renderAnalytics() {
   const total = allVideos.length;
@@ -782,10 +952,14 @@ function renderAnalytics() {
   document.getElementById('analytics-body').innerHTML = sorted.map(v => {
     const date  = v.addedAt     ? new Date(v.addedAt).toLocaleDateString('en-US', {month:'short',day:'numeric'}) : '—';
     const lw    = v.lastWatched ? new Date(v.lastWatched).toLocaleDateString('en-US', {month:'short',day:'numeric'}) : 'Never';
+    // Show thumbnail image if available, else emoji
+    const thumbHtml = v.thumbnailUrl
+      ? `<img src="${esc(v.thumbnailUrl)}" style="width:48px;height:34px;object-fit:cover;border-radius:6px;flex-shrink:0" />`
+      : `<span style="font-size:24px">${esc(v.emoji||'⚽')}</span>`;
     return `<tr>
       <td>
         <div style="display:flex;align-items:center;gap:10px">
-          <span style="font-size:24px">${esc(v.emoji||'⚽')}</span>
+          ${thumbHtml}
           <span style="font-weight:800">${esc(v.title)}</span>
         </div>
       </td>
@@ -801,10 +975,13 @@ function renderAnalytics() {
 function renderManage() {
   document.getElementById('manage-body').innerHTML = allVideos.map(v => {
     const date = v.addedAt ? new Date(v.addedAt).toLocaleDateString() : '—';
+    const thumbHtml = v.thumbnailUrl
+      ? `<img src="${esc(v.thumbnailUrl)}" style="width:48px;height:34px;object-fit:cover;border-radius:6px;flex-shrink:0" />`
+      : `<span style="font-size:24px">${esc(v.emoji||'⚽')}</span>`;
     return `<tr>
       <td>
         <div style="display:flex;align-items:center;gap:10px">
-          <span style="font-size:24px">${esc(v.emoji||'⚽')}</span>
+          ${thumbHtml}
           <div>
             <div style="font-weight:800">${esc(v.title)}</div>
             <div style="font-size:11px;color:var(--text-dim)">${esc(v.sourceType==='youtube'?'YouTube':'Uploaded')}</div>
@@ -861,6 +1038,8 @@ function toggleSource(src) {
   document.getElementById('fg-file').style.display = src === 'upload'  ? 'block' : 'none';
   document.getElementById('rl-youtube').classList.toggle('checked', src === 'youtube');
   document.getElementById('rl-upload').classList.toggle('checked',  src === 'upload');
+  // Clear YouTube preview when switching to upload
+  if (src === 'upload') { clearYtPreview(); setYtStatus('', ''); }
 }
 
 async function saveVideo() {
@@ -894,7 +1073,16 @@ async function saveVideo() {
       storagePath = result.path;
     }
 
-    await addVideo({ title, videoUrl, note, tag, emoji: selectedEmoji, sourceType: selectedSource, storagePath });
+    await addVideo({
+      title,
+      videoUrl,
+      note,
+      tag,
+      emoji: selectedEmoji,
+      sourceType: selectedSource,
+      storagePath,
+      thumbnailUrl: ytThumbnailUrl || null   // ← new field
+    });
 
     // Reset form
     document.getElementById('f-title').value = '';
@@ -903,6 +1091,9 @@ async function saveVideo() {
     document.getElementById('f-file').value  = '';
     document.getElementById('upload-progress-wrap').style.display = 'none';
     document.getElementById('upload-progress-bar').style.width    = '0%';
+    document.getElementById('f-title').dataset.autofilled = 'false';
+    clearYtPreview();
+    setYtStatus('', '');
     selectedEmoji = '⚽';
     emojiGrid.querySelectorAll('.emoji-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
 
@@ -923,7 +1114,6 @@ async function saveVideo() {
 let allScores = [];
 let scoresSortKey = 'timestamp', scoresSortDir = -1;
 let lbSortKey = 'bestScore', lbSortDir = -1;
-
 
 function updateScoreStats() {
   const players = new Set(allScores.map(s => s.playerName?.toLowerCase()));
@@ -962,7 +1152,6 @@ function renderLeaderboard() {
     return (va > vb ? 1 : va < vb ? -1 : 0) * lbSortDir;
   });
 
-  // Podium
   const medals = ['gold','silver','bronze'];
   const icons  = ['🥇','🥈','🥉'];
   document.getElementById('podium-row').innerHTML = players.slice(0,3).map((p,i) => `
@@ -977,7 +1166,6 @@ function renderLeaderboard() {
 
   document.getElementById('leaderboard-body').innerHTML = players.map((p,i) => {
     const color = avColor(p.name);
-    const rankCls = ['score-val','',''][i]||'';
     return `<tr>
       <td style="text-align:center;font-family:var(--font-head);font-size:18px;color:var(--text-dim)">${i+1}</td>
       <td>
