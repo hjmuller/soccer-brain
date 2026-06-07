@@ -354,21 +354,19 @@ function renderVideos() {
     const isNew  = v.addedAt && (now - v.addedAt) < 48 * 60 * 60 * 1000;
     const views  = v.views || 0;
     const date   = v.addedAt ? new Date(v.addedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
+    // Use YouTube thumbnail image if available, otherwise fall back to emoji
+    const thumbInner = v.thumbnailUrl
+      ? `<img src="${v.thumbnailUrl}" alt="${escHtml(v.title)}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />`
+      : `<span style="position:relative;z-index:1">${v.emoji || '⚽'}</span>`;
 
     return `
       <div class="video-card" onclick="openVideoModal('${v.id}')"
            style="animation-delay: ${Math.min(i * 0.05, 0.4)}s">
         <div class="card-thumb">
-          <span style="position:relative;z-index:1">${v.emoji || '⚽'}</span>
+          ${thumbInner}
           ${isNew  ? `<span class="card-new-badge">NEW</span>` : ''}
           ${views > 0 ? `<span class="card-views">👁 ${views}</span>` : ''}
           <div class="card-play-btn">▶</div>
-        </div>
-        <div class="card-body">
-          <span class="card-tag">${escHtml(v.tag || 'General')}</span>
-          <div class="card-title">${escHtml(v.title)}</div>
-          ${v.note ? `<div class="card-note">${escHtml(v.note)}</div>` : ''}
-          ${date   ? `<div class="card-date">${date}</div>` : ''}
         </div>
       </div>`;
   }).join('');
