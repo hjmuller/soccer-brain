@@ -1,16 +1,7 @@
 /* ═══════════════════════════════════════════════════════════
-   SOCCER BRAIN — Firebase Data Layer (shared.js)
-
-   App Check is activated here before Firestore and Storage
-   are accessed. Every request automatically carries a
-   reCAPTCHA v3 attestation token — Firebase rejects any
-   request that arrives without one once enforcement is on.
+   SOCCER ACADEMY — Firebase Data Layer (shared.js)
 ═══════════════════════════════════════════════════════════ */
 
-// ── FIREBASE CONFIG ─────────────────────────────────────────
-// These values are safe to commit once App Check is enforced.
-// A stolen config cannot query your database without a valid
-// App Check token, which only your real domain can generate.
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyAro-W-3uZueg-KwuSt5rcQTfJ1xowy97Y",
   authDomain: "vids-for-kids-f5589.firebaseapp.com",
@@ -20,26 +11,12 @@ const FIREBASE_CONFIG = {
   appId: "1:939611477279:web:e2a95d5bca9ebed3ee8c2a"
 };
 
-// ── RECAPTCHA V3 SITE KEY ───────────────────────────────────
-// Get this from https://www.google.com/recaptcha/admin
-// Create a v3 site → add hjmuller.github.io as an allowed domain
-// → copy the site key here.
 const RECAPTCHA_SITE_KEY = '6LczhhAtAAAAADy-l6bkYFAn4T-taLlwAp9Rr1-8';
-// ────────────────────────────────────────────────────────────
 
 if (!firebase.apps.length) {
   firebase.initializeApp(FIREBASE_CONFIG);
 }
 
-// ── APP CHECK ───────────────────────────────────────────────
-// Must be activated BEFORE firebase.firestore() and
-// firebase.storage() so tokens attach to every request.
-//
-// To test locally, uncomment the debug line below, load the
-// page, copy the token printed to the browser console, then
-// register it in Firebase Console → App Check → your app →
-// ⋮ menu → Manage debug tokens.
-//
 // self.FIREBASE_APPCHECK_DEBUG_TOKEN = true; // ← local dev only
 firebase.appCheck().activate(RECAPTCHA_SITE_KEY, true);
 
@@ -50,7 +27,6 @@ const storage = firebase.storage();
    VIDEO FUNCTIONS
 ══════════════════════════════════════════════════════════════ */
 
-/** Real-time subscription to all videos, newest first */
 function subscribeVideos(callback) {
   return db.collection('videos')
     .orderBy('addedAt', 'desc')
@@ -60,7 +36,6 @@ function subscribeVideos(callback) {
     );
 }
 
-/** Increment view count + set lastWatched timestamp */
 function recordView(videoId) {
   return db.collection('videos').doc(videoId).update({
     views:       firebase.firestore.FieldValue.increment(1),
@@ -68,23 +43,23 @@ function recordView(videoId) {
   }).catch(e => console.warn('recordView:', e));
 }
 
-/** Add a new video document */
-async function addVideo({ title, videoUrl, note, tag, emoji, sourceType, storagePath }) {
+/** Add a new video document — now includes optional thumbnailUrl */
+async function addVideo({ title, videoUrl, note, tag, emoji, sourceType, storagePath, thumbnailUrl }) {
   return db.collection('videos').add({
     title,
     videoUrl,
-    note:        note || '',
-    tag:         tag  || 'General',
-    emoji:       emoji || '⚽',
-    sourceType:  sourceType || 'youtube',
-    storagePath: storagePath || null,
-    addedAt:     Date.now(),
-    views:       0,
-    lastWatched: null
+    note:         note || '',
+    tag:          tag  || 'General',
+    emoji:        emoji || '⚽',
+    sourceType:   sourceType || 'youtube',
+    storagePath:  storagePath  || null,
+    thumbnailUrl: thumbnailUrl || null,   // YouTube thumbnail URL or null
+    addedAt:      Date.now(),
+    views:        0,
+    lastWatched:  null
   });
 }
 
-/** Delete a video document (and its Storage file if present) */
 async function deleteVideo(videoId, storagePath) {
   if (storagePath) {
     try { await storage.ref(storagePath).delete(); } catch (e) { /* file already gone */ }
@@ -92,7 +67,6 @@ async function deleteVideo(videoId, storagePath) {
   return db.collection('videos').doc(videoId).delete();
 }
 
-/** Upload a video file to Firebase Storage, returns { url, path } */
 function uploadVideoFile(file, onProgress) {
   const path = `videos/${Date.now()}_${file.name}`;
   const task = storage.ref(path).put(file);
@@ -116,7 +90,6 @@ function uploadVideoFile(file, onProgress) {
    SCORE FUNCTIONS
 ══════════════════════════════════════════════════════════════ */
 
-/** Log a completed game session to Firestore */
 function logGameScore(data) {
   const statusEl = document.getElementById('forms-status');
   if (statusEl) statusEl.textContent = '💾 Saving…';
@@ -144,7 +117,6 @@ function logGameScore(data) {
   });
 }
 
-/** Real-time subscription to all scores, newest first */
 function subscribeScores(callback) {
   return db.collection('scores')
     .orderBy('timestamp', 'desc')
@@ -154,7 +126,6 @@ function subscribeScores(callback) {
     );
 }
 
-/** One-time fetch of top N scores */
 function getLeaderboard(limitCount) {
   return db.collection('scores')
     .orderBy('score', 'desc')
