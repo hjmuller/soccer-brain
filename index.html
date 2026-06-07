@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>⚽ Soccer Brain</title>
+  <title>⚽ Soccer Academy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
@@ -11,9 +11,6 @@
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════════════════
-     BOTTOM TAB BAR
-══════════════════════════════════════════════════════════ -->
 <nav class="tab-bar" id="app-tab-bar">
   <button class="tab-item" data-tab="videos" id="tab-btn-videos">
     <span class="tab-icon">📺</span>
@@ -25,12 +22,9 @@
   </button>
 </nav>
 
-<!-- ══════════════════════════════════════════════════════════
-     TAB 1 — VIDEO LIBRARY
-══════════════════════════════════════════════════════════ -->
+<!-- TAB 1 — VIDEO LIBRARY -->
 <section id="tab-videos" class="tab-section">
 
-  <!-- Loading screen -->
   <div id="vid-loading" style="
     position: absolute; inset: 0; display: flex; flex-direction: column;
     align-items: center; justify-content: center; gap: 16px;
@@ -48,26 +42,20 @@
     @keyframes blink { 0%,80%,100%{opacity:.2} 40%{opacity:1} }
   </style>
 
-  <!-- Header -->
   <header class="vid-header">
     <div class="vid-header-brand">
       <div class="vid-header-ball">⚽</div>
       <div>
-        <h1>Soccer <span>Brain</span></h1>
+        <h1>Soccer <span>Academy</span></h1>
         <div class="vid-header-sub">Training Videos</div>
       </div>
     </div>
     <div class="vid-count-badge" id="vid-count-badge">0 Videos</div>
   </header>
 
-  <!-- Category filter bar -->
-  <div class="filter-bar" id="filter-bar">
-    <!-- populated by JS -->
-  </div>
+  <div class="filter-bar" id="filter-bar"></div>
 
-  <!-- Video grid -->
   <div class="video-grid" id="video-grid">
-    <!-- skeleton cards while loading -->
     <div class="skeleton-card"><div class="skeleton-thumb"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div>
     <div class="skeleton-card"><div class="skeleton-thumb"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div>
     <div class="skeleton-card"><div class="skeleton-thumb"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div>
@@ -75,9 +63,7 @@
 
 </section>
 
-<!-- ══════════════════════════════════════════════════════════
-     VIDEO MODAL
-══════════════════════════════════════════════════════════ -->
+<!-- VIDEO MODAL -->
 <div id="video-modal" class="video-modal" role="dialog" aria-modal="true">
   <div class="modal-backdrop" id="modal-backdrop"></div>
   <div class="modal-sheet" id="modal-sheet">
@@ -97,12 +83,9 @@
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════
-     TAB 2 — BRAIN QUIZ  (all Soccer Brain game screens)
-══════════════════════════════════════════════════════════ -->
+<!-- TAB 2 — BRAIN QUIZ -->
 <div id="quiz-container" style="display:none">
 
-  <!-- SPLASH SCREEN -->
   <div id="screen-splash" class="screen">
     <div class="splash-bg"></div>
     <div class="splash-content">
@@ -118,7 +101,6 @@
     </div>
   </div>
 
-  <!-- PLAYER SETUP SCREEN -->
   <div id="screen-setup" class="screen">
     <div class="setup-content">
       <h2>Who's Playing? 🌟</h2>
@@ -142,7 +124,6 @@
     </div>
   </div>
 
-  <!-- GAME SCREEN -->
   <div id="screen-game" class="screen">
     <header class="game-header">
       <div class="hud-item">
@@ -164,10 +145,9 @@
         <span class="hud-value" id="hud-round">1/18</span>
       </div>
     </header>
-    <div id="scenario-container"><!-- dynamically rendered --></div>
+    <div id="scenario-container"></div>
   </div>
 
-  <!-- RESULTS SCREEN -->
   <div id="screen-results" class="screen">
     <div class="results-content">
       <div class="result-badge" id="result-badge">🏆</div>
@@ -206,7 +186,6 @@
     </div>
   </div>
 
-  <!-- STATS SCREEN -->
   <div id="screen-stats" class="screen">
     <div class="stats-content">
       <h2>My Soccer Brain 📊</h2>
@@ -228,50 +207,36 @@
 
 </div><!-- #quiz-container -->
 
-<!-- COACH BUBBLE (used by quiz game, lives outside quiz-container so it appears over everything) -->
 <div id="coach-bubble" class="coach-bubble hidden">
   <div class="coach-avatar">🧑‍🏫</div>
   <div class="coach-text" id="coach-text"></div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════
-     FIREBASE SDK  (compat mode — no module bundler needed)
-══════════════════════════════════════════════════════════ -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
-
-<!-- SHARED DATA LAYER -->
 <script src="shared.js"></script>
-
-<!-- GAME ENGINE -->
 <script src="game.js"></script>
 
-<!-- ══════════════════════════════════════════════════════════
-     APP CONTROLLER  (tab switching + video library)
-══════════════════════════════════════════════════════════ -->
 <script>
-/* ─── TAB SWITCHING ──────────────────────────────────────── */
-const tabBar      = document.getElementById('app-tab-bar');
-const tabVideos   = document.getElementById('tab-videos');
+/* ── TAB SWITCHING ── */
+const tabBar        = document.getElementById('app-tab-bar');
+const tabVideos     = document.getElementById('tab-videos');
 const quizContainer = document.getElementById('quiz-container');
 
 function switchTab(name) {
-  // Update tab buttons
   document.querySelectorAll('.tab-item').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.tab === name);
   });
-
   if (name === 'videos') {
-    tabVideos.style.display   = 'block';
+    tabVideos.style.display     = 'block';
     quizContainer.style.display = 'none';
-    tabBar.style.display      = 'flex'; // always show on videos
+    tabBar.style.display        = 'flex';
   } else {
-    tabVideos.style.display   = 'none';
+    tabVideos.style.display     = 'none';
     quizContainer.style.display = 'block';
-    tabBar.style.display      = 'flex';
-    // If game hasn't started yet, make sure splash is active
+    tabBar.style.display        = 'flex';
     if (typeof showScreen === 'function') {
       const anyActive = document.querySelector('#quiz-container .screen.active');
       if (!anyActive) showScreen('splash');
@@ -283,26 +248,22 @@ document.querySelectorAll('.tab-item').forEach(btn => {
   btn.addEventListener('click', () => switchTab(btn.dataset.tab));
 });
 
-// Patch game.js showScreen to manage tab bar visibility during gameplay
 const _origShowScreen = window.showScreen;
 if (typeof _origShowScreen === 'function') {
   window.showScreen = function(name) {
     _origShowScreen(name);
-    // Hide tab bar during active game for full-screen experience
     tabBar.style.display = (name === 'game') ? 'none' : 'flex';
-    // Also move coach bubble for game screen
     const cb = document.getElementById('coach-bubble');
     if (cb) cb.style.bottom = (name === 'game') ? '16px' : 'calc(var(--tab-h) + 12px)';
   };
 }
 
-/* ─── VIDEO LIBRARY ──────────────────────────────────────── */
+/* ── VIDEO LIBRARY ── */
 const VIDEO_CATEGORIES = ['All', 'Dribbling', 'Shooting', 'Passing', 'Defense', 'Goalkeeper', 'Rules', 'Tactics', 'Warm-Up', 'Funny'];
 let allVideos      = [];
 let activeCategory = 'All';
 let unsubVideos    = null;
 
-// Build filter chips
 const filterBar = document.getElementById('filter-bar');
 VIDEO_CATEGORIES.forEach(cat => {
   const chip = document.createElement('button');
@@ -317,14 +278,12 @@ VIDEO_CATEGORIES.forEach(cat => {
   filterBar.appendChild(chip);
 });
 
-// Subscribe to videos from Firebase
 function startVideoSubscription() {
-  if (unsubVideos) return; // already subscribed
+  if (unsubVideos) return;
   unsubVideos = subscribeVideos(videos => {
     allVideos = videos;
     document.getElementById('vid-loading').style.display = 'none';
     renderVideos();
-    // Update count badge
     const badge = document.getElementById('vid-count-badge');
     if (badge) badge.textContent = videos.length + ' Video' + (videos.length !== 1 ? 's' : '');
   });
@@ -351,34 +310,42 @@ function renderVideos() {
   }
 
   grid.innerHTML = filtered.map((v, i) => {
-    const isNew  = v.addedAt && (now - v.addedAt) < 48 * 60 * 60 * 1000;
-    const views  = v.views || 0;
-    const date   = v.addedAt ? new Date(v.addedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
-    // Use YouTube thumbnail image if available, otherwise fall back to emoji
-    const thumbInner = v.thumbnailUrl
-      ? `<img src="${v.thumbnailUrl}" alt="${escHtml(v.title)}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />`
+    const isNew = v.addedAt && (now - v.addedAt) < 48 * 60 * 60 * 1000;
+    const views = v.views || 0;
+    const date  = v.addedAt ? new Date(v.addedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
+
+    // Thumbnail: real YouTube image if available, else emoji background
+    const thumbContent = v.thumbnailUrl
+      ? `<img src="${escHtml(v.thumbnailUrl)}" alt="${escHtml(v.title)}"
+             style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />`
       : `<span style="position:relative;z-index:1">${v.emoji || '⚽'}</span>`;
 
     return `
       <div class="video-card" onclick="openVideoModal('${v.id}')"
            style="animation-delay: ${Math.min(i * 0.05, 0.4)}s">
         <div class="card-thumb">
-          ${thumbInner}
+          ${thumbContent}
           ${isNew  ? `<span class="card-new-badge">NEW</span>` : ''}
           ${views > 0 ? `<span class="card-views">👁 ${views}</span>` : ''}
           <div class="card-play-btn">▶</div>
+        </div>
+        <div class="card-body">
+          <span class="card-tag">${escHtml(v.tag || 'General')}</span>
+          <div class="card-title">${escHtml(v.title)}</div>
+          ${v.note ? `<div class="card-note">${escHtml(v.note)}</div>` : ''}
+          ${date   ? `<div class="card-date">${date}</div>` : ''}
         </div>
       </div>`;
   }).join('');
 }
 
-/* ─── VIDEO MODAL ────────────────────────────────────────── */
-const modal        = document.getElementById('video-modal');
+/* ── VIDEO MODAL ── */
+const modal         = document.getElementById('video-modal');
 const modalBackdrop = document.getElementById('modal-backdrop');
-const modalPlayer  = document.getElementById('modal-player');
-const modalTitle   = document.getElementById('modal-title');
-const modalTag     = document.getElementById('modal-tag');
-const modalNote    = document.getElementById('modal-note');
+const modalPlayer   = document.getElementById('modal-player');
+const modalTitle    = document.getElementById('modal-title');
+const modalTag      = document.getElementById('modal-tag');
+const modalNote     = document.getElementById('modal-note');
 const modalNoteWrap = document.getElementById('modal-note-wrap');
 const modalCloseBtn = document.getElementById('modal-close-btn');
 
@@ -389,18 +356,16 @@ function openVideoModal(videoId) {
   if (!video) return;
 
   currentVideoId = videoId;
-
   modalTitle.textContent = video.title || '';
   modalTag.textContent   = video.tag   || '';
 
   if (video.note) {
-    modalNote.textContent     = video.note;
+    modalNote.textContent       = video.note;
     modalNoteWrap.style.display = 'block';
   } else {
     modalNoteWrap.style.display = 'none';
   }
 
-  // Build player
   modalPlayer.innerHTML = '';
   if (video.sourceType === 'youtube' || (video.videoUrl && isYouTubeUrl(video.videoUrl))) {
     const youtubeId = extractYouTubeId(video.videoUrl);
@@ -413,7 +378,7 @@ function openVideoModal(videoId) {
     }
   } else {
     const vid = document.createElement('video');
-    vid.src = video.videoUrl;
+    vid.src      = video.videoUrl;
     vid.controls = true;
     vid.autoplay = true;
     vid.playsInline = true;
@@ -423,9 +388,7 @@ function openVideoModal(videoId) {
   modal.classList.add('open');
   document.body.style.overflow = 'hidden';
 
-  // Track view
   recordView(videoId);
-  // Update local count immediately
   const v = allVideos.find(x => x.id === videoId);
   if (v) v.views = (v.views || 0) + 1;
 }
@@ -433,37 +396,32 @@ function openVideoModal(videoId) {
 function closeVideoModal() {
   modal.classList.remove('open');
   document.body.style.overflow = '';
-  // Stop video/iframe
   setTimeout(() => { modalPlayer.innerHTML = ''; }, 300);
   currentVideoId = null;
 }
 
 modalCloseBtn.addEventListener('click', closeVideoModal);
 modalBackdrop.addEventListener('click', closeVideoModal);
-
-// Close on escape key
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && modal.classList.contains('open')) closeVideoModal();
 });
 
-/* ─── UTILITIES ──────────────────────────────────────────── */
+/* ── UTILITIES ── */
 function isYouTubeUrl(url) {
   return /youtube\.com|youtu\.be/.test(url);
 }
-
 function extractYouTubeId(url) {
   if (!url) return null;
   const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^&?/\s]{11})/);
   return m ? m[1] : null;
 }
-
 function escHtml(str) {
   return String(str || '')
     .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
     .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 
-/* ─── STARTUP ────────────────────────────────────────────── */
+/* ── STARTUP ── */
 switchTab('videos');
 startVideoSubscription();
 </script>
