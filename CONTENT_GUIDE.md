@@ -55,7 +55,7 @@ Everything in `scenarios.json` controls the game:
 
 ### ⏱️ Adjust Difficulty / Timing
 
-> "Change the Champion level time limit from 4 seconds to 5 seconds in scenarios.json."
+> "Change the Champion level time limit from 12 seconds to 15 seconds in scenarios.json."
 
 > "Lower the minimum score for the Striker level from 150 to 100."
 
@@ -118,7 +118,7 @@ Everything in `scenarios.json` controls the game:
   "category": "awareness",
   "difficulty": 1,
   "question": "Tap the most open teammate!",
-  "timeLimit": 5,
+  "timeLimit": 15,
   "fieldSetup": { ... same as above, but teammates need "id" fields ... },
   "correctTeammateId": "t1",   ← must match the "id" of the correct teammate
   "explanation": "Why that player was the right choice"
@@ -152,6 +152,20 @@ Everything in `scenarios.json` controls the game:
 4. **Mix categories** — include passing, shooting, defending, positioning, and reaction
 5. **Vary difficulty** — most scenarios should be difficulty 1 or 2
 6. **Real soccer situations** — base scenarios on things that actually happen in youth games
+
+---
+
+## Difficulty Levels & Time Limits
+
+| Level | Emoji | Min Score | Time Limit |
+|-------|-------|-----------|------------|
+| Grasshopper | 🌱 | 0 | 30s |
+| Striker | ⚡ | 150 | 20s |
+| Champion | 🏆 | 350 | 12s |
+
+Players start at Grasshopper. As their score climbs past 150 the timer tightens to 20s, and past 350 it drops to 12s — so the game gets harder the better they play.
+
+For individual `spot` scenarios you can set a custom `timeLimit` in seconds. Recommended defaults: difficulty 1 → 15s, difficulty 2 → 12s.
 
 ---
 
