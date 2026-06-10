@@ -1,49 +1,43 @@
 {
-  "_instructions": "This file controls all game content. Edit it using Claude Desktop by asking Claude to add, remove, or change scenarios. Each scenario has a type: 'choice' or 'spot'. See CONTENT_GUIDE.md for full instructions.",
+  "_instructions": "This file controls all game content. Edit it using Claude Desktop by asking Claude to add, remove, or change scenarios. Each scenario has a type: 'choice', 'spot', or 'reaction'. See CONTENT_GUIDE.md for full instructions.",
   "coach": {
     "name": "Coach Zara",
     "encouragements": [
-      "Amazing decision! \u26bd",
-      "That's world-class thinking! \ud83c\udf1f",
-      "You're reading the game brilliantly! \ud83c\udfaf",
-      "Perfect choice, superstar! \ud83c\udfc6",
-      "Great soccer brain! \ud83e\udde0",
-      "Incredible vision! \ud83d\udc40",
-      "That's exactly what a pro would do! \u2b50",
-      "You're thinking one step ahead! \ud83d\udca1"
+      "Amazing decision! ⚽",
+      "That's world-class thinking! 🌟",
+      "You're reading the game brilliantly! 🎯",
+      "Perfect choice, superstar! 🏆",
+      "Great soccer brain! 🧠"
     ],
     "corrections": [
-      "Good try! Think about who has more space. \ud83d\udcad",
-      "Almost! Look for the open player next time. \ud83d\udc40",
-      "Nice effort! The goal was open on that one. \ud83e\udd45",
-      "Keep going! You'll spot it quicker next time. \ud83d\udcaa",
-      "So close! Think about where the defender is. \ud83e\udd14",
-      "Good attempt! Always look forward first. \ud83d\udd0d",
-      "Nearly! Check all your options before deciding. \ud83e\udde0",
-      "Don't worry \u2014 every decision is a chance to learn! \u26bd"
+      "Good try! Think about who has more space. 💭",
+      "Almost! Look for the open player next time. 👀",
+      "Nice effort! The goal was open on that one. 🥅",
+      "Keep going! You'll spot it quicker next time. 💪",
+      "So close! Think about where the defender is. 🤔"
     ]
   },
   "levels": [
     {
       "id": 1,
       "name": "Grasshopper",
-      "emoji": "\ud83c\udf31",
+      "emoji": "🌱",
       "minScore": 0,
-      "timeLimit": 10
+      "timeLimit": 30
     },
     {
       "id": 2,
       "name": "Striker",
-      "emoji": "\u26a1",
+      "emoji": "⚡",
       "minScore": 150,
-      "timeLimit": 6
+      "timeLimit": 20
     },
     {
       "id": 3,
       "name": "Champion",
-      "emoji": "\ud83c\udfc6",
+      "emoji": "🏆",
       "minScore": 350,
-      "timeLimit": 4
+      "timeLimit": 12
     }
   ],
   "scenarios": [
@@ -54,71 +48,23 @@
       "difficulty": 1,
       "question": "You have the ball near midfield. A defender is running at you fast! What do you do?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 55
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 55,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 50, "y": 55},
+        "yourPlayer": {"x": 50, "y": 55, "label": "YOU"},
         "teammates": [
-          {
-            "x": 25,
-            "y": 40,
-            "label": "Emma",
-            "isOpen": true
-          },
-          {
-            "x": 70,
-            "y": 65,
-            "label": "Sofia",
-            "isOpen": false
-          }
+          {"x": 25, "y": 40, "label": "Emma", "isOpen": true},
+          {"x": 70, "y": 65, "label": "Sofia", "isOpen": false}
         ],
         "defenders": [
-          {
-            "x": 50,
-            "y": 42,
-            "label": "D1"
-          },
-          {
-            "x": 68,
-            "y": 58,
-            "label": "D2"
-          }
+          {"x": 50, "y": 42, "label": "D1"},
+          {"x": 68, "y": 58, "label": "D2"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
+        "goal": {"x": 50, "y": 10}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Pass to Emma on the left",
-          "correct": true,
-          "explanation": "Emma is wide open with no defenders near her. Great vision!"
-        },
-        {
-          "id": "B",
-          "text": "Try to dribble past the defender",
-          "correct": false,
-          "explanation": "The defender is too close \u2014 you'd likely lose the ball!"
-        },
-        {
-          "id": "C",
-          "text": "Pass to Sofia on the right",
-          "correct": false,
-          "explanation": "Sofia has a defender right next to her. Emma was the better option."
-        },
-        {
-          "id": "D",
-          "text": "Kick it out of bounds",
-          "correct": false,
-          "explanation": "We never give up possession on purpose when there's a free teammate!"
-        }
+        {"id": "A", "text": "Pass to Emma on the left", "correct": true, "explanation": "Emma is wide open with no defenders near her. Great vision!"},
+        {"id": "B", "text": "Try to dribble past the defender", "correct": false, "explanation": "The defender is too close — you'd likely lose the ball!"},
+        {"id": "C", "text": "Pass to Sofia on the right", "correct": false, "explanation": "Sofia has a defender right next to her. Emma was the better option."},
+        {"id": "D", "text": "Kick it out of bounds", "correct": false, "explanation": "We never give up possession on purpose when there's a free teammate!"}
       ]
     },
     {
@@ -128,71 +74,23 @@
       "difficulty": 1,
       "question": "You're inside the penalty box with the ball. The goalkeeper moved to the left side. Where do you shoot?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 25
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 25,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 50, "y": 25},
+        "yourPlayer": {"x": 50, "y": 25, "label": "YOU"},
         "teammates": [
-          {
-            "x": 20,
-            "y": 30,
-            "label": "Maya",
-            "isOpen": false
-          },
-          {
-            "x": 75,
-            "y": 20,
-            "label": "Lily",
-            "isOpen": true
-          }
+          {"x": 20, "y": 30, "label": "Maya", "isOpen": false},
+          {"x": 75, "y": 20, "label": "Lily", "isOpen": true}
         ],
         "defenders": [
-          {
-            "x": 40,
-            "y": 18,
-            "label": "GK"
-          },
-          {
-            "x": 55,
-            "y": 30,
-            "label": "D1"
-          }
+          {"x": 40, "y": 18, "label": "GK"},
+          {"x": 55, "y": 30, "label": "D1"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
+        "goal": {"x": 50, "y": 10}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Shoot to the right side of the goal",
-          "correct": true,
-          "explanation": "The keeper moved left, so the right side is wide open. Smart shooting!"
-        },
-        {
-          "id": "B",
-          "text": "Shoot to the left where the keeper is",
-          "correct": false,
-          "explanation": "Always shoot away from the goalkeeper \u2014 aim for the open side!"
-        },
-        {
-          "id": "C",
-          "text": "Pass back to a midfielder",
-          "correct": false,
-          "explanation": "You're in a great shooting position! Take the shot when you have a clear chance."
-        },
-        {
-          "id": "D",
-          "text": "Dribble closer first",
-          "correct": false,
-          "explanation": "You're already in range \u2014 taking more touches gives defenders time to recover!"
-        }
+        {"id": "A", "text": "Shoot to the right side of the goal", "correct": true, "explanation": "The keeper moved left, so the right side is wide open. Smart shooting!"},
+        {"id": "B", "text": "Shoot to the left where the keeper is", "correct": false, "explanation": "Always shoot away from the goalkeeper — aim for the open side!"},
+        {"id": "C", "text": "Pass back to a midfielder", "correct": false, "explanation": "You're in a great shooting position! Take the shot when you have a clear chance."},
+        {"id": "D", "text": "Dribble closer first", "correct": false, "explanation": "You're already in range — taking more touches gives defenders time to recover!"}
       ]
     },
     {
@@ -202,60 +100,21 @@
       "difficulty": 1,
       "question": "The other team has the ball near your goal. Your teammate is between you and the attacker. What should you do?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 45,
-          "y": 75
-        },
-        "yourPlayer": {
-          "x": 60,
-          "y": 80,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 45, "y": 75},
+        "yourPlayer": {"x": 60, "y": 80, "label": "YOU"},
         "teammates": [
-          {
-            "x": 45,
-            "y": 70,
-            "label": "Jess",
-            "isOpen": false
-          }
+          {"x": 45, "y": 70, "label": "Jess", "isOpen": false}
         ],
         "defenders": [
-          {
-            "x": 45,
-            "y": 78,
-            "label": "ATK"
-          }
+          {"x": 45, "y": 78, "label": "ATK"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
+        "goal": {"x": 50, "y": 90}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Stay in position and cover the space behind Jess",
-          "correct": true,
-          "explanation": "Great defensive thinking! If the attacker gets past Jess, you're the last line of defense."
-        },
-        {
-          "id": "B",
-          "text": "Run forward to help Jess tackle",
-          "correct": false,
-          "explanation": "If both you and Jess go for the ball, the attacker can pass and beat you both!"
-        },
-        {
-          "id": "C",
-          "text": "Run towards your own goal",
-          "correct": false,
-          "explanation": "Stay goal-side but don't retreat too far \u2014 hold your position and be ready."
-        },
-        {
-          "id": "D",
-          "text": "Call for the ball to start an attack",
-          "correct": false,
-          "explanation": "We're defending right now \u2014 focus on stopping their attack first!"
-        }
+        {"id": "A", "text": "Stay in position and cover the space behind Jess", "correct": true, "explanation": "Great defensive thinking! If the attacker gets past Jess, you're the last line of defense."},
+        {"id": "B", "text": "Run forward to help Jess tackle", "correct": false, "explanation": "If both you and Jess go for the ball, the attacker can pass and beat you both!"},
+        {"id": "C", "text": "Run towards your own goal", "correct": false, "explanation": "Stay goal-side but don't retreat too far — hold your position and be ready."},
+        {"id": "D", "text": "Call for the ball to start an attack", "correct": false, "explanation": "We're defending right now — focus on stopping their attack first!"}
       ]
     },
     {
@@ -264,143 +123,67 @@
       "category": "awareness",
       "difficulty": 1,
       "question": "Tap the teammate who is most open to receive a pass!",
-      "timeLimit": 5,
+      "timeLimit": 15,
       "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 60
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 60,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 50, "y": 60},
+        "yourPlayer": {"x": 50, "y": 60, "label": "YOU"},
         "teammates": [
-          {
-            "x": 20,
-            "y": 45,
-            "label": "Anna",
-            "isOpen": true,
-            "id": "t1"
-          },
-          {
-            "x": 70,
-            "y": 50,
-            "label": "Beth",
-            "isOpen": false,
-            "id": "t2"
-          },
-          {
-            "x": 50,
-            "y": 35,
-            "label": "Cara",
-            "isOpen": false,
-            "id": "t3"
-          }
+          {"x": 20, "y": 45, "label": "Anna", "isOpen": true, "id": "t1"},
+          {"x": 70, "y": 50, "label": "Beth", "isOpen": false, "id": "t2"},
+          {"x": 50, "y": 35, "label": "Cara", "isOpen": false, "id": "t3"}
         ],
         "defenders": [
-          {
-            "x": 65,
-            "y": 45,
-            "label": "D1"
-          },
-          {
-            "x": 52,
-            "y": 30,
-            "label": "D2"
-          }
+          {"x": 65, "y": 45, "label": "D1"},
+          {"x": 52, "y": 30, "label": "D2"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
+        "goal": {"x": 50, "y": 10}
       },
       "correctTeammateId": "t1",
-      "explanation": "Anna on the left had no defenders near her \u2014 she was the open option!"
+      "explanation": "Anna on the left had no defenders near her — she was the open option!"
+    },
+    {
+      "id": "s005",
+      "type": "reaction",
+      "category": "speed",
+      "difficulty": 1,
+      "question": "TAP when you see a GREEN light — don't tap RED!",
+      "sequence": [
+        {"color": "red", "duration": 800},
+        {"color": "green", "duration": 1200},
+        {"color": "red", "duration": 600},
+        {"color": "green", "duration": 1000},
+        {"color": "red", "duration": 900},
+        {"color": "green", "duration": 800},
+        {"color": "red", "duration": 700},
+        {"color": "green", "duration": 1100}
+      ]
     },
     {
       "id": "s006",
       "type": "choice",
       "category": "passing",
       "difficulty": 2,
-      "question": "You're being pressed by two defenders. You have two seconds to decide \u2014 where does the ball go?",
+      "question": "You're being pressed by two defenders. You have two seconds to decide — where does the ball go?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 35,
-          "y": 50
-        },
-        "yourPlayer": {
-          "x": 35,
-          "y": 50,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 35, "y": 50},
+        "yourPlayer": {"x": 35, "y": 50, "label": "YOU"},
         "teammates": [
-          {
-            "x": 15,
-            "y": 35,
-            "label": "Ria",
-            "isOpen": false
-          },
-          {
-            "x": 60,
-            "y": 30,
-            "label": "Tess",
-            "isOpen": true
-          },
-          {
-            "x": 25,
-            "y": 70,
-            "label": "Kim",
-            "isOpen": true
-          }
+          {"x": 15, "y": 35, "label": "Ria", "isOpen": false},
+          {"x": 60, "y": 30, "label": "Tess", "isOpen": true},
+          {"x": 25, "y": 70, "label": "Kim", "isOpen": true}
         ],
         "defenders": [
-          {
-            "x": 32,
-            "y": 40,
-            "label": "D1"
-          },
-          {
-            "x": 42,
-            "y": 55,
-            "label": "D2"
-          },
-          {
-            "x": 18,
-            "y": 38,
-            "label": "D3"
-          }
+          {"x": 32, "y": 40, "label": "D1"},
+          {"x": 42, "y": 55, "label": "D2"},
+          {"x": 18, "y": 38, "label": "D3"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
+        "goal": {"x": 50, "y": 10}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Pass to Ria \u2014 she's closest",
-          "correct": false,
-          "explanation": "Closest doesn't always mean best! A defender is right next to Ria."
-        },
-        {
-          "id": "B",
-          "text": "Pass forward to Tess",
-          "correct": true,
-          "explanation": "Excellent! Tess is in space and moving forward \u2014 great vision under pressure!"
-        },
-        {
-          "id": "C",
-          "text": "Pass back to Kim",
-          "correct": false,
-          "explanation": "Kim is open too, but playing backwards when Tess is free going forward loses momentum."
-        },
-        {
-          "id": "D",
-          "text": "Hold the ball and wait",
-          "correct": false,
-          "explanation": "Two defenders pressing means you must release the ball quickly \u2014 trust your teammates!"
-        }
+        {"id": "A", "text": "Pass to Ria — she's closest", "correct": false, "explanation": "Closest doesn't always mean best! A defender is right next to Ria."},
+        {"id": "B", "text": "Pass forward to Tess", "correct": true, "explanation": "Excellent! Tess is in space and moving forward — great vision under pressure!"},
+        {"id": "C", "text": "Pass back to Kim", "correct": false, "explanation": "Kim is open too, but playing backwards when Tess is free going forward loses momentum."},
+        {"id": "D", "text": "Hold the ball and wait", "correct": false, "explanation": "Two defenders pressing means you must release the ball quickly — trust your teammates!"}
       ]
     },
     {
@@ -409,56 +192,40 @@
       "category": "awareness",
       "difficulty": 2,
       "question": "Quick! Tap the MOST DANGEROUS attacker your team needs to mark!",
-      "timeLimit": 4,
+      "timeLimit": 12,
       "fieldSetup": {
-        "ballPosition": {
-          "x": 30,
-          "y": 30
-        },
-        "yourPlayer": {
-          "x": 55,
-          "y": 75,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 30, "y": 30},
+        "yourPlayer": {"x": 55, "y": 75, "label": "YOU"},
         "teammates": [
-          {
-            "x": 50,
-            "y": 65,
-            "label": "Zoe",
-            "isOpen": false,
-            "id": "t1"
-          }
+          {"x": 50, "y": 65, "label": "Zoe", "isOpen": false, "id": "t1"}
         ],
         "defenders": [
-          {
-            "x": 30,
-            "y": 35,
-            "label": "ATK1",
-            "isDangerous": false,
-            "id": "e1"
-          },
-          {
-            "x": 52,
-            "y": 50,
-            "label": "ATK2",
-            "isDangerous": true,
-            "id": "e2"
-          },
-          {
-            "x": 70,
-            "y": 40,
-            "label": "ATK3",
-            "isDangerous": false,
-            "id": "e3"
-          }
+          {"x": 30, "y": 35, "label": "ATK1", "isDangerous": false, "id": "e1"},
+          {"x": 52, "y": 50, "label": "ATK2", "isDangerous": true, "id": "e2"},
+          {"x": 70, "y": 40, "label": "ATK3", "isDangerous": false, "id": "e3"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
+        "goal": {"x": 50, "y": 90}
       },
       "correctTeammateId": "e2",
-      "explanation": "ATK2 is closest to goal with a clear path \u2014 she needed marking first!"
+      "explanation": "ATK2 is closest to goal with a clear path — she needed marking first!"
+    },
+    {
+      "id": "s008",
+      "type": "reaction",
+      "category": "speed",
+      "difficulty": 2,
+      "question": "TAP the SOCCER BALL — ignore the other shapes!",
+      "sequence": [
+        {"color": "red", "duration": 700},
+        {"color": "green", "duration": 900},
+        {"color": "red", "duration": 500},
+        {"color": "green", "duration": 750},
+        {"color": "red", "duration": 600},
+        {"color": "green", "duration": 650},
+        {"color": "red", "duration": 800},
+        {"color": "green", "duration": 700},
+        {"color": "green", "duration": 600}
+      ]
     },
     {
       "id": "s009",
@@ -467,60 +234,21 @@
       "difficulty": 2,
       "question": "You're one-on-one with the goalkeeper! She's coming out fast. What's the best move?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 30
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 30,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 50, "y": 30},
+        "yourPlayer": {"x": 50, "y": 30, "label": "YOU"},
         "teammates": [
-          {
-            "x": 25,
-            "y": 35,
-            "label": "Faye",
-            "isOpen": true
-          }
+          {"x": 25, "y": 35, "label": "Faye", "isOpen": true}
         ],
         "defenders": [
-          {
-            "x": 50,
-            "y": 22,
-            "label": "GK"
-          }
+          {"x": 50, "y": 22, "label": "GK"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
+        "goal": {"x": 50, "y": 10}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Shoot early before she reaches you",
-          "correct": true,
-          "explanation": "When the keeper comes out, shoot early while you still have angle \u2014 brilliant composure!"
-        },
-        {
-          "id": "B",
-          "text": "Try to dribble around the keeper",
-          "correct": false,
-          "explanation": "She's coming fast \u2014 dribbling takes too long. A quick shot is better here."
-        },
-        {
-          "id": "C",
-          "text": "Pass wide to Faye",
-          "correct": false,
-          "explanation": "Faye is an option, but you have a clear shooting chance \u2014 take it with confidence!"
-        },
-        {
-          "id": "D",
-          "text": "Stop and wait for her to commit",
-          "correct": false,
-          "explanation": "If you wait too long, she'll close the angle completely. Be decisive!"
-        }
+        {"id": "A", "text": "Shoot early before she reaches you", "correct": true, "explanation": "When the keeper comes out, shoot early while you still have angle — brilliant composure!"},
+        {"id": "B", "text": "Try to dribble around the keeper", "correct": false, "explanation": "She's coming fast — dribbling takes too long. A quick shot is better here."},
+        {"id": "C", "text": "Pass wide to Faye", "correct": false, "explanation": "Faye is an option, but you have a clear shooting chance — take it with confidence!"},
+        {"id": "D", "text": "Stop and wait for her to commit", "correct": false, "explanation": "If you wait too long, she'll close the angle completely. Be decisive!"}
       ]
     },
     {
@@ -530,76 +258,24 @@
       "difficulty": 2,
       "question": "Your team has a corner kick. You're in the box. Where's the best place to stand?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 100,
-          "y": 90
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 82,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 100, "y": 90},
+        "yourPlayer": {"x": 50, "y": 82, "label": "YOU"},
         "teammates": [
-          {
-            "x": 35,
-            "y": 75,
-            "label": "Rosa",
-            "isOpen": false
-          },
-          {
-            "x": 65,
-            "y": 72,
-            "label": "Nora",
-            "isOpen": false
-          }
+          {"x": 35, "y": 75, "label": "Rosa", "isOpen": false},
+          {"x": 65, "y": 72, "label": "Nora", "isOpen": false}
         ],
         "defenders": [
-          {
-            "x": 45,
-            "y": 80,
-            "label": "D1"
-          },
-          {
-            "x": 55,
-            "y": 78,
-            "label": "D2"
-          },
-          {
-            "x": 50,
-            "y": 70,
-            "label": "GK"
-          }
+          {"x": 45, "y": 80, "label": "D1"},
+          {"x": 55, "y": 78, "label": "D2"},
+          {"x": 50, "y": 70, "label": "GK"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
+        "goal": {"x": 50, "y": 90}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Stand at the far post, away from defenders",
-          "correct": true,
-          "explanation": "The far post is often left unmarked. Great movement to find space!"
-        },
-        {
-          "id": "B",
-          "text": "Stand in the middle of the goal mouth with everyone else",
-          "correct": false,
-          "explanation": "That's where defenders are watching. Find space away from them!"
-        },
-        {
-          "id": "C",
-          "text": "Stand outside the box and wait",
-          "correct": false,
-          "explanation": "You want to be ready to receive and score \u2014 get into the box!"
-        },
-        {
-          "id": "D",
-          "text": "Stand right next to the goalkeeper",
-          "correct": false,
-          "explanation": "The keeper controls that area. Move away from her to find space!"
-        }
+        {"id": "A", "text": "Stand at the far post, away from defenders", "correct": true, "explanation": "The far post is often left unmarked. Great movement to find space!"},
+        {"id": "B", "text": "Stand in the middle of the goal mouth with everyone else", "correct": false, "explanation": "That's where defenders are watching. Find space away from them!"},
+        {"id": "C", "text": "Stand outside the box and wait", "correct": false, "explanation": "You want to be ready to receive and score — get into the box!"},
+        {"id": "D", "text": "Stand right next to the goalkeeper", "correct": false, "explanation": "The keeper controls that area. Move away from her to find space!"}
       ]
     },
     {
@@ -609,66 +285,22 @@
       "difficulty": 1,
       "question": "You receive the ball with your back to the opponent's goal. A defender is right behind you. What do you do?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 50
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 50,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 50, "y": 50},
+        "yourPlayer": {"x": 50, "y": 50, "label": "YOU"},
         "teammates": [
-          {
-            "x": 30,
-            "y": 55,
-            "label": "Jade",
-            "isOpen": true
-          },
-          {
-            "x": 50,
-            "y": 70,
-            "label": "Mia",
-            "isOpen": true
-          }
+          {"x": 30, "y": 55, "label": "Jade", "isOpen": true},
+          {"x": 50, "y": 70, "label": "Mia", "isOpen": true}
         ],
         "defenders": [
-          {
-            "x": 50,
-            "y": 44,
-            "label": "D1"
-          }
+          {"x": 50, "y": 44, "label": "D1"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
+        "goal": {"x": 50, "y": 10}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Lay it off to Jade who is beside you",
-          "correct": true,
-          "explanation": "Smart! Laying the ball off quickly to a nearby teammate keeps possession and relieves pressure."
-        },
-        {
-          "id": "B",
-          "text": "Try to turn and take on the defender",
-          "correct": false,
-          "explanation": "Turning into a tight defender is risky \u2014 you could lose the ball easily!"
-        },
-        {
-          "id": "C",
-          "text": "Hold the ball and wait for someone to call",
-          "correct": false,
-          "explanation": "With a defender on your back, holding too long means you'll get tackled. Move it quickly!"
-        },
-        {
-          "id": "D",
-          "text": "Kick it long forward without looking",
-          "correct": false,
-          "explanation": "Kicking blind can give the ball straight to their defenders. Check your options first!"
-        }
+        {"id": "A", "text": "Lay it off to Jade who is beside you", "correct": true, "explanation": "Smart! Laying the ball off quickly to a nearby teammate keeps possession and relieves pressure."},
+        {"id": "B", "text": "Try to turn and take on the defender", "correct": false, "explanation": "Turning into a tight defender is risky — you could lose the ball easily!"},
+        {"id": "C", "text": "Hold the ball and wait for someone to call", "correct": false, "explanation": "With a defender on your back, holding too long means you'll get tackled. Move it quickly!"},
+        {"id": "D", "text": "Kick it long forward without looking", "correct": false, "explanation": "Kicking blind can give the ball straight to their defenders. Check your options first!"}
       ]
     },
     {
@@ -678,60 +310,21 @@
       "difficulty": 1,
       "question": "An attacker is running at you with the ball. What is the best way to defend?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 40
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 55,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 50, "y": 40},
+        "yourPlayer": {"x": 50, "y": 55, "label": "YOU"},
         "teammates": [
-          {
-            "x": 30,
-            "y": 60,
-            "label": "Luna",
-            "isOpen": false
-          }
+          {"x": 30, "y": 60, "label": "Luna", "isOpen": false}
         ],
         "defenders": [
-          {
-            "x": 50,
-            "y": 42,
-            "label": "ATK"
-          }
+          {"x": 50, "y": 42, "label": "ATK"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
+        "goal": {"x": 50, "y": 90}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Stay on your feet, slow her down, and wait for help",
-          "correct": true,
-          "explanation": "Staying on your feet and being patient is the best defending \u2014 don't dive in!"
-        },
-        {
-          "id": "B",
-          "text": "Dive in and try to kick the ball away",
-          "correct": false,
-          "explanation": "Diving in is risky! If you miss, the attacker is free to run at goal."
-        },
-        {
-          "id": "C",
-          "text": "Back away as fast as possible",
-          "correct": false,
-          "explanation": "Backing off too much gives the attacker space to shoot. Stay close but controlled."
-        },
-        {
-          "id": "D",
-          "text": "Run past her to get to the ball",
-          "correct": false,
-          "explanation": "Running past the attacker leaves the goal wide open behind you!"
-        }
+        {"id": "A", "text": "Stay on your feet, slow her down, and wait for help", "correct": true, "explanation": "Staying on your feet and being patient is the best defending — don't dive in!"},
+        {"id": "B", "text": "Dive in and try to kick the ball away", "correct": false, "explanation": "Diving in is risky! If you miss, the attacker is free to run at goal."},
+        {"id": "C", "text": "Back away as fast as possible", "correct": false, "explanation": "Backing off too much gives the attacker space to shoot. Stay close but controlled."},
+        {"id": "D", "text": "Run past her to get to the ball", "correct": false, "explanation": "Running past the attacker leaves the goal wide open behind you!"}
       ]
     },
     {
@@ -741,71 +334,23 @@
       "difficulty": 1,
       "question": "Your team is attacking and you don't have the ball. Where should you move to be most helpful?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 35,
-          "y": 30
-        },
-        "yourPlayer": {
-          "x": 55,
-          "y": 45,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 35, "y": 30},
+        "yourPlayer": {"x": 55, "y": 45, "label": "YOU"},
         "teammates": [
-          {
-            "x": 35,
-            "y": 30,
-            "label": "Priya",
-            "isOpen": false
-          },
-          {
-            "x": 20,
-            "y": 20,
-            "label": "Zara",
-            "isOpen": false
-          }
+          {"x": 35, "y": 30, "label": "Priya", "isOpen": false},
+          {"x": 20, "y": 20, "label": "Zara", "isOpen": false}
         ],
         "defenders": [
-          {
-            "x": 50,
-            "y": 35,
-            "label": "D1"
-          },
-          {
-            "x": 60,
-            "y": 25,
-            "label": "D2"
-          }
+          {"x": 50, "y": 35, "label": "D1"},
+          {"x": 60, "y": 25, "label": "D2"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
+        "goal": {"x": 50, "y": 10}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Find a gap between the defenders and call for the ball",
-          "correct": true,
-          "explanation": "Creating space between defenders gives your teammate a great passing option. Brilliant movement!"
-        },
-        {
-          "id": "B",
-          "text": "Stand still and watch the play",
-          "correct": false,
-          "explanation": "Always keep moving when your team has the ball \u2014 make yourself an option!"
-        },
-        {
-          "id": "C",
-          "text": "Run back towards your own half",
-          "correct": false,
-          "explanation": "Your team is attacking \u2014 stay forward and look for space to receive!"
-        },
-        {
-          "id": "D",
-          "text": "Run to where Priya already is",
-          "correct": false,
-          "explanation": "Bunching together makes it easy for defenders. Spread out to create more options!"
-        }
+        {"id": "A", "text": "Find a gap between the defenders and call for the ball", "correct": true, "explanation": "Creating space between defenders gives your teammate a great passing option. Brilliant movement!"},
+        {"id": "B", "text": "Stand still and watch the play", "correct": false, "explanation": "Always keep moving when your team has the ball — make yourself an option!"},
+        {"id": "C", "text": "Run back towards your own half", "correct": false, "explanation": "Your team is attacking — stay forward and look for space to receive!"},
+        {"id": "D", "text": "Run to where Priya already is", "correct": false, "explanation": "Bunching together makes it easy for defenders. Spread out to create more options!"}
       ]
     },
     {
@@ -814,59 +359,23 @@
       "category": "awareness",
       "difficulty": 1,
       "question": "Your team is defending. Tap the teammate who is in the WORST position right now!",
-      "timeLimit": 5,
+      "timeLimit": 15,
       "fieldSetup": {
-        "ballPosition": {
-          "x": 25,
-          "y": 25
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 70,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 25, "y": 25},
+        "yourPlayer": {"x": 50, "y": 70, "label": "YOU"},
         "teammates": [
-          {
-            "x": 50,
-            "y": 50,
-            "label": "Bea",
-            "isOpen": false,
-            "id": "t1"
-          },
-          {
-            "x": 75,
-            "y": 65,
-            "label": "Liv",
-            "isOpen": true,
-            "id": "t2"
-          },
-          {
-            "x": 25,
-            "y": 30,
-            "label": "Cho",
-            "isOpen": false,
-            "id": "t3"
-          }
+          {"x": 50, "y": 50, "label": "Bea", "isOpen": false, "id": "t1"},
+          {"x": 75, "y": 65, "label": "Liv", "isOpen": true, "id": "t2"},
+          {"x": 25, "y": 30, "label": "Cho", "isOpen": false, "id": "t3"}
         ],
         "defenders": [
-          {
-            "x": 25,
-            "y": 25,
-            "label": "ATK1"
-          },
-          {
-            "x": 45,
-            "y": 40,
-            "label": "ATK2"
-          }
+          {"x": 25, "y": 25, "label": "ATK1"},
+          {"x": 45, "y": 40, "label": "ATK2"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
+        "goal": {"x": 50, "y": 90}
       },
       "correctTeammateId": "t2",
-      "explanation": "Liv is way out on the right with no attacker to mark \u2014 she needs to come in and help defend the middle!"
+      "explanation": "Liv is way out on the right with no attacker to mark — she needs to come in and help defend the middle!"
     },
     {
       "id": "s015",
@@ -875,150 +384,50 @@
       "difficulty": 1,
       "question": "You're just outside the penalty box with the ball and no defender is close. What do you do?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 28
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 28,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 50, "y": 28},
+        "yourPlayer": {"x": 50, "y": 28, "label": "YOU"},
         "teammates": [
-          {
-            "x": 20,
-            "y": 25,
-            "label": "Ines",
-            "isOpen": true
-          },
-          {
-            "x": 75,
-            "y": 30,
-            "label": "Cleo",
-            "isOpen": true
-          }
+          {"x": 20, "y": 25, "label": "Ines", "isOpen": true},
+          {"x": 75, "y": 30, "label": "Cleo", "isOpen": true}
         ],
         "defenders": [
-          {
-            "x": 50,
-            "y": 18,
-            "label": "GK"
-          },
-          {
-            "x": 40,
-            "y": 22,
-            "label": "D1"
-          }
+          {"x": 50, "y": 18, "label": "GK"},
+          {"x": 40, "y": 22, "label": "D1"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
+        "goal": {"x": 50, "y": 10}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Take a shot at goal \u2014 you have space!",
-          "correct": true,
-          "explanation": "You have time, space, and you're in range \u2014 take the shot with confidence!"
-        },
-        {
-          "id": "B",
-          "text": "Wait for a defender to come before deciding",
-          "correct": false,
-          "explanation": "Waiting gives defenders time to close you down. Shoot while you have space!"
-        },
-        {
-          "id": "C",
-          "text": "Pass sideways to Cleo",
-          "correct": false,
-          "explanation": "Cleo is in a similar position and no closer to goal \u2014 you have the best shot right now!"
-        },
-        {
-          "id": "D",
-          "text": "Dribble backwards away from goal",
-          "correct": false,
-          "explanation": "Never go backwards when you have a clear shooting chance \u2014 be brave and shoot!"
-        }
+        {"id": "A", "text": "Take a shot at goal — you have space!", "correct": true, "explanation": "You have time, space, and you're in range — take the shot with confidence!"},
+        {"id": "B", "text": "Wait for a defender to come before deciding", "correct": false, "explanation": "Waiting gives defenders time to close you down. Shoot while you have space!"},
+        {"id": "C", "text": "Pass sideways to Cleo", "correct": false, "explanation": "Cleo is in a similar position and no closer to goal — you have the best shot right now!"},
+        {"id": "D", "text": "Dribble backwards away from goal", "correct": false, "explanation": "Never go backwards when you have a clear shooting chance — be brave and shoot!"}
       ]
     },
     {
       "id": "s016",
       "type": "choice",
-      "category": "defending",
+      "category": "awareness",
       "difficulty": 2,
       "question": "The other team is about to take a free kick near the edge of your box. Where do you stand?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 40,
-          "y": 78
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 82,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 40, "y": 78},
+        "yourPlayer": {"x": 50, "y": 82, "label": "YOU"},
         "teammates": [
-          {
-            "x": 35,
-            "y": 82,
-            "label": "Hana",
-            "isOpen": false
-          },
-          {
-            "x": 55,
-            "y": 80,
-            "label": "Isla",
-            "isOpen": false
-          }
+          {"x": 35, "y": 82, "label": "Hana", "isOpen": false},
+          {"x": 55, "y": 80, "label": "Isla", "isOpen": false}
         ],
         "defenders": [
-          {
-            "x": 40,
-            "y": 78,
-            "label": "FK"
-          },
-          {
-            "x": 50,
-            "y": 88,
-            "label": "GK"
-          },
-          {
-            "x": 65,
-            "y": 75,
-            "label": "ATK1"
-          }
+          {"x": 40, "y": 78, "label": "FK"},
+          {"x": 50, "y": 88, "label": "GK"},
+          {"x": 65, "y": 75, "label": "ATK1"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
+        "goal": {"x": 50, "y": 90}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Get into the defensive wall to block the shot",
-          "correct": true,
-          "explanation": "Standing in the wall helps block direct shots at goal. Great defensive awareness!"
-        },
-        {
-          "id": "B",
-          "text": "Run forward to press the player taking the kick",
-          "correct": false,
-          "explanation": "You can't press during a free kick \u2014 you must stay back until the ball is played."
-        },
-        {
-          "id": "C",
-          "text": "Stand near the halfway line in case of a counter-attack",
-          "correct": false,
-          "explanation": "Your team needs all defenders near the box \u2014 stay close to protect the goal!"
-        },
-        {
-          "id": "D",
-          "text": "Stand behind the goalkeeper",
-          "correct": false,
-          "explanation": "Behind the keeper is out of play \u2014 you need to be in the wall or marking an attacker."
-        }
+        {"id": "A", "text": "Get into the defensive wall to block the shot", "correct": true, "explanation": "Standing in the wall helps block direct shots at goal. Great defensive awareness!"},
+        {"id": "B", "text": "Run forward to press the player taking the kick", "correct": false, "explanation": "You can't press during a free kick — you must stay back until the ball is played."},
+        {"id": "C", "text": "Stand near the halfway line in case of a counter-attack", "correct": false, "explanation": "Your team needs all defenders near the box — stay close to protect the goal!"},
+        {"id": "D", "text": "Stand behind the goalkeeper", "correct": false, "explanation": "Behind the keeper is out of play — you need to be in the wall or marking an attacker."}
       ]
     },
     {
@@ -1027,64 +436,24 @@
       "category": "awareness",
       "difficulty": 2,
       "question": "Your team just won the ball. Tap the teammate who is in the best position to start the attack!",
-      "timeLimit": 4,
+      "timeLimit": 12,
       "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 55
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 55,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 50, "y": 55},
+        "yourPlayer": {"x": 50, "y": 55, "label": "YOU"},
         "teammates": [
-          {
-            "x": 20,
-            "y": 30,
-            "label": "Dani",
-            "isOpen": true,
-            "id": "t1"
-          },
-          {
-            "x": 50,
-            "y": 75,
-            "label": "Remi",
-            "isOpen": false,
-            "id": "t2"
-          },
-          {
-            "x": 70,
-            "y": 50,
-            "label": "Skye",
-            "isOpen": false,
-            "id": "t3"
-          }
+          {"x": 20, "y": 30, "label": "Dani", "isOpen": true, "id": "t1"},
+          {"x": 50, "y": 75, "label": "Remi", "isOpen": false, "id": "t2"},
+          {"x": 70, "y": 50, "label": "Skye", "isOpen": false, "id": "t3"}
         ],
         "defenders": [
-          {
-            "x": 65,
-            "y": 45,
-            "label": "D1"
-          },
-          {
-            "x": 55,
-            "y": 70,
-            "label": "D2"
-          },
-          {
-            "x": 50,
-            "y": 35,
-            "label": "D3"
-          }
+          {"x": 65, "y": 45, "label": "D1"},
+          {"x": 55, "y": 70, "label": "D2"},
+          {"x": 50, "y": 35, "label": "D3"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
+        "goal": {"x": 50, "y": 10}
       },
       "correctTeammateId": "t1",
-      "explanation": "Dani is ahead of the ball, wide open on the left, with space to run at goal \u2014 the perfect outlet!"
+      "explanation": "Dani is ahead of the ball, wide open on the left, with space to run at goal — the perfect outlet!"
     },
     {
       "id": "s018",
@@ -1093,71 +462,23 @@
       "difficulty": 2,
       "question": "Your team loses the ball in the opponent's half. What should you do immediately?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 60,
-          "y": 30
-        },
-        "yourPlayer": {
-          "x": 65,
-          "y": 25,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 60, "y": 30},
+        "yourPlayer": {"x": 65, "y": 25, "label": "YOU"},
         "teammates": [
-          {
-            "x": 45,
-            "y": 35,
-            "label": "Wren",
-            "isOpen": false
-          },
-          {
-            "x": 30,
-            "y": 55,
-            "label": "Nell",
-            "isOpen": false
-          }
+          {"x": 45, "y": 35, "label": "Wren", "isOpen": false},
+          {"x": 30, "y": 55, "label": "Nell", "isOpen": false}
         ],
         "defenders": [
-          {
-            "x": 60,
-            "y": 30,
-            "label": "D1"
-          },
-          {
-            "x": 45,
-            "y": 20,
-            "label": "D2"
-          }
+          {"x": 60, "y": 30, "label": "D1"},
+          {"x": 45, "y": 20, "label": "D2"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
+        "goal": {"x": 50, "y": 90}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Sprint back towards your own half immediately",
-          "correct": true,
-          "explanation": "Transitioning quickly when you lose the ball stops counter-attacks before they start. Great discipline!"
-        },
-        {
-          "id": "B",
-          "text": "Stay forward and wait for your team to win it back",
-          "correct": false,
-          "explanation": "Staying up when your team loses the ball leaves space for the opponent to attack through."
-        },
-        {
-          "id": "C",
-          "text": "Argue with your teammate about the mistake",
-          "correct": false,
-          "explanation": "Focus on the game! Sprint back first, talk about it at half-time."
-        },
-        {
-          "id": "D",
-          "text": "Walk back slowly to save energy",
-          "correct": false,
-          "explanation": "Counter-attacks happen in seconds \u2014 you need to sprint back, not walk!"
-        }
+        {"id": "A", "text": "Sprint back towards your own half immediately", "correct": true, "explanation": "Transitioning quickly when you lose the ball stops counter-attacks before they start. Great discipline!"},
+        {"id": "B", "text": "Stay forward and wait for your team to win it back", "correct": false, "explanation": "Staying up when your team loses the ball leaves space for the opponent to attack through."},
+        {"id": "C", "text": "Argue with your teammate about the mistake", "correct": false, "explanation": "Focus on the game! Sprint back first, talk about it at half-time."},
+        {"id": "D", "text": "Walk back slowly to save energy", "correct": false, "explanation": "Counter-attacks happen in seconds — you need to sprint back, not walk!"}
       ]
     },
     {
@@ -1167,71 +488,23 @@
       "difficulty": 1,
       "question": "The goalkeeper on your team has the ball and is looking to start an attack. Where should you move to help?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 92
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 70,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 50, "y": 92},
+        "yourPlayer": {"x": 50, "y": 70, "label": "YOU"},
         "teammates": [
-          {
-            "x": 20,
-            "y": 65,
-            "label": "Sara",
-            "isOpen": true
-          },
-          {
-            "x": 80,
-            "y": 65,
-            "label": "Penny",
-            "isOpen": true
-          }
+          {"x": 20, "y": 65, "label": "Sara", "isOpen": true},
+          {"x": 80, "y": 65, "label": "Penny", "isOpen": true}
         ],
         "defenders": [
-          {
-            "x": 50,
-            "y": 92,
-            "label": "GK"
-          },
-          {
-            "x": 45,
-            "y": 62,
-            "label": "D1"
-          }
+          {"x": 50, "y": 92, "label": "GK"},
+          {"x": 45, "y": 62, "label": "D1"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
+        "goal": {"x": 50, "y": 10}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Run wide to give the keeper a clear passing lane",
-          "correct": true,
-          "explanation": "Moving wide creates a simple short pass for the keeper and gets the attack going quickly!"
-        },
-        {
-          "id": "B",
-          "text": "Stay in the middle where you are",
-          "correct": false,
-          "explanation": "You're in a crowded central area. Moving wide gives the keeper more options!"
-        },
-        {
-          "id": "C",
-          "text": "Run towards the keeper to get the ball",
-          "correct": false,
-          "explanation": "Running towards the keeper brings your defender with you and makes the pass harder!"
-        },
-        {
-          "id": "D",
-          "text": "Sprint into the opponent's half straight away",
-          "correct": false,
-          "explanation": "You're too far away for a long kick to reach you safely. Stay closer and build up the play!"
-        }
+        {"id": "A", "text": "Run wide to give the keeper a clear passing lane", "correct": true, "explanation": "Moving wide creates a simple short pass for the keeper and gets the attack going quickly!"},
+        {"id": "B", "text": "Stay in the middle where you are", "correct": false, "explanation": "You're in a crowded central area. Moving wide gives the keeper more options!"},
+        {"id": "C", "text": "Run towards the keeper to get the ball", "correct": false, "explanation": "Running towards the keeper brings your defender with you and makes the pass harder!"},
+        {"id": "D", "text": "Sprint into the opponent's half straight away", "correct": false, "explanation": "You're too far away for a long kick to reach you safely. Stay closer and build up the play!"}
       ]
     },
     {
@@ -1240,64 +513,24 @@
       "category": "awareness",
       "difficulty": 1,
       "question": "Tap the teammate who has the most space to receive a through ball!",
-      "timeLimit": 5,
+      "timeLimit": 15,
       "fieldSetup": {
-        "ballPosition": {
-          "x": 45,
-          "y": 55
-        },
-        "yourPlayer": {
-          "x": 45,
-          "y": 55,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 45, "y": 55},
+        "yourPlayer": {"x": 45, "y": 55, "label": "YOU"},
         "teammates": [
-          {
-            "x": 50,
-            "y": 30,
-            "label": "Lena",
-            "isOpen": true,
-            "id": "t1"
-          },
-          {
-            "x": 20,
-            "y": 40,
-            "label": "Opal",
-            "isOpen": false,
-            "id": "t2"
-          },
-          {
-            "x": 75,
-            "y": 45,
-            "label": "Bree",
-            "isOpen": false,
-            "id": "t3"
-          }
+          {"x": 50, "y": 30, "label": "Lena", "isOpen": true, "id": "t1"},
+          {"x": 20, "y": 40, "label": "Opal", "isOpen": false, "id": "t2"},
+          {"x": 75, "y": 45, "label": "Bree", "isOpen": false, "id": "t3"}
         ],
         "defenders": [
-          {
-            "x": 22,
-            "y": 38,
-            "label": "D1"
-          },
-          {
-            "x": 70,
-            "y": 42,
-            "label": "D2"
-          },
-          {
-            "x": 55,
-            "y": 40,
-            "label": "D3"
-          }
+          {"x": 22, "y": 38, "label": "D1"},
+          {"x": 70, "y": 42, "label": "D2"},
+          {"x": 55, "y": 40, "label": "D3"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
+        "goal": {"x": 50, "y": 10}
       },
       "correctTeammateId": "t1",
-      "explanation": "Lena is running into space up the middle with no defender close \u2014 a perfectly timed through ball would send her clear!"
+      "explanation": "Lena is running into space up the middle with no defender close — a perfectly timed through ball would send her clear!"
     },
     {
       "id": "s021",
@@ -1306,63 +539,21 @@
       "difficulty": 2,
       "question": "Two attackers are running towards your goal and there's only you to stop them. What do you do?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 40,
-          "y": 45
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 65,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 40, "y": 45},
+        "yourPlayer": {"x": 50, "y": 65, "label": "YOU"},
         "teammates": [],
         "defenders": [
-          {
-            "x": 40,
-            "y": 45,
-            "label": "ATK1"
-          },
-          {
-            "x": 62,
-            "y": 48,
-            "label": "ATK2"
-          },
-          {
-            "x": 50,
-            "y": 85,
-            "label": "GK"
-          }
+          {"x": 40, "y": 45, "label": "ATK1"},
+          {"x": 62, "y": 48, "label": "ATK2"},
+          {"x": 50, "y": 85, "label": "GK"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
+        "goal": {"x": 50, "y": 90}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Stay central, delay both attackers, and don't commit",
-          "correct": true,
-          "explanation": "By staying central you cover both options and force the attacker to make a risky decision. Smart defending!"
-        },
-        {
-          "id": "B",
-          "text": "Sprint at the player with the ball and tackle hard",
-          "correct": false,
-          "explanation": "If you dive in and miss, the other attacker is free to score. Stay on your feet!"
-        },
-        {
-          "id": "C",
-          "text": "Mark the attacker without the ball",
-          "correct": false,
-          "explanation": "The player with the ball is the danger \u2014 keep your eye on her first!"
-        },
-        {
-          "id": "D",
-          "text": "Retreat all the way to the goal line",
-          "correct": false,
-          "explanation": "Retreating too much lets them get very close before shooting. Stay between them and slow them down!"
-        }
+        {"id": "A", "text": "Stay central, delay both attackers, and don't commit", "correct": true, "explanation": "By staying central you cover both options and force the attacker to make a risky decision. Smart defending!"},
+        {"id": "B", "text": "Sprint at the player with the ball and tackle hard", "correct": false, "explanation": "If you dive in and miss, the other attacker is free to score. Stay on your feet!"},
+        {"id": "C", "text": "Mark the attacker without the ball", "correct": false, "explanation": "The player with the ball is the danger — keep your eye on her first!"},
+        {"id": "D", "text": "Retreat all the way to the goal line", "correct": false, "explanation": "Retreating too much lets them get very close before shooting. Stay between them and slow them down!"}
       ]
     },
     {
@@ -1372,65 +563,22 @@
       "difficulty": 1,
       "question": "You receive a cross in the penalty box. The ball is coming to your weaker foot. What do you do?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 55,
-          "y": 22
-        },
-        "yourPlayer": {
-          "x": 55,
-          "y": 22,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 55, "y": 22},
+        "yourPlayer": {"x": 55, "y": 22, "label": "YOU"},
         "teammates": [
-          {
-            "x": 30,
-            "y": 20,
-            "label": "Kit",
-            "isOpen": true
-          }
+          {"x": 30, "y": 20, "label": "Kit", "isOpen": true}
         ],
         "defenders": [
-          {
-            "x": 50,
-            "y": 15,
-            "label": "GK"
-          },
-          {
-            "x": 62,
-            "y": 25,
-            "label": "D1"
-          }
+          {"x": 50, "y": 15, "label": "GK"},
+          {"x": 62, "y": 25, "label": "D1"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
+        "goal": {"x": 50, "y": 10}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Shoot first time with your weaker foot \u2014 you're in a great spot!",
-          "correct": true,
-          "explanation": "Brave! In the box, shooting quickly with any foot is better than hesitating and losing the chance."
-        },
-        {
-          "id": "B",
-          "text": "Wait and try to switch the ball to your stronger foot",
-          "correct": false,
-          "explanation": "Taking extra touches in the box gives defenders time to block you. Shoot quickly!"
-        },
-        {
-          "id": "C",
-          "text": "Pass back out to Kit",
-          "correct": false,
-          "explanation": "You're in a prime scoring position \u2014 believe in yourself and take the shot!"
-        },
-        {
-          "id": "D",
-          "text": "Try to control the ball and dribble towards the keeper",
-          "correct": false,
-          "explanation": "Dribbling in a crowded box is risky. First-time shots catch goalkeepers off-guard!"
-        }
+        {"id": "A", "text": "Shoot first time with your weaker foot — you're in a great spot!", "correct": true, "explanation": "Brave! In the box, shooting quickly with any foot is better than hesitating and losing the chance."},
+        {"id": "B", "text": "Wait and try to switch the ball to your stronger foot", "correct": false, "explanation": "Taking extra touches in the box gives defenders time to block you. Shoot quickly!"},
+        {"id": "C", "text": "Pass back out to Kit", "correct": false, "explanation": "You're in a prime scoring position — believe in yourself and take the shot!"},
+        {"id": "D", "text": "Try to control the ball and dribble towards the keeper", "correct": false, "explanation": "Dribbling in a crowded box is risky. First-time shots catch goalkeepers off-guard!"}
       ]
     },
     {
@@ -1440,71 +588,23 @@
       "difficulty": 1,
       "question": "Your team has a throw-in in your own half. The opponents are pressing high. What's the safest option?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 0,
-          "y": 65
-        },
-        "yourPlayer": {
-          "x": 15,
-          "y": 60,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 0, "y": 65},
+        "yourPlayer": {"x": 15, "y": 60, "label": "YOU"},
         "teammates": [
-          {
-            "x": 15,
-            "y": 75,
-            "label": "Gabi",
-            "isOpen": true
-          },
-          {
-            "x": 35,
-            "y": 55,
-            "label": "Rox",
-            "isOpen": false
-          }
+          {"x": 15, "y": 75, "label": "Gabi", "isOpen": true},
+          {"x": 35, "y": 55, "label": "Rox", "isOpen": false}
         ],
         "defenders": [
-          {
-            "x": 18,
-            "y": 58,
-            "label": "D1"
-          },
-          {
-            "x": 30,
-            "y": 52,
-            "label": "D2"
-          }
+          {"x": 18, "y": 58, "label": "D1"},
+          {"x": 30, "y": 52, "label": "D2"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
+        "goal": {"x": 50, "y": 10}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Short throw to Gabi who has dropped free behind you",
-          "correct": true,
-          "explanation": "Gabi has space and you can build from the back safely \u2014 great awareness!"
-        },
-        {
-          "id": "B",
-          "text": "Long throw forward into a crowded midfield",
-          "correct": false,
-          "explanation": "Throwing long into pressure risks losing the ball. Keep it simple and safe!"
-        },
-        {
-          "id": "C",
-          "text": "Throw it straight to a defender being pressed",
-          "correct": false,
-          "explanation": "Throwing into pressure is risky. Find the free player first!"
-        },
-        {
-          "id": "D",
-          "text": "Wait and hope someone calls for it",
-          "correct": false,
-          "explanation": "Look quickly and find the free player yourself \u2014 don't stand still with the ball!"
-        }
+        {"id": "A", "text": "Short throw to Gabi who has dropped free behind you", "correct": true, "explanation": "Gabi has space and you can build from the back safely — great awareness!"},
+        {"id": "B", "text": "Long throw forward into a crowded midfield", "correct": false, "explanation": "Throwing long into pressure risks losing the ball. Keep it simple and safe!"},
+        {"id": "C", "text": "Throw it straight to a defender being pressed", "correct": false, "explanation": "Throwing into pressure is risky. Find the free player first!"},
+        {"id": "D", "text": "Wait and hope someone calls for it", "correct": false, "explanation": "Look quickly and find the free player yourself — don't stand still with the ball!"}
       ]
     },
     {
@@ -1513,64 +613,24 @@
       "category": "awareness",
       "difficulty": 2,
       "question": "Your team is about to lose the ball. Tap the defender who is out of position!",
-      "timeLimit": 4,
+      "timeLimit": 12,
       "fieldSetup": {
-        "ballPosition": {
-          "x": 35,
-          "y": 35
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 60,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 35, "y": 35},
+        "yourPlayer": {"x": 50, "y": 60, "label": "YOU"},
         "teammates": [
-          {
-            "x": 35,
-            "y": 50,
-            "label": "Tara",
-            "isOpen": false,
-            "id": "t1"
-          },
-          {
-            "x": 55,
-            "y": 75,
-            "label": "Flo",
-            "isOpen": false,
-            "id": "t2"
-          },
-          {
-            "x": 80,
-            "y": 30,
-            "label": "Vee",
-            "isOpen": true,
-            "id": "t3"
-          }
+          {"x": 35, "y": 50, "label": "Tara", "isOpen": false, "id": "t1"},
+          {"x": 55, "y": 75, "label": "Flo", "isOpen": false, "id": "t2"},
+          {"x": 80, "y": 30, "label": "Vee", "isOpen": true, "id": "t3"}
         ],
         "defenders": [
-          {
-            "x": 35,
-            "y": 35,
-            "label": "ATK1"
-          },
-          {
-            "x": 60,
-            "y": 40,
-            "label": "ATK2"
-          },
-          {
-            "x": 50,
-            "y": 25,
-            "label": "ATK3"
-          }
+          {"x": 35, "y": 35, "label": "ATK1"},
+          {"x": 60, "y": 40, "label": "ATK2"},
+          {"x": 50, "y": 25, "label": "ATK3"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
+        "goal": {"x": 50, "y": 90}
       },
       "correctTeammateId": "t3",
-      "explanation": "Vee is stranded on the far right with three attackers threatening central \u2014 she needs to get back into position fast!"
+      "explanation": "Vee is stranded on the far right with three attackers threatening central — she needs to get back into position fast!"
     },
     {
       "id": "s025",
@@ -1579,71 +639,23 @@
       "difficulty": 2,
       "question": "You're dribbling down the wing and the defender is blocking your path to cross. What's the smartest move?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 85,
-          "y": 35
-        },
-        "yourPlayer": {
-          "x": 85,
-          "y": 35,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 85, "y": 35},
+        "yourPlayer": {"x": 85, "y": 35, "label": "YOU"},
         "teammates": [
-          {
-            "x": 50,
-            "y": 25,
-            "label": "Nell",
-            "isOpen": true
-          },
-          {
-            "x": 60,
-            "y": 45,
-            "label": "Cass",
-            "isOpen": false
-          }
+          {"x": 50, "y": 25, "label": "Nell", "isOpen": true},
+          {"x": 60, "y": 45, "label": "Cass", "isOpen": false}
         ],
         "defenders": [
-          {
-            "x": 85,
-            "y": 28,
-            "label": "D1"
-          },
-          {
-            "x": 60,
-            "y": 42,
-            "label": "D2"
-          }
+          {"x": 85, "y": 28, "label": "D1"},
+          {"x": 60, "y": 42, "label": "D2"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
+        "goal": {"x": 50, "y": 10}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Cut back and pass to Nell in the middle",
-          "correct": true,
-          "explanation": "The defender blocked the wing \u2014 cutting back to Nell keeps possession and keeps the attack alive. Clever!"
-        },
-        {
-          "id": "B",
-          "text": "Try to beat the defender and cross anyway",
-          "correct": false,
-          "explanation": "The defender is well-placed \u2014 the cut-back to Nell is the smarter option here."
-        },
-        {
-          "id": "C",
-          "text": "Stop and hold the ball until someone makes a run",
-          "correct": false,
-          "explanation": "Stopping in the corner lets defenders surround you. Keep the ball moving!"
-        },
-        {
-          "id": "D",
-          "text": "Pass backwards all the way to your goalkeeper",
-          "correct": false,
-          "explanation": "Going all the way back loses attacking momentum when Nell is available in a great spot!"
-        }
+        {"id": "A", "text": "Cut back and pass to Nell in the middle", "correct": true, "explanation": "The defender blocked the wing — cutting back to Nell keeps possession and keeps the attack alive. Clever!"},
+        {"id": "B", "text": "Try to beat the defender and cross anyway", "correct": false, "explanation": "The defender is well-placed — the cut-back to Nell is the smarter option here."},
+        {"id": "C", "text": "Stop and hold the ball until someone makes a run", "correct": false, "explanation": "Stopping in the corner lets defenders surround you. Keep the ball moving!"},
+        {"id": "D", "text": "Pass backwards all the way to your goalkeeper", "correct": false, "explanation": "Going all the way back loses attacking momentum when Nell is available in a great spot!"}
       ]
     },
     {
@@ -1653,71 +665,23 @@
       "difficulty": 1,
       "question": "The ball is on the opposite side of the field from you. How should you position yourself?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 15,
-          "y": 35
-        },
-        "yourPlayer": {
-          "x": 75,
-          "y": 40,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 15, "y": 35},
+        "yourPlayer": {"x": 75, "y": 40, "label": "YOU"},
         "teammates": [
-          {
-            "x": 15,
-            "y": 35,
-            "label": "Bex",
-            "isOpen": false
-          },
-          {
-            "x": 40,
-            "y": 30,
-            "label": "Thea",
-            "isOpen": false
-          }
+          {"x": 15, "y": 35, "label": "Bex", "isOpen": false},
+          {"x": 40, "y": 30, "label": "Thea", "isOpen": false}
         ],
         "defenders": [
-          {
-            "x": 20,
-            "y": 40,
-            "label": "D1"
-          },
-          {
-            "x": 45,
-            "y": 35,
-            "label": "D2"
-          }
+          {"x": 20, "y": 40, "label": "D1"},
+          {"x": 45, "y": 35, "label": "D2"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
+        "goal": {"x": 50, "y": 10}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Move slightly towards the centre, ready to switch play",
-          "correct": true,
-          "explanation": "Tucking in slightly when the ball is far away means you're ready if the ball is switched to your side. Great shape!"
-        },
-        {
-          "id": "B",
-          "text": "Stay as wide as possible on the right",
-          "correct": false,
-          "explanation": "Being too wide when the ball is on the opposite side means you're too far from the action if it switches."
-        },
-        {
-          "id": "C",
-          "text": "Run to the left side where the ball is",
-          "correct": false,
-          "explanation": "If you all crowd one side, there's no one available when the ball switches. Hold your position!"
-        },
-        {
-          "id": "D",
-          "text": "Drop back to help defend",
-          "correct": false,
-          "explanation": "Your team is attacking \u2014 stay forward so there's an option when they switch the play to your side!"
-        }
+        {"id": "A", "text": "Move slightly towards the centre, ready to switch play", "correct": true, "explanation": "Tucking in slightly when the ball is far away means you're ready if the ball is switched to your side. Great shape!"},
+        {"id": "B", "text": "Stay as wide as possible on the right", "correct": false, "explanation": "Being too wide when the ball is on the opposite side means you're too far from the action if it switches."},
+        {"id": "C", "text": "Run to the left side where the ball is", "correct": false, "explanation": "If you all crowd one side, there's no one available when the ball switches. Hold your position!"},
+        {"id": "D", "text": "Drop back to help defend", "correct": false, "explanation": "Your team is attacking — stay forward so there's an option when they switch the play to your side!"}
       ]
     },
     {
@@ -1726,59 +690,23 @@
       "category": "awareness",
       "difficulty": 1,
       "question": "The goalkeeper kicked the ball long. Tap the teammate who is best placed to win the header!",
-      "timeLimit": 5,
+      "timeLimit": 15,
       "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 45
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 75,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 50, "y": 45},
+        "yourPlayer": {"x": 50, "y": 75, "label": "YOU"},
         "teammates": [
-          {
-            "x": 50,
-            "y": 45,
-            "label": "Drew",
-            "isOpen": true,
-            "id": "t1"
-          },
-          {
-            "x": 25,
-            "y": 55,
-            "label": "Fern",
-            "isOpen": false,
-            "id": "t2"
-          },
-          {
-            "x": 70,
-            "y": 60,
-            "label": "Iris",
-            "isOpen": false,
-            "id": "t3"
-          }
+          {"x": 50, "y": 45, "label": "Drew", "isOpen": true, "id": "t1"},
+          {"x": 25, "y": 55, "label": "Fern", "isOpen": false, "id": "t2"},
+          {"x": 70, "y": 60, "label": "Iris", "isOpen": false, "id": "t3"}
         ],
         "defenders": [
-          {
-            "x": 52,
-            "y": 50,
-            "label": "D1"
-          },
-          {
-            "x": 28,
-            "y": 53,
-            "label": "D2"
-          }
+          {"x": 52, "y": 50, "label": "D1"},
+          {"x": 28, "y": 53, "label": "D2"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
+        "goal": {"x": 50, "y": 10}
       },
       "correctTeammateId": "t1",
-      "explanation": "Drew is right where the ball is dropping and has a step on the nearest defender \u2014 she's best placed to win the header!"
+      "explanation": "Drew is right where the ball is dropping and has a step on the nearest defender — she's best placed to win the header!"
     },
     {
       "id": "s028",
@@ -1787,116 +715,43 @@
       "difficulty": 1,
       "question": "The other team's striker is running towards you with the ball but hasn't looked up yet. What do you do?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 55
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 68,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 50, "y": 55},
+        "yourPlayer": {"x": 50, "y": 68, "label": "YOU"},
         "teammates": [
-          {
-            "x": 30,
-            "y": 72,
-            "label": "Suki",
-            "isOpen": false
-          }
+          {"x": 30, "y": 72, "label": "Suki", "isOpen": false}
         ],
         "defenders": [
-          {
-            "x": 50,
-            "y": 55,
-            "label": "ATK"
-          }
+          {"x": 50, "y": 55, "label": "ATK"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
+        "goal": {"x": 50, "y": 90}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Get close and show her towards the outside",
-          "correct": true,
-          "explanation": "Showing an attacker towards the outside moves the danger away from the centre of goal. Textbook defending!"
-        },
-        {
-          "id": "B",
-          "text": "Back off and give her space to shoot",
-          "correct": false,
-          "explanation": "Giving too much space lets the attacker get a clean shot off. Stay close and make it hard!"
-        },
-        {
-          "id": "C",
-          "text": "Slide tackle immediately",
-          "correct": false,
-          "explanation": "A slide tackle when she hasn't committed is too risky \u2014 you might miss and foul her!"
-        },
-        {
-          "id": "D",
-          "text": "Shout at your goalkeeper to come out",
-          "correct": false,
-          "explanation": "The keeper should stay on her line \u2014 it's your job to deal with this. Stay focused!"
-        }
+        {"id": "A", "text": "Get close and show her towards the outside", "correct": true, "explanation": "Showing an attacker towards the outside moves the danger away from the centre of goal. Textbook defending!"},
+        {"id": "B", "text": "Back off and give her space to shoot", "correct": false, "explanation": "Giving too much space lets the attacker get a clean shot off. Stay close and make it hard!"},
+        {"id": "C", "text": "Slide tackle immediately", "correct": false, "explanation": "A slide tackle when she hasn't committed is too risky — you might miss and foul her!"},
+        {"id": "D", "text": "Shout at your goalkeeper to come out", "correct": false, "explanation": "The keeper should stay on her line — it's your job to deal with this. Stay focused!"}
       ]
     },
     {
       "id": "s029",
       "type": "choice",
-      "category": "shooting",
+      "category": "awareness",
       "difficulty": 2,
       "question": "Your team wins a penalty kick! You're about to take it. The keeper is standing in the centre. What's your plan?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 22
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 22,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 50, "y": 22},
+        "yourPlayer": {"x": 50, "y": 22, "label": "YOU"},
         "teammates": [],
         "defenders": [
-          {
-            "x": 50,
-            "y": 12,
-            "label": "GK"
-          }
+          {"x": 50, "y": 12, "label": "GK"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
+        "goal": {"x": 50, "y": 10}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Pick a corner and shoot with power and accuracy",
-          "correct": true,
-          "explanation": "Picking a corner and committing to it is the best penalty strategy \u2014 keepers can't cover the corners if you're accurate!"
-        },
-        {
-          "id": "B",
-          "text": "Wait to see which way the keeper dives, then shoot the other way",
-          "correct": false,
-          "explanation": "Waiting for the keeper to move slows you down and makes the kick less powerful. Decide before you run up!"
-        },
-        {
-          "id": "C",
-          "text": "Aim straight down the middle",
-          "correct": false,
-          "explanation": "Shooting down the middle can work but is easily saved if the keeper stands still. Aim for a corner!"
-        },
-        {
-          "id": "D",
-          "text": "Try a soft chip down the middle",
-          "correct": false,
-          "explanation": "A chip is very risky \u2014 if the keeper doesn't dive, she'll easily save it. Shoot with confidence!"
-        }
+        {"id": "A", "text": "Pick a corner and shoot with power and accuracy", "correct": true, "explanation": "Picking a corner and committing to it is the best penalty strategy — keepers can't cover the corners if you're accurate!"},
+        {"id": "B", "text": "Wait to see which way the keeper dives, then shoot the other way", "correct": false, "explanation": "Waiting for the keeper to move slows you down and makes the kick less powerful. Decide before you run up!"},
+        {"id": "C", "text": "Aim straight down the middle", "correct": false, "explanation": "Shooting down the middle can work but is easily saved if the keeper stands still. Aim for a corner!"},
+        {"id": "D", "text": "Try a soft chip down the middle", "correct": false, "explanation": "A chip is very risky — if the keeper doesn't dive, she'll easily save it. Shoot with confidence!"}
       ]
     },
     {
@@ -1904,68 +759,24 @@
       "type": "choice",
       "category": "passing",
       "difficulty": 1,
-      "question": "You have the ball at your feet and your teammate is calling for it \u2014 but an opponent is between you both. What do you do?",
+      "question": "You have the ball at your feet and your teammate is calling for it — but an opponent is between you both. What do you do?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 40,
-          "y": 50
-        },
-        "yourPlayer": {
-          "x": 40,
-          "y": 50,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 40, "y": 50},
+        "yourPlayer": {"x": 40, "y": 50, "label": "YOU"},
         "teammates": [
-          {
-            "x": 65,
-            "y": 40,
-            "label": "Lexi",
-            "isOpen": false
-          },
-          {
-            "x": 20,
-            "y": 38,
-            "label": "Nadia",
-            "isOpen": true
-          }
+          {"x": 65, "y": 40, "label": "Lexi", "isOpen": false},
+          {"x": 20, "y": 38, "label": "Nadia", "isOpen": true}
         ],
         "defenders": [
-          {
-            "x": 52,
-            "y": 45,
-            "label": "D1"
-          }
+          {"x": 52, "y": 45, "label": "D1"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
+        "goal": {"x": 50, "y": 10}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Pass to Nadia who is open on the left instead",
-          "correct": true,
-          "explanation": "Even though Lexi called, the defender is blocking that pass. Finding the open player is smarter!"
-        },
-        {
-          "id": "B",
-          "text": "Force the pass through to Lexi anyway",
-          "correct": false,
-          "explanation": "A defender is right in the way \u2014 the pass will be intercepted! Find the free player."
-        },
-        {
-          "id": "C",
-          "text": "Dribble towards the defender to create space",
-          "correct": false,
-          "explanation": "Nadia is free right now \u2014 pass to her before the chance disappears!"
-        },
-        {
-          "id": "D",
-          "text": "Shout at Lexi to move",
-          "correct": false,
-          "explanation": "There's no time to shout instructions \u2014 play the easy ball to Nadia and keep moving!"
-        }
+        {"id": "A", "text": "Pass to Nadia who is open on the left instead", "correct": true, "explanation": "Even though Lexi called, the defender is blocking that pass. Finding the open player is smarter!"},
+        {"id": "B", "text": "Force the pass through to Lexi anyway", "correct": false, "explanation": "A defender is right in the way — the pass will be intercepted! Find the free player."},
+        {"id": "C", "text": "Dribble towards the defender to create space", "correct": false, "explanation": "Nadia is free right now — pass to her before the chance disappears!"},
+        {"id": "D", "text": "Shout at Lexi to move", "correct": false, "explanation": "There's no time to shout instructions — play the easy ball to Nadia and keep moving!"}
       ]
     },
     {
@@ -1973,60 +784,24 @@
       "type": "spot",
       "category": "awareness",
       "difficulty": 2,
-      "question": "Your team just scored! Tap the teammate you should hug first \u2014 she made the key assist run!",
-      "timeLimit": 4,
+      "question": "Your team just scored! Tap the teammate you should hug first — she made the key assist run!",
+      "timeLimit": 12,
       "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 12
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 20,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 50, "y": 12},
+        "yourPlayer": {"x": 50, "y": 20, "label": "YOU"},
         "teammates": [
-          {
-            "x": 30,
-            "y": 25,
-            "label": "Evie",
-            "isOpen": false,
-            "id": "t1"
-          },
-          {
-            "x": 68,
-            "y": 18,
-            "label": "Rue",
-            "isOpen": true,
-            "id": "t2"
-          },
-          {
-            "x": 50,
-            "y": 35,
-            "label": "Dot",
-            "isOpen": false,
-            "id": "t3"
-          }
+          {"x": 30, "y": 25, "label": "Evie", "isOpen": false, "id": "t1"},
+          {"x": 68, "y": 18, "label": "Rue", "isOpen": true, "id": "t2"},
+          {"x": 50, "y": 35, "label": "Dot", "isOpen": false, "id": "t3"}
         ],
         "defenders": [
-          {
-            "x": 40,
-            "y": 22,
-            "label": "D1"
-          },
-          {
-            "x": 55,
-            "y": 30,
-            "label": "D2"
-          }
+          {"x": 40, "y": 22, "label": "D1"},
+          {"x": 55, "y": 30, "label": "D2"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
+        "goal": {"x": 50, "y": 10}
       },
       "correctTeammateId": "t2",
-      "explanation": "Rue made a brilliant run to the far post to pull the defender away and create the space for the goal \u2014 she made it happen!"
+      "explanation": "Rue made a brilliant run to the far post to pull the defender away and create the space for the goal — she made it happen!"
     },
     {
       "id": "s032",
@@ -2035,76 +810,24 @@
       "difficulty": 2,
       "question": "You're playing as a striker and your team is defending a corner. Where should you position yourself?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 0,
-          "y": 10
-        },
-        "yourPlayer": {
-          "x": 75,
-          "y": 45,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 0, "y": 10},
+        "yourPlayer": {"x": 75, "y": 45, "label": "YOU"},
         "teammates": [
-          {
-            "x": 50,
-            "y": 78,
-            "label": "Cam",
-            "isOpen": false
-          },
-          {
-            "x": 30,
-            "y": 80,
-            "label": "Blair",
-            "isOpen": false
-          }
+          {"x": 50, "y": 78, "label": "Cam", "isOpen": false},
+          {"x": 30, "y": 80, "label": "Blair", "isOpen": false}
         ],
         "defenders": [
-          {
-            "x": 0,
-            "y": 10,
-            "label": "CK"
-          },
-          {
-            "x": 55,
-            "y": 72,
-            "label": "ATK1"
-          },
-          {
-            "x": 40,
-            "y": 68,
-            "label": "ATK2"
-          }
+          {"x": 0, "y": 10, "label": "CK"},
+          {"x": 55, "y": 72, "label": "ATK1"},
+          {"x": 40, "y": 68, "label": "ATK2"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
+        "goal": {"x": 50, "y": 90}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Stay near the halfway line ready for a quick counter-attack",
-          "correct": true,
-          "explanation": "As a striker, your job on corners is to be the counter-attack threat. Stay forward and be ready to run!"
-        },
-        {
-          "id": "B",
-          "text": "Go back into your own box to help defend",
-          "correct": false,
-          "explanation": "Your team has defenders for that! Your job as striker is to be ready for the counter."
-        },
-        {
-          "id": "C",
-          "text": "Stand right next to the corner flag to block the kick",
-          "correct": false,
-          "explanation": "You can't block a corner kick \u2014 that's not a rule you can use here!"
-        },
-        {
-          "id": "D",
-          "text": "Go to the edge of the penalty box and wait",
-          "correct": false,
-          "explanation": "If the ball is cleared, it probably won't reach that far. Get into a real counter-attack position!"
-        }
+        {"id": "A", "text": "Stay near the halfway line ready for a quick counter-attack", "correct": true, "explanation": "As a striker, your job on corners is to be the counter-attack threat. Stay forward and be ready to run!"},
+        {"id": "B", "text": "Go back into your own box to help defend", "correct": false, "explanation": "Your team has defenders for that! Your job as striker is to be ready for the counter."},
+        {"id": "C", "text": "Stand right next to the corner flag to block the kick", "correct": false, "explanation": "You can't block a corner kick — that's not a rule you can use here!"},
+        {"id": "D", "text": "Go to the edge of the penalty box and wait", "correct": false, "explanation": "If the ball is cleared, it probably won't reach that far. Get into a real counter-attack position!"}
       ]
     },
     {
@@ -2114,60 +837,21 @@
       "difficulty": 2,
       "question": "You're through on goal but you're running at full speed. The goalkeeper is rushing out. What do you do?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 48,
-          "y": 32
-        },
-        "yourPlayer": {
-          "x": 48,
-          "y": 32,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 48, "y": 32},
+        "yourPlayer": {"x": 48, "y": 32, "label": "YOU"},
         "teammates": [
-          {
-            "x": 25,
-            "y": 28,
-            "label": "Juno",
-            "isOpen": true
-          }
+          {"x": 25, "y": 28, "label": "Juno", "isOpen": true}
         ],
         "defenders": [
-          {
-            "x": 50,
-            "y": 20,
-            "label": "GK"
-          }
+          {"x": 50, "y": 20, "label": "GK"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
+        "goal": {"x": 50, "y": 10}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Stay calm and chip the ball over the rushing keeper",
-          "correct": true,
-          "explanation": "A chip over a rushing keeper is a brilliant finish \u2014 it uses her own momentum against her!"
-        },
-        {
-          "id": "B",
-          "text": "Try to run around the goalkeeper",
-          "correct": false,
-          "explanation": "At full speed it's very hard to go around a keeper who's already rushing out. The chip is smarter!"
-        },
-        {
-          "id": "C",
-          "text": "Blast the ball as hard as possible",
-          "correct": false,
-          "explanation": "Blasting into a keeper who's rushing towards you often leads to a block. Stay calm and chip!"
-        },
-        {
-          "id": "D",
-          "text": "Pass sideways to Juno at the last second",
-          "correct": false,
-          "explanation": "Juno is a backup option, but you have the best chance right now \u2014 back yourself and go for goal!"
-        }
+        {"id": "A", "text": "Stay calm and chip the ball over the rushing keeper", "correct": true, "explanation": "A chip over a rushing keeper is a brilliant finish — it uses her own momentum against her!"},
+        {"id": "B", "text": "Try to run around the goalkeeper", "correct": false, "explanation": "At full speed it's very hard to go around a keeper who's already rushing out. The chip is smarter!"},
+        {"id": "C", "text": "Blast the ball as hard as possible", "correct": false, "explanation": "Blasting into a keeper who's rushing towards you often leads to a block. Stay calm and chip!"},
+        {"id": "D", "text": "Pass sideways to Juno at the last second", "correct": false, "explanation": "Juno is a backup option, but you have the best chance right now — back yourself and go for goal!"}
       ]
     },
     {
@@ -2176,60 +860,23 @@
       "category": "awareness",
       "difficulty": 1,
       "question": "Tap the opponent who is completely unmarked and most dangerous right now!",
-      "timeLimit": 5,
+      "timeLimit": 15,
       "fieldSetup": {
-        "ballPosition": {
-          "x": 30,
-          "y": 40
-        },
-        "yourPlayer": {
-          "x": 55,
-          "y": 65,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 30, "y": 40},
+        "yourPlayer": {"x": 55, "y": 65, "label": "YOU"},
         "teammates": [
-          {
-            "x": 30,
-            "y": 48,
-            "label": "Prue",
-            "isOpen": false,
-            "id": "t1"
-          },
-          {
-            "x": 60,
-            "y": 55,
-            "label": "Vera",
-            "isOpen": false,
-            "id": "t2"
-          }
+          {"x": 30, "y": 48, "label": "Prue", "isOpen": false, "id": "t1"},
+          {"x": 60, "y": 55, "label": "Vera", "isOpen": false, "id": "t2"}
         ],
         "defenders": [
-          {
-            "x": 30,
-            "y": 40,
-            "label": "ATK1",
-            "id": "e1"
-          },
-          {
-            "x": 50,
-            "y": 50,
-            "label": "ATK2",
-            "id": "e2"
-          },
-          {
-            "x": 70,
-            "y": 58,
-            "label": "ATK3",
-            "id": "e3"
-          }
+          {"x": 30, "y": 40, "label": "ATK1", "id": "e1"},
+          {"x": 50, "y": 50, "label": "ATK2", "id": "e2"},
+          {"x": 70, "y": 58, "label": "ATK3", "id": "e3"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
+        "goal": {"x": 50, "y": 90}
       },
       "correctTeammateId": "e3",
-      "explanation": "ATK3 has no one near her on the right side and is in a great position to receive the ball and shoot \u2014 she needs marking immediately!"
+      "explanation": "ATK3 has no one near her on the right side and is in a great position to receive the ball and shoot — she needs marking immediately!"
     },
     {
       "id": "s035",
@@ -2238,58 +885,20 @@
       "difficulty": 2,
       "question": "The other team's winger is running fast down the side with the ball. You're the last defender. What do you do?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 80,
-          "y": 40
-        },
-        "yourPlayer": {
-          "x": 75,
-          "y": 58,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 80, "y": 40},
+        "yourPlayer": {"x": 75, "y": 58, "label": "YOU"},
         "teammates": [],
         "defenders": [
-          {
-            "x": 80,
-            "y": 40,
-            "label": "ATK"
-          },
-          {
-            "x": 50,
-            "y": 82,
-            "label": "GK"
-          }
+          {"x": 80, "y": 40, "label": "ATK"},
+          {"x": 50, "y": 82, "label": "GK"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
+        "goal": {"x": 50, "y": 90}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Stay between the attacker and the goal, slow her down",
-          "correct": true,
-          "explanation": "As the last defender, your goal is to delay and protect the goal \u2014 not to win the ball at all costs!"
-        },
-        {
-          "id": "B",
-          "text": "Sprint at the ball and try to tackle",
-          "correct": false,
-          "explanation": "If you miss the tackle as last defender, she's free to score. Don't gamble \u2014 delay!"
-        },
-        {
-          "id": "C",
-          "text": "Foul her to stop the attack",
-          "correct": false,
-          "explanation": "Fouling could give away a penalty or free kick in a dangerous area. Stay on your feet!"
-        },
-        {
-          "id": "D",
-          "text": "Let her go and shout for offside",
-          "correct": false,
-          "explanation": "You can't just let her go \u2014 stay close and force her wide, away from goal!"
-        }
+        {"id": "A", "text": "Stay between the attacker and the goal, slow her down", "correct": true, "explanation": "As the last defender, your goal is to delay and protect the goal — not to win the ball at all costs!"},
+        {"id": "B", "text": "Sprint at the ball and try to tackle", "correct": false, "explanation": "If you miss the tackle as last defender, she's free to score. Don't gamble — delay!"},
+        {"id": "C", "text": "Foul her to stop the attack", "correct": false, "explanation": "Fouling could give away a penalty or free kick in a dangerous area. Stay on your feet!"},
+        {"id": "D", "text": "Let her go and shout for offside", "correct": false, "explanation": "You can't just let her go — stay close and force her wide, away from goal!"}
       ]
     },
     {
@@ -2299,72 +908,23 @@
       "difficulty": 2,
       "question": "You're in midfield. You have the ball but three options: go forward, sideways, or back. The pressure is low. What do you choose?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 48
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 48,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 50, "y": 48},
+        "yourPlayer": {"x": 50, "y": 48, "label": "YOU"},
         "teammates": [
-          {
-            "x": 68,
-            "y": 28,
-            "label": "Rena",
-            "isOpen": true
-          },
-          {
-            "x": 25,
-            "y": 50,
-            "label": "Cori",
-            "isOpen": true
-          },
-          {
-            "x": 50,
-            "y": 68,
-            "label": "Petra",
-            "isOpen": true
-          }
+          {"x": 68, "y": 28, "label": "Rena", "isOpen": true},
+          {"x": 25, "y": 50, "label": "Cori", "isOpen": true},
+          {"x": 50, "y": 68, "label": "Petra", "isOpen": true}
         ],
         "defenders": [
-          {
-            "x": 60,
-            "y": 42,
-            "label": "D1"
-          }
+          {"x": 60, "y": 42, "label": "D1"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
+        "goal": {"x": 50, "y": 10}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Pass forward to Rena who is ahead of you",
-          "correct": true,
-          "explanation": "When you have space and a teammate forward, progress the ball! Rena is open and moving forward \u2014 brilliant decision!"
-        },
-        {
-          "id": "B",
-          "text": "Pass sideways to Cori to recycle possession",
-          "correct": false,
-          "explanation": "Sideways is fine when under pressure, but Rena is free going forward \u2014 always look to progress first!"
-        },
-        {
-          "id": "C",
-          "text": "Pass back to Petra to keep it safe",
-          "correct": false,
-          "explanation": "Playing backwards when you have a forward pass available slows the attack. Look forward first!"
-        },
-        {
-          "id": "D",
-          "text": "Dribble forward yourself",
-          "correct": false,
-          "explanation": "Dribbling when a teammate is free is usually slower \u2014 pass and move for better team play!"
-        }
+        {"id": "A", "text": "Pass forward to Rena who is ahead of you", "correct": true, "explanation": "When you have space and a teammate forward, progress the ball! Rena is open and moving forward — brilliant decision!"},
+        {"id": "B", "text": "Pass sideways to Cori to recycle possession", "correct": false, "explanation": "Sideways is fine when under pressure, but Rena is free going forward — always look to progress first!"},
+        {"id": "C", "text": "Pass back to Petra to keep it safe", "correct": false, "explanation": "Playing backwards when you have a forward pass available slows the attack. Look forward first!"},
+        {"id": "D", "text": "Dribble forward yourself", "correct": false, "explanation": "Dribbling when a teammate is free is usually slower — pass and move for better team play!"}
       ]
     },
     {
@@ -2373,64 +933,24 @@
       "category": "awareness",
       "difficulty": 2,
       "question": "Your team has a goal kick. Tap the teammate in the best position to receive it safely!",
-      "timeLimit": 4,
+      "timeLimit": 12,
       "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 95
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 95,
-          "label": "GK"
-        },
+        "ballPosition": {"x": 50, "y": 95},
+        "yourPlayer": {"x": 50, "y": 95, "label": "GK"},
         "teammates": [
-          {
-            "x": 20,
-            "y": 65,
-            "label": "Willa",
-            "isOpen": true,
-            "id": "t1"
-          },
-          {
-            "x": 50,
-            "y": 60,
-            "label": "Paige",
-            "isOpen": false,
-            "id": "t2"
-          },
-          {
-            "x": 75,
-            "y": 50,
-            "label": "Celeste",
-            "isOpen": false,
-            "id": "t3"
-          }
+          {"x": 20, "y": 65, "label": "Willa", "isOpen": true, "id": "t1"},
+          {"x": 50, "y": 60, "label": "Paige", "isOpen": false, "id": "t2"},
+          {"x": 75, "y": 50, "label": "Celeste", "isOpen": false, "id": "t3"}
         ],
         "defenders": [
-          {
-            "x": 48,
-            "y": 58,
-            "label": "D1"
-          },
-          {
-            "x": 72,
-            "y": 48,
-            "label": "D2"
-          },
-          {
-            "x": 55,
-            "y": 70,
-            "label": "D3"
-          }
+          {"x": 48, "y": 58, "label": "D1"},
+          {"x": 72, "y": 48, "label": "D2"},
+          {"x": 55, "y": 70, "label": "D3"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
+        "goal": {"x": 50, "y": 90}
       },
       "correctTeammateId": "t1",
-      "explanation": "Willa has dropped to the left side and has no one near her \u2014 she's the safest and clearest option for the goal kick!"
+      "explanation": "Willa has dropped to the left side and has no one near her — she's the safest and clearest option for the goal kick!"
     },
     {
       "id": "s038",
@@ -2439,2464 +959,24 @@
       "difficulty": 1,
       "question": "Your team is about to defend a goal kick from the other team. Where should you stand?",
       "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 8
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 45,
-          "label": "YOU"
-        },
+        "ballPosition": {"x": 50, "y": 8},
+        "yourPlayer": {"x": 50, "y": 45, "label": "YOU"},
         "teammates": [
-          {
-            "x": 30,
-            "y": 55,
-            "label": "Abi",
-            "isOpen": false
-          },
-          {
-            "x": 65,
-            "y": 50,
-            "label": "Paz",
-            "isOpen": false
-          }
+          {"x": 30, "y": 55, "label": "Abi", "isOpen": false},
+          {"x": 65, "y": 50, "label": "Paz", "isOpen": false}
         ],
         "defenders": [
-          {
-            "x": 50,
-            "y": 8,
-            "label": "GK"
-          },
-          {
-            "x": 40,
-            "y": 35,
-            "label": "ATK1"
-          },
-          {
-            "x": 60,
-            "y": 38,
-            "label": "ATK2"
-          }
+          {"x": 50, "y": 8, "label": "GK"},
+          {"x": 40, "y": 35, "label": "ATK1"},
+          {"x": 60, "y": 38, "label": "ATK2"}
         ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
+        "goal": {"x": 50, "y": 90}
       },
       "choices": [
-        {
-          "id": "A",
-          "text": "Press up close to their player to try to win the ball in the air",
-          "correct": true,
-          "explanation": "Getting tight to your opponent and challenging for the ball means you might win it and start an attack. Great pressing!"
-        },
-        {
-          "id": "B",
-          "text": "Stay back near your own goal just in case",
-          "correct": false,
-          "explanation": "Dropping too deep gives the other team too much space to build their attack freely."
-        },
-        {
-          "id": "C",
-          "text": "Stand at the halfway line and wait",
-          "correct": false,
-          "explanation": "Waiting at the halfway line lets their team receive the ball and run at you. Press up and challenge!"
-        },
-        {
-          "id": "D",
-          "text": "Run behind your own goalkeeper",
-          "correct": false,
-          "explanation": "That's too far back! You need to be in a position to challenge for the ball or be ready to defend."
-        }
-      ]
-    },
-    {
-      "id": "s039",
-      "type": "choice",
-      "category": "passing",
-      "difficulty": 1,
-      "question": "You're in midfield with the ball. One teammate is running into space ahead of you, one is standing still. Who do you pass to?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 45,
-          "y": 55
-        },
-        "yourPlayer": {
-          "x": 45,
-          "y": 55,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 55,
-            "y": 30,
-            "label": "Bea",
-            "isOpen": true
-          },
-          {
-            "x": 20,
-            "y": 55,
-            "label": "Mona",
-            "isOpen": false
-          }
-        ],
-        "defenders": [
-          {
-            "x": 50,
-            "y": 42,
-            "label": "D1"
-          },
-          {
-            "x": 25,
-            "y": 52,
-            "label": "D2"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Pass to Bea who is making the run into space",
-          "correct": true,
-          "explanation": "Always play to the moving player! Bea is running into space \u2014 your pass gives her momentum."
-        },
-        {
-          "id": "B",
-          "text": "Pass to Mona who is standing still",
-          "correct": false,
-          "explanation": "Mona is standing still and has a defender close. Pass to the player making the run!"
-        },
-        {
-          "id": "C",
-          "text": "Dribble forward and decide later",
-          "correct": false,
-          "explanation": "Bea's run is happening now \u2014 if you wait, the defender will cover her. Pass quickly!"
-        },
-        {
-          "id": "D",
-          "text": "Turn and pass backwards",
-          "correct": false,
-          "explanation": "You have a teammate running forward into space \u2014 use her! That's a clear attacking opportunity."
-        }
-      ]
-    },
-    {
-      "id": "s040",
-      "type": "choice",
-      "category": "defending",
-      "difficulty": 1,
-      "question": "Your team wins the ball and starts attacking. You're a defender. What do you do?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 60,
-          "y": 35
-        },
-        "yourPlayer": {
-          "x": 40,
-          "y": 75,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 60,
-            "y": 35,
-            "label": "Jo",
-            "isOpen": false
-          },
-          {
-            "x": 75,
-            "y": 25,
-            "label": "Pip",
-            "isOpen": true
-          }
-        ],
-        "defenders": [
-          {
-            "x": 55,
-            "y": 45,
-            "label": "D1"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Stay back and hold your defensive position",
-          "correct": true,
-          "explanation": "Defenders must stay back even in attack! You protect the team against a quick counter-attack."
-        },
-        {
-          "id": "B",
-          "text": "Sprint forward to join the attack",
-          "correct": false,
-          "explanation": "If you charge forward and your team loses the ball, the opponents have a clear run at goal. Hold your shape!"
-        },
-        {
-          "id": "C",
-          "text": "Cheer your teammates from the halfway line",
-          "correct": false,
-          "explanation": "Stay in your defensive position \u2014 close enough to react if your team loses the ball."
-        },
-        {
-          "id": "D",
-          "text": "Walk forward slowly to save energy",
-          "correct": false,
-          "explanation": "Stay disciplined in your position. Walking forward still leaves space behind you!"
-        }
-      ]
-    },
-    {
-      "id": "s041",
-      "type": "choice",
-      "category": "shooting",
-      "difficulty": 2,
-      "question": "You receive the ball at the edge of the box with your back to goal. Two defenders are close. What's your best move?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 28
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 28,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 20,
-            "y": 22,
-            "label": "Tia",
-            "isOpen": true
-          },
-          {
-            "x": 72,
-            "y": 20,
-            "label": "Ola",
-            "isOpen": true
-          }
-        ],
-        "defenders": [
-          {
-            "x": 47,
-            "y": 22,
-            "label": "D1"
-          },
-          {
-            "x": 53,
-            "y": 22,
-            "label": "D2"
-          },
-          {
-            "x": 50,
-            "y": 12,
-            "label": "GK"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Flick the ball wide to Ola or Tia who are both free",
-          "correct": true,
-          "explanation": "With two defenders on you, laying it wide to an unmarked teammate is the smartest play. Great composure!"
-        },
-        {
-          "id": "B",
-          "text": "Turn and shoot through the two defenders",
-          "correct": false,
-          "explanation": "Two defenders in your way makes this very hard. The wide pass to a free player is much cleaner."
-        },
-        {
-          "id": "C",
-          "text": "Try to dribble past both defenders",
-          "correct": false,
-          "explanation": "Two-vs-one dribbling near goal is very risky. Use your free teammates!"
-        },
-        {
-          "id": "D",
-          "text": "Fall down and hope for a foul",
-          "correct": false,
-          "explanation": "Play the game properly \u2014 use your open teammates instead!"
-        }
-      ]
-    },
-    {
-      "id": "s042",
-      "type": "spot",
-      "category": "awareness",
-      "difficulty": 1,
-      "question": "Your team is attacking. Tap the teammate who is in the best place to score if you cross the ball now!",
-      "timeLimit": 5,
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 85,
-          "y": 40
-        },
-        "yourPlayer": {
-          "x": 85,
-          "y": 40,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 50,
-            "y": 18,
-            "label": "Cleo",
-            "isOpen": true,
-            "id": "t1"
-          },
-          {
-            "x": 65,
-            "y": 35,
-            "label": "Jada",
-            "isOpen": false,
-            "id": "t2"
-          },
-          {
-            "x": 40,
-            "y": 40,
-            "label": "Rex",
-            "isOpen": false,
-            "id": "t3"
-          }
-        ],
-        "defenders": [
-          {
-            "x": 60,
-            "y": 30,
-            "label": "D1"
-          },
-          {
-            "x": 38,
-            "y": 38,
-            "label": "D2"
-          },
-          {
-            "x": 50,
-            "y": 12,
-            "label": "GK"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "correctTeammateId": "t1",
-      "explanation": "Cleo is at the far post with no defender near her \u2014 a cross to that area gives her a clear chance to score!"
-    },
-    {
-      "id": "s043",
-      "type": "choice",
-      "category": "positioning",
-      "difficulty": 1,
-      "question": "You are a winger and your team has just kicked off at the start of the game. Where should you start?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 50
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 50,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 20,
-            "y": 50,
-            "label": "Sam",
-            "isOpen": true
-          },
-          {
-            "x": 80,
-            "y": 50,
-            "label": "Zoe",
-            "isOpen": true
-          }
-        ],
-        "defenders": [],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Spread wide on your side of the pitch",
-          "correct": true,
-          "explanation": "Wingers stretch the play wide. This pulls defenders apart and creates space for your team!"
-        },
-        {
-          "id": "B",
-          "text": "Crowd into the centre with your teammates",
-          "correct": false,
-          "explanation": "Bunching in the middle makes it easier for the other team to defend. Spread the play wide!"
-        },
-        {
-          "id": "C",
-          "text": "Stand in the opponent's goal area waiting for a pass",
-          "correct": false,
-          "explanation": "That's too far ahead \u2014 you need to be in a position to receive the ball first!"
-        },
-        {
-          "id": "D",
-          "text": "Run straight to the other team's goalkeeper",
-          "correct": false,
-          "explanation": "The game has just kicked off \u2014 build the play from the centre first!"
-        }
-      ]
-    },
-    {
-      "id": "s044",
-      "type": "choice",
-      "category": "awareness",
-      "difficulty": 2,
-      "question": "Your goalkeeper catches the ball after a corner kick. What should you do to help restart the attack?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 88
-        },
-        "yourPlayer": {
-          "x": 30,
-          "y": 70,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 50,
-            "y": 88,
-            "label": "GK",
-            "isOpen": false
-          },
-          {
-            "x": 75,
-            "y": 65,
-            "label": "Gwen",
-            "isOpen": true
-          }
-        ],
-        "defenders": [
-          {
-            "x": 45,
-            "y": 72,
-            "label": "D1"
-          },
-          {
-            "x": 60,
-            "y": 60,
-            "label": "D2"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Make a run into space so the keeper has an easy outlet",
-          "correct": true,
-          "explanation": "After catching a corner, the keeper wants to restart quickly. Give her a clear passing option by running into space!"
-        },
-        {
-          "id": "B",
-          "text": "Stay where you are \u2014 the keeper will sort it out",
-          "correct": false,
-          "explanation": "Your team needs options to restart! Move and create a passing lane for the keeper."
-        },
-        {
-          "id": "C",
-          "text": "Run towards the keeper to be closer to the ball",
-          "correct": false,
-          "explanation": "Running towards the keeper brings your marker with you and blocks the passing lane!"
-        },
-        {
-          "id": "D",
-          "text": "Stand near the opponent's goal ready to counter",
-          "correct": false,
-          "explanation": "You're too far away for a safe pass from the keeper. Stay closer to help restart the play."
-        }
-      ]
-    },
-    {
-      "id": "s045",
-      "type": "spot",
-      "category": "awareness",
-      "difficulty": 2,
-      "question": "Your team is under pressure. Tap the teammate who is in the safest position for you to pass to right now!",
-      "timeLimit": 4,
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 30,
-          "y": 72
-        },
-        "yourPlayer": {
-          "x": 30,
-          "y": 72,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 15,
-            "y": 82,
-            "label": "Fran",
-            "isOpen": true,
-            "id": "t1"
-          },
-          {
-            "x": 50,
-            "y": 65,
-            "label": "Bex",
-            "isOpen": false,
-            "id": "t2"
-          },
-          {
-            "x": 55,
-            "y": 45,
-            "label": "Nell",
-            "isOpen": false,
-            "id": "t3"
-          }
-        ],
-        "defenders": [
-          {
-            "x": 32,
-            "y": 62,
-            "label": "D1"
-          },
-          {
-            "x": 48,
-            "y": 60,
-            "label": "D2"
-          },
-          {
-            "x": 52,
-            "y": 42,
-            "label": "D3"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
-      },
-      "correctTeammateId": "t1",
-      "explanation": "Fran has dropped into space wide left with no defender close \u2014 a simple, safe pass to her relieves the pressure!"
-    },
-    {
-      "id": "s046",
-      "type": "choice",
-      "category": "passing",
-      "difficulty": 2,
-      "question": "You're on the wing with the ball. Your striker is making a run behind the defenders. What do you do?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 80,
-          "y": 45
-        },
-        "yourPlayer": {
-          "x": 80,
-          "y": 45,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 60,
-            "y": 18,
-            "label": "Pia",
-            "isOpen": true
-          },
-          {
-            "x": 55,
-            "y": 50,
-            "label": "Dot",
-            "isOpen": false
-          }
-        ],
-        "defenders": [
-          {
-            "x": 62,
-            "y": 28,
-            "label": "D1"
-          },
-          {
-            "x": 75,
-            "y": 35,
-            "label": "D2"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Play a through ball into the space behind the defence for Pia",
-          "correct": true,
-          "explanation": "Pia is making a perfect run in behind \u2014 a well-timed through ball puts her clean through on goal!"
-        },
-        {
-          "id": "B",
-          "text": "Cross the ball to the near post",
-          "correct": false,
-          "explanation": "Pia is running in behind, not towards the near post. Play the through ball into the space she's running into!"
-        },
-        {
-          "id": "C",
-          "text": "Dribble inside and shoot yourself",
-          "correct": false,
-          "explanation": "Pia has a much better position \u2014 use her run! Assist opportunities are just as valuable as goals."
-        },
-        {
-          "id": "D",
-          "text": "Pass back to Dot and start again",
-          "correct": false,
-          "explanation": "Pia's run is happening right now \u2014 if you delay, the defenders will catch up with her!"
-        }
-      ]
-    },
-    {
-      "id": "s047",
-      "type": "choice",
-      "category": "defending",
-      "difficulty": 1,
-      "question": "The opposition wins a corner. You're a midfielder. Where do you go?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 100,
-          "y": 10
-        },
-        "yourPlayer": {
-          "x": 55,
-          "y": 50,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 45,
-            "y": 82,
-            "label": "Cam",
-            "isOpen": false
-          },
-          {
-            "x": 35,
-            "y": 78,
-            "label": "Bria",
-            "isOpen": false
-          }
-        ],
-        "defenders": [
-          {
-            "x": 100,
-            "y": 10,
-            "label": "CK"
-          },
-          {
-            "x": 50,
-            "y": 72,
-            "label": "ATK1"
-          },
-          {
-            "x": 38,
-            "y": 68,
-            "label": "ATK2"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Get into the penalty box and mark an opponent",
-          "correct": true,
-          "explanation": "As a midfielder defending a corner, you must pick up a player in the box and stop them heading at goal!"
-        },
-        {
-          "id": "B",
-          "text": "Stay in the middle of the pitch",
-          "correct": false,
-          "explanation": "Your team needs everyone defending the corner \u2014 you have to mark someone in the box!"
-        },
-        {
-          "id": "C",
-          "text": "Stand near the halfway line for a counter-attack",
-          "correct": false,
-          "explanation": "You can leave one striker up, but as a midfielder you're needed in the box to defend!"
-        },
-        {
-          "id": "D",
-          "text": "Run to the corner flag to block the kick",
-          "correct": false,
-          "explanation": "You can't block a corner kick \u2014 get into the box and mark an attacker!"
-        }
-      ]
-    },
-    {
-      "id": "s048",
-      "type": "spot",
-      "category": "awareness",
-      "difficulty": 1,
-      "question": "Your team is defending. Tap the attacker who is in the most dangerous position right now!",
-      "timeLimit": 5,
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 25,
-          "y": 35
-        },
-        "yourPlayer": {
-          "x": 55,
-          "y": 70,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 30,
-            "y": 60,
-            "label": "Toni",
-            "isOpen": false,
-            "id": "t1"
-          },
-          {
-            "x": 60,
-            "y": 62,
-            "label": "Leah",
-            "isOpen": false,
-            "id": "t2"
-          }
-        ],
-        "defenders": [
-          {
-            "x": 25,
-            "y": 35,
-            "label": "ATK1",
-            "id": "e1"
-          },
-          {
-            "x": 50,
-            "y": 55,
-            "label": "ATK2",
-            "id": "e2"
-          },
-          {
-            "x": 72,
-            "y": 48,
-            "label": "ATK3",
-            "id": "e3"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
-      },
-      "correctTeammateId": "e2",
-      "explanation": "ATK2 is in central midfield with clear sight of goal and no one marking her \u2014 she must be tracked immediately!"
-    },
-    {
-      "id": "s049",
-      "type": "choice",
-      "category": "shooting",
-      "difficulty": 1,
-      "question": "You get a free kick 25 yards from goal. The wall is set. Where should you aim?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 35
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 35,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 35,
-            "y": 28,
-            "label": "Ally",
-            "isOpen": true
-          }
-        ],
-        "defenders": [
-          {
-            "x": 42,
-            "y": 22,
-            "label": "W1"
-          },
-          {
-            "x": 47,
-            "y": 21,
-            "label": "W2"
-          },
-          {
-            "x": 52,
-            "y": 21,
-            "label": "W3"
-          },
-          {
-            "x": 50,
-            "y": 12,
-            "label": "GK"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Curl the ball around the wall into the far corner",
-          "correct": true,
-          "explanation": "Bending the ball around the wall into the corner is the best free kick technique \u2014 aim for where the keeper can't reach!"
-        },
-        {
-          "id": "B",
-          "text": "Blast it straight through the wall",
-          "correct": false,
-          "explanation": "The wall will block a straight kick. You need to go around or over it!"
-        },
-        {
-          "id": "C",
-          "text": "Pass sideways to Ally instead",
-          "correct": false,
-          "explanation": "This is a great shooting position \u2014 take the direct shot! You can always square it next time."
-        },
-        {
-          "id": "D",
-          "text": "Aim directly at the goalkeeper",
-          "correct": false,
-          "explanation": "Shooting at the keeper is the easiest thing for her to save. Aim for the corners!"
-        }
-      ]
-    },
-    {
-      "id": "s050",
-      "type": "choice",
-      "category": "positioning",
-      "difficulty": 2,
-      "question": "Your team is defending deep. The other team has the ball in midfield with lots of players around you. Where do you go?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 40
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 65,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 35,
-            "y": 72,
-            "label": "Ava",
-            "isOpen": false
-          },
-          {
-            "x": 65,
-            "y": 70,
-            "label": "Mila",
-            "isOpen": false
-          }
-        ],
-        "defenders": [
-          {
-            "x": 50,
-            "y": 40,
-            "label": "ATK1"
-          },
-          {
-            "x": 30,
-            "y": 48,
-            "label": "ATK2"
-          },
-          {
-            "x": 68,
-            "y": 45,
-            "label": "ATK3"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Drop into a compact defensive line between the ball and your goal",
-          "correct": true,
-          "explanation": "When defending deep, staying compact and organised in a line makes it very hard for attackers to find a gap!"
-        },
-        {
-          "id": "B",
-          "text": "Rush out to press the ball in midfield",
-          "correct": false,
-          "explanation": "If your whole team rushes out, you leave huge space behind you. Stay compact!"
-        },
-        {
-          "id": "C",
-          "text": "Stand right on the goal line to protect it",
-          "correct": false,
-          "explanation": "Being too deep gives attackers too much space to shoot from. Hold a higher defensive line!"
-        },
-        {
-          "id": "D",
-          "text": "Run to mark the player on the far side of the pitch",
-          "correct": false,
-          "explanation": "Keep your shape \u2014 don't chase the ball all over the pitch. Hold your position in the defensive line."
-        }
-      ]
-    },
-    {
-      "id": "s051",
-      "type": "choice",
-      "category": "passing",
-      "difficulty": 1,
-      "question": "Your teammate is calling for the ball, but she's closely marked. Another teammate is completely free on the other side. What do you do?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 40,
-          "y": 45
-        },
-        "yourPlayer": {
-          "x": 40,
-          "y": 45,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 55,
-            "y": 35,
-            "label": "Rose",
-            "isOpen": false
-          },
-          {
-            "x": 20,
-            "y": 30,
-            "label": "Zuri",
-            "isOpen": true
-          }
-        ],
-        "defenders": [
-          {
-            "x": 52,
-            "y": 32,
-            "label": "D1"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Pass to Zuri who is completely free",
-          "correct": true,
-          "explanation": "Even though Rose called, Zuri has no defender \u2014 always pass to the free player!"
-        },
-        {
-          "id": "B",
-          "text": "Pass to Rose because she called for it",
-          "correct": false,
-          "explanation": "Rose is closely marked \u2014 that pass would likely be intercepted. Use the free player!"
-        },
-        {
-          "id": "C",
-          "text": "Dribble forward yourself",
-          "correct": false,
-          "explanation": "Zuri is wide open \u2014 use her! Passing is almost always faster than dribbling."
-        },
-        {
-          "id": "D",
-          "text": "Hold the ball and wait for Rose to shake her marker",
-          "correct": false,
-          "explanation": "Zuri is free right now. Don't wait \u2014 play the easy ball while you have the chance!"
-        }
-      ]
-    },
-    {
-      "id": "s052",
-      "type": "spot",
-      "category": "awareness",
-      "difficulty": 2,
-      "question": "Tap the teammate who has made the best run and should receive the ball right now!",
-      "timeLimit": 4,
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 35,
-          "y": 55
-        },
-        "yourPlayer": {
-          "x": 35,
-          "y": 55,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 55,
-            "y": 25,
-            "label": "Nola",
-            "isOpen": true,
-            "id": "t1"
-          },
-          {
-            "x": 20,
-            "y": 40,
-            "label": "Sev",
-            "isOpen": false,
-            "id": "t2"
-          },
-          {
-            "x": 50,
-            "y": 70,
-            "label": "Mara",
-            "isOpen": false,
-            "id": "t3"
-          }
-        ],
-        "defenders": [
-          {
-            "x": 22,
-            "y": 38,
-            "label": "D1"
-          },
-          {
-            "x": 48,
-            "y": 65,
-            "label": "D2"
-          },
-          {
-            "x": 58,
-            "y": 35,
-            "label": "D3"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "correctTeammateId": "t1",
-      "explanation": "Nola has made a brilliant diagonal run between the defenders and is free in behind \u2014 the perfect through ball target!"
-    },
-    {
-      "id": "s053",
-      "type": "choice",
-      "category": "defending",
-      "difficulty": 2,
-      "question": "The other team is crossing the ball into your penalty area. You're defending. What do you prioritise?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 90,
-          "y": 30
-        },
-        "yourPlayer": {
-          "x": 55,
-          "y": 75,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 40,
-            "y": 78,
-            "label": "Glo",
-            "isOpen": false
-          }
-        ],
-        "defenders": [
-          {
-            "x": 90,
-            "y": 30,
-            "label": "WGR"
-          },
-          {
-            "x": 55,
-            "y": 65,
-            "label": "ATK1"
-          },
-          {
-            "x": 42,
-            "y": 70,
-            "label": "ATK2"
-          },
-          {
-            "x": 50,
-            "y": 85,
-            "label": "GK"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Get goalside of your attacker and try to head the ball clear",
-          "correct": true,
-          "explanation": "Getting goalside means the attacker can't get between you and the goal. Try to win the header and clear the danger!"
-        },
-        {
-          "id": "B",
-          "text": "Stand in front of your goalkeeper so she can't see",
-          "correct": false,
-          "explanation": "Never block your own goalkeeper \u2014 she needs a clear view to either catch the cross or come out for it!"
-        },
-        {
-          "id": "C",
-          "text": "Run to the touchline to stop the cross",
-          "correct": false,
-          "explanation": "The cross is already on its way \u2014 you need to defend the ball landing in the box, not the delivery."
-        },
-        {
-          "id": "D",
-          "text": "Let the goalkeeper deal with it alone",
-          "correct": false,
-          "explanation": "Defenders and the keeper work together. Mark your player tightly so the keeper knows who to leave to you!"
-        }
-      ]
-    },
-    {
-      "id": "s054",
-      "type": "choice",
-      "category": "positioning",
-      "difficulty": 1,
-      "question": "Your team is defending and the ball is in your own half. You're a striker. What should you do?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 40,
-          "y": 70
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 35,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 35,
-            "y": 65,
-            "label": "Deb",
-            "isOpen": false
-          },
-          {
-            "x": 55,
-            "y": 60,
-            "label": "Liz",
-            "isOpen": false
-          }
-        ],
-        "defenders": [
-          {
-            "x": 42,
-            "y": 68,
-            "label": "D1"
-          },
-          {
-            "x": 50,
-            "y": 55,
-            "label": "ATK1"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Stay in an advanced position, ready to counter-attack",
-          "correct": true,
-          "explanation": "As a striker you don't need to defend deep \u2014 stay forward and be the counter-attack option when your team wins the ball!"
-        },
-        {
-          "id": "B",
-          "text": "Sprint back into your own goal area to help",
-          "correct": false,
-          "explanation": "Your team has defenders for that! Stay forward so you're ready when your team wins the ball back."
-        },
-        {
-          "id": "C",
-          "text": "Press every opponent with the ball",
-          "correct": false,
-          "explanation": "Pressing from so far back tires you out. Hold your position and be the attacking outlet."
-        },
-        {
-          "id": "D",
-          "text": "Sit down and rest because you're not involved",
-          "correct": false,
-          "explanation": "Stay on your toes and ready! The ball can come to you any second on the counter."
-        }
-      ]
-    },
-    {
-      "id": "s055",
-      "type": "spot",
-      "category": "awareness",
-      "difficulty": 1,
-      "question": "Quick \u2014 tap the teammate who is completely free and closest to the opponent's goal!",
-      "timeLimit": 5,
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 30,
-          "y": 50
-        },
-        "yourPlayer": {
-          "x": 30,
-          "y": 50,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 55,
-            "y": 20,
-            "label": "Aria",
-            "isOpen": true,
-            "id": "t1"
-          },
-          {
-            "x": 70,
-            "y": 45,
-            "label": "Bess",
-            "isOpen": false,
-            "id": "t2"
-          },
-          {
-            "x": 45,
-            "y": 65,
-            "label": "Cora",
-            "isOpen": false,
-            "id": "t3"
-          }
-        ],
-        "defenders": [
-          {
-            "x": 68,
-            "y": 42,
-            "label": "D1"
-          },
-          {
-            "x": 48,
-            "y": 62,
-            "label": "D2"
-          },
-          {
-            "x": 50,
-            "y": 12,
-            "label": "GK"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "correctTeammateId": "t1",
-      "explanation": "Aria is in behind the defence right near the goal with no defender near her \u2014 the perfect player to receive a through ball!"
-    },
-    {
-      "id": "s056",
-      "type": "choice",
-      "category": "passing",
-      "difficulty": 2,
-      "question": "A defender is pressing you hard in your own half. What's the smartest pass to relieve pressure?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 25,
-          "y": 75
-        },
-        "yourPlayer": {
-          "x": 25,
-          "y": 75,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 10,
-            "y": 88,
-            "label": "Min",
-            "isOpen": true
-          },
-          {
-            "x": 45,
-            "y": 70,
-            "label": "Hara",
-            "isOpen": false
-          },
-          {
-            "x": 50,
-            "y": 50,
-            "label": "Lore",
-            "isOpen": false
-          }
-        ],
-        "defenders": [
-          {
-            "x": 25,
-            "y": 65,
-            "label": "D1"
-          },
-          {
-            "x": 42,
-            "y": 65,
-            "label": "D2"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Short pass to Min who has dropped into a wide area",
-          "correct": true,
-          "explanation": "Min has dropped into a free zone. A short, safe pass relieves the pressure and keeps possession!"
-        },
-        {
-          "id": "B",
-          "text": "Try a long ball up the pitch to your striker",
-          "correct": false,
-          "explanation": "Under this much pressure a long ball is risky \u2014 you might give it straight to the other team. Play safe!"
-        },
-        {
-          "id": "C",
-          "text": "Pass to Hara who is already being marked",
-          "correct": false,
-          "explanation": "Hara has a defender close. The safe pass to Min is the much smarter choice right now."
-        },
-        {
-          "id": "D",
-          "text": "Turn and try to dribble past the pressing defender",
-          "correct": false,
-          "explanation": "Turning in your own half under pressure is very risky! Play the simple pass to Min."
-        }
-      ]
-    },
-    {
-      "id": "s057",
-      "type": "choice",
-      "category": "defending",
-      "difficulty": 2,
-      "question": "Your team is winning 1-0 with two minutes left. The other team is attacking. What's the most important thing?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 55,
-          "y": 45
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 70,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 35,
-            "y": 72,
-            "label": "Gia",
-            "isOpen": false
-          },
-          {
-            "x": 65,
-            "y": 68,
-            "label": "Mel",
-            "isOpen": false
-          }
-        ],
-        "defenders": [
-          {
-            "x": 55,
-            "y": 45,
-            "label": "ATK1"
-          },
-          {
-            "x": 38,
-            "y": 52,
-            "label": "ATK2"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Stay disciplined, hold your shape, and don't dive in",
-          "correct": true,
-          "explanation": "When winning late in a game, patience is key. Stay compact, don't gamble, and run down the clock safely!"
-        },
-        {
-          "id": "B",
-          "text": "Try to win the ball back immediately with a tackle",
-          "correct": false,
-          "explanation": "Diving in with two minutes left risks giving away a penalty or free kick. Be patient!"
-        },
-        {
-          "id": "C",
-          "text": "Push forward to score another goal",
-          "correct": false,
-          "explanation": "Leaving your defensive shape now is dangerous \u2014 protect the lead you have!"
-        },
-        {
-          "id": "D",
-          "text": "Kick the ball out of bounds to waste time",
-          "correct": false,
-          "explanation": "This might seem smart but time-wasting in youth football is poor sportsmanship. Defend properly!"
-        }
-      ]
-    },
-    {
-      "id": "s058",
-      "type": "spot",
-      "category": "awareness",
-      "difficulty": 2,
-      "question": "Your team just won the ball in midfield. Tap the teammate who can start a counter-attack immediately!",
-      "timeLimit": 4,
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 50
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 50,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 65,
-            "y": 25,
-            "label": "Petra",
-            "isOpen": true,
-            "id": "t1"
-          },
-          {
-            "x": 30,
-            "y": 55,
-            "label": "Viv",
-            "isOpen": false,
-            "id": "t2"
-          },
-          {
-            "x": 50,
-            "y": 75,
-            "label": "Anx",
-            "isOpen": false,
-            "id": "t3"
-          }
-        ],
-        "defenders": [
-          {
-            "x": 32,
-            "y": 52,
-            "label": "D1"
-          },
-          {
-            "x": 48,
-            "y": 70,
-            "label": "D2"
-          },
-          {
-            "x": 60,
-            "y": 38,
-            "label": "D3"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "correctTeammateId": "t1",
-      "explanation": "Petra is in behind the defensive line and facing the opponent's goal \u2014 a quick pass to her launches the counter-attack!"
-    },
-    {
-      "id": "s059",
-      "type": "choice",
-      "category": "shooting",
-      "difficulty": 1,
-      "question": "You're through on goal with only the keeper to beat. She's staying on her line. What do you do?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 28
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 28,
-          "label": "YOU"
-        },
-        "teammates": [],
-        "defenders": [
-          {
-            "x": 50,
-            "y": 14,
-            "label": "GK"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Shoot low into a corner before she can react",
-          "correct": true,
-          "explanation": "Low corners are the hardest for keepers to reach. Staying calm and picking a corner is the best chance!"
-        },
-        {
-          "id": "B",
-          "text": "Keep dribbling right up to the keeper",
-          "correct": false,
-          "explanation": "Getting too close lets the keeper smother the ball. Shoot from distance while you have the angle!"
-        },
-        {
-          "id": "C",
-          "text": "Slow down and look at the goal for a long time",
-          "correct": false,
-          "explanation": "Taking too long lets defenders recover! Be decisive and shoot."
-        },
-        {
-          "id": "D",
-          "text": "Try to dribble around the side of the keeper",
-          "correct": false,
-          "explanation": "With a clear shot available, going for goal is better than trying to dribble around."
-        }
-      ]
-    },
-    {
-      "id": "s060",
-      "type": "choice",
-      "category": "awareness",
-      "difficulty": 1,
-      "question": "Your team has the ball. You've been running hard for 10 minutes. What should you still do?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 60,
-          "y": 40
-        },
-        "yourPlayer": {
-          "x": 45,
-          "y": 55,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 60,
-            "y": 40,
-            "label": "Rhea",
-            "isOpen": false
-          },
-          {
-            "x": 25,
-            "y": 35,
-            "label": "Tara",
-            "isOpen": true
-          }
-        ],
-        "defenders": [
-          {
-            "x": 55,
-            "y": 50,
-            "label": "D1"
-          },
-          {
-            "x": 40,
-            "y": 45,
-            "label": "D2"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Keep moving and look for space to offer a passing option",
-          "correct": true,
-          "explanation": "Even when you're tired, you must keep moving! Creating passing options is one of the most important things a player can do."
-        },
-        {
-          "id": "B",
-          "text": "Stop and catch your breath \u2014 you've earned a rest",
-          "correct": false,
-          "explanation": "The game doesn't stop when you're tired! Keep moving and do your job for your team."
-        },
-        {
-          "id": "C",
-          "text": "Shout at your teammates to pass the ball to you",
-          "correct": false,
-          "explanation": "Move into space first, then call for the ball \u2014 don't just shout from the same spot!"
-        },
-        {
-          "id": "D",
-          "text": "Walk to the side of the pitch and wait",
-          "correct": false,
-          "explanation": "Your team needs you on the pitch and involved \u2014 keep moving even when it's hard!"
-        }
-      ]
-    },
-    {
-      "id": "s061",
-      "type": "spot",
-      "category": "awareness",
-      "difficulty": 1,
-      "question": "The ball is about to be played. Tap the teammate who is most open on the left side!",
-      "timeLimit": 5,
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 55
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 55,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 15,
-            "y": 35,
-            "label": "Zola",
-            "isOpen": true,
-            "id": "t1"
-          },
-          {
-            "x": 30,
-            "y": 50,
-            "label": "Kemi",
-            "isOpen": false,
-            "id": "t2"
-          },
-          {
-            "x": 20,
-            "y": 65,
-            "label": "Addi",
-            "isOpen": false,
-            "id": "t3"
-          }
-        ],
-        "defenders": [
-          {
-            "x": 28,
-            "y": 48,
-            "label": "D1"
-          },
-          {
-            "x": 22,
-            "y": 62,
-            "label": "D2"
-          },
-          {
-            "x": 55,
-            "y": 42,
-            "label": "D3"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "correctTeammateId": "t1",
-      "explanation": "Zola is wide open on the left with no defender near her \u2014 a pass to her stretches the play and creates space!"
-    },
-    {
-      "id": "s062",
-      "type": "choice",
-      "category": "passing",
-      "difficulty": 1,
-      "question": "You're about to pass the ball. Do you pass to the feet of your teammate or into the space ahead of her?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 40,
-          "y": 55
-        },
-        "yourPlayer": {
-          "x": 40,
-          "y": 55,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 65,
-            "y": 30,
-            "label": "Bria",
-            "isOpen": true
-          }
-        ],
-        "defenders": [
-          {
-            "x": 60,
-            "y": 42,
-            "label": "D1"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Pass into the space ahead of her so she can run onto it",
-          "correct": true,
-          "explanation": "When a teammate is running, always pass into the space ahead of her so she can keep moving at full speed!"
-        },
-        {
-          "id": "B",
-          "text": "Pass to her feet so she doesn't have to adjust",
-          "correct": false,
-          "explanation": "Passing to her feet when she's running means she has to stop and collect it \u2014 that slows the attack down."
-        },
-        {
-          "id": "C",
-          "text": "Hold the ball and wait for her to stop",
-          "correct": false,
-          "explanation": "Don't wait \u2014 pass now while she's in stride and the space is open!"
-        },
-        {
-          "id": "D",
-          "text": "Chip the ball over her head",
-          "correct": false,
-          "explanation": "A chip over her head is hard to control. A ground pass into the space ahead is the right choice."
-        }
-      ]
-    },
-    {
-      "id": "s063",
-      "type": "choice",
-      "category": "defending",
-      "difficulty": 1,
-      "question": "You're defending and the attacker has just played a one-two with a teammate. She's now got the ball and is running at you again. What do you do?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 45,
-          "y": 45
-        },
-        "yourPlayer": {
-          "x": 45,
-          "y": 62,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 25,
-            "y": 68,
-            "label": "Nia",
-            "isOpen": false
-          }
-        ],
-        "defenders": [
-          {
-            "x": 45,
-            "y": 45,
-            "label": "ATK"
-          },
-          {
-            "x": 38,
-            "y": 38,
-            "label": "ATK2"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Recover your position quickly between her and goal",
-          "correct": true,
-          "explanation": "Get goal-side of her quickly! The one-two got past you once \u2014 now prioritise getting between her and the goal."
-        },
-        {
-          "id": "B",
-          "text": "Chase her teammate who played the pass",
-          "correct": false,
-          "explanation": "The danger is the player with the ball \u2014 track the ball, not the one who already played it!"
-        },
-        {
-          "id": "C",
-          "text": "Commit to a slide tackle immediately",
-          "correct": false,
-          "explanation": "A rash tackle here is risky. Recover your position first and be patient."
-        },
-        {
-          "id": "D",
-          "text": "Stop running \u2014 your teammate will cover",
-          "correct": false,
-          "explanation": "Your team needs you to track back hard! Never give up on a defensive run."
-        }
-      ]
-    },
-    {
-      "id": "s064",
-      "type": "spot",
-      "category": "awareness",
-      "difficulty": 2,
-      "question": "Your team is attacking. Tap the teammate making the most dangerous run for a goal!",
-      "timeLimit": 4,
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 40,
-          "y": 40
-        },
-        "yourPlayer": {
-          "x": 40,
-          "y": 40,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 62,
-            "y": 18,
-            "label": "Nina",
-            "isOpen": true,
-            "id": "t1"
-          },
-          {
-            "x": 25,
-            "y": 30,
-            "label": "Lola",
-            "isOpen": false,
-            "id": "t2"
-          },
-          {
-            "x": 55,
-            "y": 55,
-            "label": "Pam",
-            "isOpen": false,
-            "id": "t3"
-          }
-        ],
-        "defenders": [
-          {
-            "x": 28,
-            "y": 28,
-            "label": "D1"
-          },
-          {
-            "x": 52,
-            "y": 50,
-            "label": "D2"
-          },
-          {
-            "x": 68,
-            "y": 28,
-            "label": "D3"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "correctTeammateId": "t1",
-      "explanation": "Nina has slipped in behind the last defender and is running towards goal \u2014 a well-timed pass puts her clean through!"
-    },
-    {
-      "id": "s065",
-      "type": "choice",
-      "category": "positioning",
-      "difficulty": 2,
-      "question": "Your team's attacking midfielder has the ball in the centre. You're on the right wing. What's your best movement?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 48,
-          "y": 45
-        },
-        "yourPlayer": {
-          "x": 80,
-          "y": 40,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 48,
-            "y": 45,
-            "label": "Caz",
-            "isOpen": false
-          },
-          {
-            "x": 50,
-            "y": 22,
-            "label": "Emi",
-            "isOpen": false
-          }
-        ],
-        "defenders": [
-          {
-            "x": 78,
-            "y": 32,
-            "label": "D1"
-          },
-          {
-            "x": 55,
-            "y": 38,
-            "label": "D2"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Make a run in behind the defender to stretch the defence",
-          "correct": true,
-          "explanation": "Running in behind the right-back forces the defender to retreat and opens space for Caz to play a through ball!"
-        },
-        {
-          "id": "B",
-          "text": "Come short and take the ball to feet",
-          "correct": false,
-          "explanation": "Coming short while Emi is already in the box would make your team too narrow. Run in behind instead!"
-        },
-        {
-          "id": "C",
-          "text": "Stay wide and stand still to keep your position",
-          "correct": false,
-          "explanation": "Movement creates options! A run in behind is much more dangerous than standing still."
-        },
-        {
-          "id": "D",
-          "text": "Swap sides with the left winger",
-          "correct": false,
-          "explanation": "Unnecessary swapping disrupts your team's shape. Make a run in behind instead \u2014 that's what the right wing should do here!"
-        }
-      ]
-    },
-    {
-      "id": "s066",
-      "type": "choice",
-      "category": "shooting",
-      "difficulty": 2,
-      "question": "You get a half-volley chance at the edge of the box. The keeper hasn't set yet. What do you do?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 27
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 27,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 25,
-            "y": 22,
-            "label": "Fen",
-            "isOpen": true
-          },
-          {
-            "x": 72,
-            "y": 24,
-            "label": "Yael",
-            "isOpen": true
-          }
-        ],
-        "defenders": [
-          {
-            "x": 50,
-            "y": 14,
-            "label": "GK"
-          },
-          {
-            "x": 42,
-            "y": 20,
-            "label": "D1"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Hit it first time before the keeper can get set",
-          "correct": true,
-          "explanation": "A quick, well-hit half-volley before the keeper sets is one of the hardest shots to save. Trust your instinct and shoot!"
-        },
-        {
-          "id": "B",
-          "text": "Control the ball, then shoot",
-          "correct": false,
-          "explanation": "Taking an extra touch gives the keeper time to set and defenders time to close you. Shoot first time!"
-        },
-        {
-          "id": "C",
-          "text": "Pass wide to Fen or Yael",
-          "correct": false,
-          "explanation": "You're in a brilliant position right now \u2014 shoot! Don't give the chance away."
-        },
-        {
-          "id": "D",
-          "text": "Wait for the ball to bounce again before shooting",
-          "correct": false,
-          "explanation": "Waiting only helps the keeper and defenders. Strike the ball first time while the keeper is unsettled!"
-        }
-      ]
-    },
-    {
-      "id": "s067",
-      "type": "spot",
-      "category": "awareness",
-      "difficulty": 2,
-      "question": "Your team is defending a free kick. Tap the attacker who is most likely to be the target of the kick!",
-      "timeLimit": 4,
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 35,
-          "y": 78
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 82,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 42,
-            "y": 82,
-            "label": "Kat",
-            "isOpen": false,
-            "id": "t1"
-          }
-        ],
-        "defenders": [
-          {
-            "x": 35,
-            "y": 78,
-            "label": "FK"
-          },
-          {
-            "x": 55,
-            "y": 72,
-            "label": "ATK1",
-            "id": "e1"
-          },
-          {
-            "x": 48,
-            "y": 68,
-            "label": "ATK2",
-            "id": "e2"
-          },
-          {
-            "x": 65,
-            "y": 78,
-            "label": "ATK3",
-            "id": "e3"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
-      },
-      "correctTeammateId": "e2",
-      "explanation": "ATK2 is centrally positioned just inside the box \u2014 the most dangerous place to receive the ball. She needs to be marked tightly!"
-    },
-    {
-      "id": "s068",
-      "type": "choice",
-      "category": "passing",
-      "difficulty": 2,
-      "question": "You have the ball and you see the opposing right-back is forward attacking. There's a huge gap left behind her. What do you do?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 50,
-          "y": 55
-        },
-        "yourPlayer": {
-          "x": 50,
-          "y": 55,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 72,
-            "y": 35,
-            "label": "Zin",
-            "isOpen": true
-          },
-          {
-            "x": 25,
-            "y": 45,
-            "label": "Nour",
-            "isOpen": false
-          }
-        ],
-        "defenders": [
-          {
-            "x": 30,
-            "y": 40,
-            "label": "D1"
-          },
-          {
-            "x": 55,
-            "y": 42,
-            "label": "D2"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Play a pass into the space on the right for Zin to run onto",
-          "correct": true,
-          "explanation": "Exploiting the space left by an attacking full-back is brilliant tactical thinking! Play Zin in behind \u2014 she has a clear run at goal!"
-        },
-        {
-          "id": "B",
-          "text": "Pass to Nour who is closely marked",
-          "correct": false,
-          "explanation": "Nour is marked \u2014 and there's a huge gap on the right! Exploit that space with Zin."
-        },
-        {
-          "id": "C",
-          "text": "Hold the ball and wait",
-          "correct": false,
-          "explanation": "The full-back will run back if you wait too long. Play the pass to Zin now while the space is there!"
-        },
-        {
-          "id": "D",
-          "text": "Dribble forward into the crowded central area",
-          "correct": false,
-          "explanation": "The gap on the right is the smart option \u2014 use Zin's run instead of forcing into a crowded area."
-        }
-      ]
-    },
-    {
-      "id": "s069",
-      "type": "choice",
-      "category": "defending",
-      "difficulty": 1,
-      "question": "Your team is defending a throw-in in your own half. Where should you be?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 0,
-          "y": 55
-        },
-        "yourPlayer": {
-          "x": 25,
-          "y": 60,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 40,
-            "y": 65,
-            "label": "Bel",
-            "isOpen": false
-          }
-        ],
-        "defenders": [
-          {
-            "x": 0,
-            "y": 55,
-            "label": "TK"
-          },
-          {
-            "x": 22,
-            "y": 58,
-            "label": "ATK1"
-          },
-          {
-            "x": 38,
-            "y": 62,
-            "label": "ATK2"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 90
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Closely mark the nearest opponent to make the throw difficult",
-          "correct": true,
-          "explanation": "Making the throw-in hard by marking tightly is excellent defending \u2014 reduce their options before the ball even comes in!"
-        },
-        {
-          "id": "B",
-          "text": "Stand off and give them space to receive",
-          "correct": false,
-          "explanation": "Giving space in your own half is dangerous. Get tight and make their throw difficult!"
-        },
-        {
-          "id": "C",
-          "text": "Run back towards your own goal",
-          "correct": false,
-          "explanation": "Standing off too deep gives them too much space. Get tighter and be more aggressive!"
-        },
-        {
-          "id": "D",
-          "text": "Try to grab the ball from the thrower",
-          "correct": false,
-          "explanation": "You can't touch the thrower \u2014 that would be a foul! Mark the receivers instead."
-        }
-      ]
-    },
-    {
-      "id": "s070",
-      "type": "spot",
-      "category": "awareness",
-      "difficulty": 1,
-      "question": "Tap the teammate who is in the best position to score from this attack!",
-      "timeLimit": 5,
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 75,
-          "y": 35
-        },
-        "yourPlayer": {
-          "x": 75,
-          "y": 35,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 50,
-            "y": 20,
-            "label": "Sage",
-            "isOpen": true,
-            "id": "t1"
-          },
-          {
-            "x": 60,
-            "y": 45,
-            "label": "Raye",
-            "isOpen": false,
-            "id": "t2"
-          },
-          {
-            "x": 40,
-            "y": 30,
-            "label": "Wynn",
-            "isOpen": false,
-            "id": "t3"
-          }
-        ],
-        "defenders": [
-          {
-            "x": 58,
-            "y": 42,
-            "label": "D1"
-          },
-          {
-            "x": 38,
-            "y": 27,
-            "label": "D2"
-          },
-          {
-            "x": 50,
-            "y": 12,
-            "label": "GK"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "correctTeammateId": "t1",
-      "explanation": "Sage is central, close to goal, with no defender between her and the net \u2014 she's perfectly placed to receive and shoot!"
-    },
-    {
-      "id": "s071",
-      "type": "choice",
-      "category": "positioning",
-      "difficulty": 2,
-      "question": "Your team is attacking down the left wing. You are the right winger. What is the smartest thing to do?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 15,
-          "y": 35
-        },
-        "yourPlayer": {
-          "x": 82,
-          "y": 40,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 15,
-            "y": 35,
-            "label": "Lia",
-            "isOpen": false
-          },
-          {
-            "x": 35,
-            "y": 25,
-            "label": "Bron",
-            "isOpen": false
-          }
-        ],
-        "defenders": [
-          {
-            "x": 20,
-            "y": 42,
-            "label": "D1"
-          },
-          {
-            "x": 40,
-            "y": 30,
-            "label": "D2"
-          },
-          {
-            "x": 50,
-            "y": 12,
-            "label": "GK"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Move to the far post to be ready if the ball is switched",
-          "correct": true,
-          "explanation": "When your team attacks on the opposite side, getting to the far post means you are ready to head or shoot if the ball comes across. Smart positioning!"
-        },
-        {
-          "id": "B",
-          "text": "Run over to the left side to join in",
-          "correct": false,
-          "explanation": "If you both crowd the left, there is no one on the right! Stay wide and be the option on the far side."
-        },
-        {
-          "id": "C",
-          "text": "Stay exactly where you are and watch",
-          "correct": false,
-          "explanation": "Movement is always important. Get to the far post so you are a threat if the ball comes across!"
-        },
-        {
-          "id": "D",
-          "text": "Drop back to defend in case you lose the ball",
-          "correct": false,
-          "explanation": "Your team is attacking \u2014 stay forward and be a goal threat at the far post!"
-        }
-      ]
-    },
-    {
-      "id": "s072",
-      "type": "choice",
-      "category": "passing",
-      "difficulty": 1,
-      "question": "You have the ball near the sideline and a defender is pushing you out of play. What do you do?",
-      "fieldSetup": {
-        "ballPosition": {
-          "x": 5,
-          "y": 45
-        },
-        "yourPlayer": {
-          "x": 5,
-          "y": 45,
-          "label": "YOU"
-        },
-        "teammates": [
-          {
-            "x": 20,
-            "y": 40,
-            "label": "Obi",
-            "isOpen": true
-          },
-          {
-            "x": 18,
-            "y": 58,
-            "label": "Paz",
-            "isOpen": true
-          }
-        ],
-        "defenders": [
-          {
-            "x": 8,
-            "y": 43,
-            "label": "D1"
-          }
-        ],
-        "goal": {
-          "x": 50,
-          "y": 10
-        }
-      },
-      "choices": [
-        {
-          "id": "A",
-          "text": "Play a quick inside pass to Obi or Paz before you go out",
-          "correct": true,
-          "explanation": "Getting the pass off before you are pushed out of play keeps possession for your team. Quick thinking!"
-        },
-        {
-          "id": "B",
-          "text": "Try to shield the ball and stay in play",
-          "correct": false,
-          "explanation": "The defender is pushing you out \u2014 you cannot hold on forever. Play the quick pass now!"
-        },
-        {
-          "id": "C",
-          "text": "Kick the ball out of play on purpose",
-          "correct": false,
-          "explanation": "Never give up possession willingly when you have open teammates available!"
-        },
-        {
-          "id": "D",
-          "text": "Try to beat the defender and come back inside",
-          "correct": false,
-          "explanation": "With a defender right on you at the sideline, the quick pass to your open teammates is by far the smartest option."
-        }
+        {"id": "A", "text": "Press up close to their player to try to win the ball in the air", "correct": true, "explanation": "Getting tight to your opponent and challenging for the ball means you might win it and start an attack. Great pressing!"},
+        {"id": "B", "text": "Stay back near your own goal just in case", "correct": false, "explanation": "Dropping too deep gives the other team too much space to build their attack freely."},
+        {"id": "C", "text": "Stand at the halfway line and wait", "correct": false, "explanation": "Waiting at the halfway line lets their team receive the ball and run at you. Press up and challenge!"},
+        {"id": "D", "text": "Run behind your own goalkeeper", "correct": false, "explanation": "That's too far back! You need to be in a position to challenge for the ball or be ready to defend."}
       ]
     }
   ]

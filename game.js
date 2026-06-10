@@ -26,7 +26,7 @@ let gameState = {
   roundStartTime: 0,
   timer: null,
   timerValue: 0,
-  timerMax: 10,
+  timerMax: 30,
   answered: false,
   streak: 0,
   categoryStats: {}
@@ -165,7 +165,7 @@ function nextRound() {
   updateHUD();
 
   const level = getCurrentLevel();
-  gameState.timerMax       = scenario.timeLimit || level.timeLimit || 10;
+  gameState.timerMax       = scenario.timeLimit || level.timeLimit || 30;
   gameState.roundStartTime = Date.now();
 
   renderScenario(scenario);
@@ -350,7 +350,7 @@ function renderSpotScenario(scenario) {
 
       if (correct) {
         el.querySelector('circle').setAttribute('fill', '#40916c');
-        const points = calcPoints(elapsed, scenario.timeLimit || 5);
+        const points = calcPoints(elapsed, scenario.timeLimit || 15);
         gameState.score += points;
         gameState.correctCount++;
         gameState.streak++;
@@ -600,7 +600,7 @@ function trackCategory(cat, correct) {
 // LEVELS
 // ═══════════════════════════════════════════════════════════
 function getCurrentLevel() {
-  if (!levelData.length) return { name: 'Player', emoji: '⚽', timeLimit: 8 };
+  if (!levelData.length) return { name: 'Player', emoji: '⚽', timeLimit: 30 };
   const sorted = [...levelData].sort((a, b) => b.minScore - a.minScore);
   return sorted.find(l => gameState.score >= l.minScore) || levelData[0];
 }
